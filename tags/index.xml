@@ -2,9 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Github Pages - Lishengxie</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://lishengxie.github.io/tags/</link>
     <description>Recent content in Tags on Github Pages - Lishengxie</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <managingEditor>1141751053@qq.com (lishengxie)</managingEditor>
+    <webMaster>1141751053@qq.com (lishengxie)</webMaster><atom:link href="https://lishengxie.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

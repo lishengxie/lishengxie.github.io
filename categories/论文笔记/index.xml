@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Github Pages - Lishengxie</title>
-    <link>https://lishengxie.github.io/post/</link>
-    <description>Recent content in Posts on Github Pages - Lishengxie</description>
+    <title>论文笔记 on Github Pages - Lishengxie</title>
+    <link>https://lishengxie.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</link>
+    <description>Recent content in 论文笔记 on Github Pages - Lishengxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>1141751053@qq.com (lishengxie)</managingEditor>
     <webMaster>1141751053@qq.com (lishengxie)</webMaster>
-    <lastBuildDate>Sat, 29 Apr 2023 22:14:32 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Apr 2023 22:14:32 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Snn Paper Spinemap</title>
       <link>https://lishengxie.github.io/post/snn-paper-spinemap/</link>
@@ -16,15 +16,6 @@
       <author>1141751053@qq.com (lishengxie)</author>
       <guid>https://lishengxie.github.io/post/snn-paper-spinemap/</guid>
       <description>图优化方法 SpiNeMap Mapping spiking neural networks to neuromorphic hardware. 开源代码地址：https://github.com/Jinouwen/SpiNeMap 优化指标：Global spi</description>
-    </item>
-    
-    <item>
-      <title>My First Blog</title>
-      <link>https://lishengxie.github.io/post/my-first-blog/</link>
-      <pubDate>Fri, 24 Feb 2023 14:43:42 +0800</pubDate>
-      <author>1141751053@qq.com (lishengxie)</author>
-      <guid>https://lishengxie.github.io/post/my-first-blog/</guid>
-      <description>This is the first blog for lishengxie.github.io. 同步备份wordpress站点中的个人博客，wordpress博客网址lishengxie.top.</description>
     </item>
     
   </channel>
