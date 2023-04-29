@@ -8,7 +8,43 @@
     <language>en</language>
     <managingEditor>1141751053@qq.com (lishengxie)</managingEditor>
     <webMaster>1141751053@qq.com (lishengxie)</webMaster>
-    <lastBuildDate>Sat, 29 Apr 2023 22:14:32 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 30 Apr 2023 00:19:30 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Snn Paper Neu_noc</title>
+      <link>https://lishengxie.github.io/post/snn-paper-neu_noc/</link>
+      <pubDate>Sun, 30 Apr 2023 00:19:30 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/snn-paper-neu_noc/</guid>
+      <description>Neu-NoC: A High-efﬁcient Interconnection Network for Accelerated Neuromorphic Systems 提出了一种环形+Mesh结合的NoC结构，同时基于该结构提出了相应的映射算法、广播协议和基于权重稀</description>
+    </item>
+    
+    <item>
+      <title>Snn Paper Sentryos</title>
+      <link>https://lishengxie.github.io/post/snn-paper-sentryos/</link>
+      <pubDate>Sun, 30 Apr 2023 00:13:55 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/snn-paper-sentryos/</guid>
+      <description>SentryOS： Design of Many-Core Big Little µBrains for Energy-Efficient Embedded Neuromorphic Computing 开源地址： 暂无 使用芯片： µBrain 优化指标： 芯片使用面积和功耗 在uBrain神经形态核</description>
+    </item>
+    
+    <item>
+      <title>Snn Paper Neutrams</title>
+      <link>https://lishengxie.github.io/post/snn-paper-neutrams/</link>
+      <pubDate>Sun, 30 Apr 2023 00:10:08 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/snn-paper-neutrams/</guid>
+      <description>Neutrams: NEUTRAMS: Neural Network Transformation and Co-design under Neuromorphic Hardware Constraints 开源代码地址：https://github.com/hoangt/neutrams 使用芯片：TianJi，Prime 优</description>
+    </item>
+    
+    <item>
+      <title>Snn Paper PSOPART</title>
+      <link>https://lishengxie.github.io/post/snn-paper-psopart/</link>
+      <pubDate>Sat, 29 Apr 2023 22:14:32 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/snn-paper-psopart/</guid>
+      <description>图优化方法 PSOPART Mapping of local and global synapses on spiking neuromorphic hardware 开源代码地址：https://github.com/Jinouwen/Mapping 优化指标：神经元分块之间</description>
+    </item>
+    
     <item>
       <title>Snn Paper Spinemap</title>
       <link>https://lishengxie.github.io/post/snn-paper-spinemap/</link>
