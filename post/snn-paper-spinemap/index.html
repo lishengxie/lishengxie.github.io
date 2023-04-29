@@ -48,7 +48,7 @@
 <meta itemprop="name" content="Snn Paper Spinemap">
 <meta itemprop="description" content="图优化方法 SpiNeMap Mapping spiking neural networks to neuromorphic hardware. 开源代码地址：https://github.com/Jinouwen/SpiNeMap 优化指标：Global spi"><meta itemprop="datePublished" content="2023-04-29T22:14:32+08:00" />
 <meta itemprop="dateModified" content="2023-04-29T22:14:32+08:00" />
-<meta itemprop="wordCount" content="872">
+<meta itemprop="wordCount" content="863">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Snn Paper Spinemap"/>
 <meta name="twitter:description" content="图优化方法 SpiNeMap Mapping spiking neural networks to neuromorphic hardware. 开源代码地址：https://github.com/Jinouwen/SpiNeMap 优化指标：Global spi"/>
@@ -194,7 +194,7 @@
 </ul>
 <p><strong>ISI distortion</strong>：inter-spike intervals失真，会引起模型精度的下降，定义为
 $$ I_j^s|_{distortion}=I_j^s|_{new}-I_j^s = \delta_j^s-\delta_{j-1}^s $$
-，其中$\delta_j^s$表示第j个脉冲在第s个突触上传播的延迟，当突触位于crossbar上时，可以认为$I_j^s|_{distortion}=0$，当突触映射到NoC上时，$I_j^s|_{distortion}\neq 0$。当输入编码方案为速率编码时，ISI distortion可能没有影响，论文中提出了另一种直觉的spike disorder的指标
+，其中$ \delta_j^s $表示第j个脉冲在第s个突触上传播的延迟，当突触位于crossbar上时，可以认为$I_j^s|_{distortion}=0$，当突触映射到NoC上时，$I_j^s|_{distortion}\neq 0$。当输入编码方案为速率编码时，ISI distortion可能没有影响，论文中提出了另一种直觉的spike disorder的指标
 $$ \sum_{j=1}^{n_i}[(F_j^i-\hat{F}_j^i)^2]/n_i $$
 ，$F_j^i$和$\hat{F}_j^i$分别表示神经元i中的第j个脉冲到达的频率。</p>
 
@@ -222,8 +222,8 @@ $$ \sum_{j=1}^{n_i}[(F_j^i-\hat{F}_j^i)^2]/n_i $$
       
       <nav class="post-nav">
         
-        <a class="next" href="/post/my-first-blog/">
-            <span class="next-text nav-default">My First Blog</span>
+        <a class="next" href="/post/even-preview/">
+            <span class="next-text nav-default">Theme preview</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -282,6 +282,7 @@ $$ \sum_{j=1}^{n_i}[(F_j^i-\hat{F}_j^i)^2]/n_i $$
   <script type="text/javascript">
     window.MathJax = {
       tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
         }
     };
   </script>
