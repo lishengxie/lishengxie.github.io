@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>verilog on Github Pages - Lishengxie</title>
+    <link>https://lishengxie.github.io/categories/verilog/</link>
+    <description>Recent content in verilog on Github Pages - Lishengxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>1141751053@qq.com (lishengxie)</managingEditor>
+    <webMaster>1141751053@qq.com (lishengxie)</webMaster>
+    <lastBuildDate>Sun, 30 Apr 2023 08:30:15 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/categories/verilog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Verilog Note</title>
+      <link>https://lishengxie.github.io/post/verilog-note/</link>
+      <pubDate>Sun, 30 Apr 2023 08:30:15 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/verilog-note/</guid>
+      <description>参考书籍： 《手把手教你学FPGA设计：基于大道至简的至简设计法》 百度网盘链接：https://pan.baidu.com/s/12knuxz</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>算法学习 on Github Pages - Lishengxie</title>
+    <link>https://lishengxie.github.io/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/</link>
+    <description>Recent content in 算法学习 on Github Pages - Lishengxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>1141751053@qq.com (lishengxie)</managingEditor>
+    <webMaster>1141751053@qq.com (lishengxie)</webMaster>
+    <lastBuildDate>Sun, 30 Apr 2023 08:45:39 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>多目标优化问题及两种常用解法</title>
+      <link>https://lishengxie.github.io/post/algorithm-study-multiopt/</link>
+      <pubDate>Sun, 30 Apr 2023 08:45:39 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/algorithm-study-multiopt/</guid>
+      <description>多目标优化问题 多目标优化（也称为多目标规划、向量优化、多标准优化、多属性优化或帕累托优化）是多标准决策制定的一个领域，涉及同时优化多个目标函</description>
+    </item>
+    
+    <item>
+      <title>启发式优化算法学习-模拟退火</title>
+      <link>https://lishengxie.github.io/post/algorithm-study-sa/</link>
+      <pubDate>Sun, 30 Apr 2023 08:44:23 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/algorithm-study-sa/</guid>
+      <description>模拟退火算法(SA) 参考教程 https://blog.csdn.net/brilliantZC/article/details/124436967 模拟退火算法（Simulated Annealing，SA）是一种模拟物理退火过程而设计的优化算法。模拟退火算法</description>
+    </item>
+    
+    <item>
+      <title>启发式优化算法学习-PSO</title>
+      <link>https://lishengxie.github.io/post/algorithm-study-pso/</link>
+      <pubDate>Sun, 30 Apr 2023 08:42:37 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/algorithm-study-pso/</guid>
+      <description>粒子群算法(PSO) 参考教程：https://cloud.tencent.com/developer/article/1424756 粒子群算</description>
+    </item>
+    
+  </channel>
+</rss>

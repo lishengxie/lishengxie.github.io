@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on Github Pages - Lishengxie</title>
+    <link>https://lishengxie.github.io/categories/linux/</link>
+    <description>Recent content in linux on Github Pages - Lishengxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>1141751053@qq.com (lishengxie)</managingEditor>
+    <webMaster>1141751053@qq.com (lishengxie)</webMaster>
+    <lastBuildDate>Sun, 30 Apr 2023 08:51:16 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>云服务器软件安装</title>
+      <link>https://lishengxie.github.io/post/cloud-server-software-install/</link>
+      <pubDate>Sun, 30 Apr 2023 08:51:16 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/cloud-server-software-install/</guid>
+      <description>Docker安装(Ubuntu 20.04)：参考知乎博客 更新软件包索引，并且安装必要的依赖软件 1 2 sudo apt update sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common 使用下面的 curl 导入源仓</description>
+    </item>
+    
+    <item>
+      <title>常用资源汇总</title>
+      <link>https://lishengxie.github.io/post/common-resources/</link>
+      <pubDate>Sun, 30 Apr 2023 08:49:48 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/common-resources/</guid>
+      <description>python pip国内镜像 1 2 3 4 5 6 7 8 # 清华镜像源 https://pypi.tuna.tsinghua.edu.cn/simple # 豆瓣镜像源 http://pypi.douban.com/simple/ # 阿里云镜像源 http://mirrors.aliyun.com/pypi/simple/ # 中国科学技术大学镜像源 http://pypi.mirrors.ustc.edu.cn/simple/ 使用方法为pip install package_name -i 镜像源 Ubunt</description>
+    </item>
+    
+    <item>
+      <title>Linux常用命令记录</title>
+      <link>https://lishengxie.github.io/post/linux-command/</link>
+      <pubDate>Sun, 30 Apr 2023 08:47:32 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/linux-command/</guid>
+      <description>Vim vim删除文件中的所有内容： ESC确保退出编辑模式，按下&amp;quot;:&amp;ldquo;切换到命令模式然后输入%d并执行 vim删除单行内容：将</description>
+    </item>
+    
+    <item>
+      <title>Gdb调试学习</title>
+      <link>https://lishengxie.github.io/post/gdb-study/</link>
+      <pubDate>Sun, 30 Apr 2023 08:40:25 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/gdb-study/</guid>
+      <description>前言 使用linux进行systemc的开发时经常出现core dump的文件，对于较大的项目vscode无法很快地进行debug，clion对</description>
+    </item>
+    
+    <item>
+      <title>Makefile使用学习</title>
+      <link>https://lishengxie.github.io/post/makefile-study/</link>
+      <pubDate>Sun, 30 Apr 2023 08:37:37 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/makefile-study/</guid>
+      <description>参考教程 原文：https://makefiletutorial.com/ 中文翻译：https://makefiletutorial.verc</description>
+    </item>
+    
+  </channel>
+</rss>

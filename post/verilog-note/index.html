@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Verilog Note - Github Pages - Lishengxie</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lishengxie" /><meta name="description" content="参考书籍： 《手把手教你学FPGA设计：基于大道至简的至简设计法》 百度网盘链接：https://pan.baidu.com/s/12knuxz" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.109.0 with theme even" />
+
+
+<link rel="canonical" href="https://lishengxie.github.io/post/verilog-note/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Verilog Note" />
+<meta property="og:description" content="参考书籍： 《手把手教你学FPGA设计：基于大道至简的至简设计法》 百度网盘链接：https://pan.baidu.com/s/12knuxz" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lishengxie.github.io/post/verilog-note/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-04-30T08:30:15+08:00" />
+<meta property="article:modified_time" content="2023-04-30T08:30:15+08:00" />
+<meta itemprop="name" content="Verilog Note">
+<meta itemprop="description" content="参考书籍： 《手把手教你学FPGA设计：基于大道至简的至简设计法》 百度网盘链接：https://pan.baidu.com/s/12knuxz"><meta itemprop="datePublished" content="2023-04-30T08:30:15+08:00" />
+<meta itemprop="dateModified" content="2023-04-30T08:30:15+08:00" />
+<meta itemprop="wordCount" content="2081">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Verilog Note"/>
+<meta name="twitter:description" content="参考书籍： 《手把手教你学FPGA设计：基于大道至简的至简设计法》 百度网盘链接：https://pan.baidu.com/s/12knuxz"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Verilog Note</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-04-30 </span>
+        <div class="post-category">
+            <a href="/categories/verilog/"> verilog </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#参考书籍">参考书籍：</a></li>
+            <li><a href="#计数器">计数器</a></li>
+            <li><a href="#状态机">状态机</a></li>
+            <li><a href="#fifo">FIFO</a></li>
+            <li><a href="#vscode-verilog使用笔记">VScode verilog使用笔记</a></li>
+            <li><a href="#数字电路相关">数字电路相关</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="参考书籍">参考书籍：</h3>
+<p>《手把手教你学FPGA设计：基于大道至简的至简设计法》</p>
+<blockquote>
+<p>百度网盘链接：https://pan.baidu.com/s/12knuxzb4Z6z_8gR-By-l-A
+提取码：mwzd</p>
+</blockquote>
+<p>自己实现的书中的模块和相应的testbench测试：<a href="https://github.com/lishengxie/verilog-learning.git">https://github.com/lishengxie/verilog-learning.git</a></p>
+<h3 id="计数器">计数器</h3>
+<h4 id="设计规则">设计规则</h4>
+<ol>
+<li>计数器需要考虑三要素：初值、加一条件和结束值（通常依次考虑）；</li>
+<li>计数初值必须为0；</li>
+<li>使用某个计数值时必须同时满足加1条件；例如加1条件为<code>add_cnt</code>且<code>add_cnt &amp;&amp; cnt==4</code>时表示计数到第五个，而<code>add_cnt==0 &amp;&amp; cnt==4</code>不表示计数到第五个；</li>
+<li>计数条件必须<strong>同时满足加一条件</strong>，且结束值必须是<code>x-1</code>的形式；</li>
+<li>当从计数器取某个数时，assign形式必须为：<code>(加一条件) &amp;&amp; (cnt==计数值-1)</code>；</li>
+<li>结束后计数值需要回到0；</li>
+<li>需要限定范围时，推荐使用<code>&gt;=</code>和<code>&lt;</code>两种符号，尽量不要使用大于或者小于等于两种符号；</li>
+<li>计数器设计时，先写计数器的always段，条件用名字代替，随后使用assign语句依次写出加一条件和结束条件；由此可以得出计数器的模板写法如下所示</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-verilog" data-lang="verilog"><span class="line"><span class="cl"><span class="c1">// 中文词语方便理解，实际使用需要更改为相应的变量名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clk</span> <span class="k">or</span> <span class="k">negedge</span> <span class="n">rst_n</span><span class="p">)</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">rst_n</span><span class="o">==</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">)</span><span class="k">begin</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cnt</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="err">加一条件</span><span class="p">)</span><span class="k">begin</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="err">结束条件</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cnt</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cnt</span> <span class="o">&lt;=</span> <span class="n">cnt</span> <span class="o">+</span> <span class="mh">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">assign</span> <span class="err">加一条件</span> <span class="o">=</span> <span class="n">xxxxxx</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">assign</span> <span class="err">结束条件</span> <span class="o">=</span> <span class="p">(</span><span class="err">加一条件</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">cnt</span><span class="o">==</span><span class="err">计数值</span><span class="o">-</span><span class="mh">1</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="9">
+<li>
+<p>加一条件必须与计数器严格对齐，其他信号一律向计数器对齐；例如，现在需要输出两个信号<code>dout0</code>和<code>dout1</code>，<code>dout0</code>在计数到6时拉高，<code>dout1</code>在计数到7时拉高，因此<code>dout0</code>变1的条件为<code>add_cnt &amp;&amp; cnt==6-1</code>，<code>dout1</code>变1的条件有两种写法</p>
+<ul>
+<li><code>dout0 == 1</code></li>
+<li><code>add_cnt &amp;&amp; cnt==7-1</code></li>
+</ul>
+<p>第一种写法是间接向计数器对齐，是非常不好的方法，建议使用第二种直接向计数器对齐；</p>
+</li>
+<li>
+<p>加一条件统一前缀为<code>add_</code>，结束条件统一前缀为<code>end_</code>；</p>
+</li>
+<li>
+<p>暂不使用减1计数器。</p>
+</li>
+</ol>
+<h3 id="状态机">状态机</h3>
+<h4 id="设计规则-1">设计规则</h4>
+<ol>
+<li>使用四段式写法
+第一段为同步时序的always模块，用于格式化描述次态迁移到现态寄存器；</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-verilog" data-lang="verilog"><span class="line"><span class="cl"><span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clk</span> <span class="k">or</span> <span class="k">negedge</span> <span class="n">rst_n</span><span class="p">)</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">rst_n</span><span class="p">)</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">		<span class="n">state_c</span> <span class="o">&lt;=</span> <span class="n">IDLE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">end</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">		<span class="n">state_c</span> <span class="o">&lt;=</span> <span class="n">state_n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>第二段为组合逻辑的always块，用于描述状态转移条件判断，以三个状态的状态机IDLE-&gt;S1-&gt;S2-&gt;IDLE为例；</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-verilog" data-lang="verilog"><span class="line"><span class="cl"><span class="k">always</span> <span class="p">@(</span><span class="o">*</span><span class="p">)</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span><span class="p">(</span><span class="n">state_c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nl">IDLE:</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span><span class="p">(</span><span class="n">idle2s1_start</span><span class="p">)</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">				<span class="n">state_n</span> <span class="o">=</span> <span class="n">S1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="k">end</span>
+</span></span><span class="line"><span class="cl">			<span class="k">else</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">				<span class="n">state_n</span> <span class="o">=</span> <span class="n">state_c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="k">end</span>
+</span></span><span class="line"><span class="cl">		<span class="k">end</span>
+</span></span><span class="line"><span class="cl">		<span class="nl">S1:</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span><span class="p">(</span><span class="n">s12s2_start</span><span class="p">)</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">				<span class="n">state_n</span> <span class="o">=</span> <span class="n">S2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="k">end</span>
+</span></span><span class="line"><span class="cl">			<span class="k">else</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">				<span class="n">state_n</span> <span class="o">=</span> <span class="n">state_c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="k">end</span>
+</span></span><span class="line"><span class="cl">		<span class="k">end</span>
+</span></span><span class="line"><span class="cl">		<span class="nl">S2:</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span><span class="p">(</span><span class="n">s22_idle_start</span><span class="p">)</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">				<span class="n">state_n</span> <span class="o">=</span> <span class="n">S2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="k">end</span>
+</span></span><span class="line"><span class="cl">			<span class="k">else</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">				<span class="n">state_n</span> <span class="o">=</span> <span class="n">state_c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="k">end</span>
+</span></span><span class="line"><span class="cl">		<span class="k">end</span>
+</span></span><span class="line"><span class="cl">		<span class="k">default</span><span class="o">:</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">			<span class="n">state_n</span> <span class="o">=</span> <span class="n">IDLE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">end</span>
+</span></span><span class="line"><span class="cl">	<span class="k">endcase</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>第三段定义转移条件，注意条件一定要加上现态。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-verilog" data-lang="verilog"><span class="line"><span class="cl"><span class="k">assign</span> <span class="n">idle2s1_start</span> <span class="o">=</span> <span class="n">state_c</span> <span class="o">==</span> <span class="n">IDLE</span> <span class="o">&amp;&amp;</span> <span class="n">xxxx</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">assign</span> <span class="n">s12s2_start</span> <span class="o">=</span> <span class="n">state_c</span> <span class="o">==</span> <span class="n">S1</span> <span class="o">&amp;&amp;</span> <span class="n">xxxx</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">assign</span> <span class="n">s22idle_start</span> <span class="o">=</span> <span class="n">state_c</span> <span class="o">==</span> <span class="n">S2</span> <span class="o">&amp;&amp;</span> <span class="n">xxxx</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>第四段设计输出信号，每一个输出信号使用一个always块</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-verilog" data-lang="verilog"><span class="line"><span class="cl"><span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clk</span> <span class="k">or</span> <span class="k">negedge</span> <span class="n">rst_n</span><span class="p">)</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">rst_n</span><span class="p">)</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">		<span class="n">out1</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="mb">&#39;b0</span>
+</span></span><span class="line"><span class="cl">	<span class="k">end</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">state_c</span><span class="o">==</span><span class="n">S1</span><span class="p">)</span><span class="k">begin</span>
+</span></span><span class="line"><span class="cl">		<span class="n">out</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">end</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">begin</span>
+</span></span><span class="line"><span class="cl">		<span class="n">out</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>四段式状态机第一段写法可以保持不变；</li>
+<li>第二段中的状态转移条件用信号名表示，无需写出具体的转移条件；</li>
+<li>用assign形式将状态转移条件写成xx2xx_start的形式；</li>
+<li>状态转移条件，用assign产生变化条件时必须加上当前状态；</li>
+<li>状态保持不变使用state_n = state_c，因为如果在组合逻辑中使用state_n = state_n，只有锁存器才能有保持电路，而锁存器在数字电路中通常是不希望出现的。</li>
+</ol>
+<h3 id="fifo">FIFO</h3>
+<h4 id="设计规则-2">设计规则</h4>
+<ol>
+<li>使用Show-ahead模式。FIFO有两种使用模式，分别是Normal和Show-ahead模式，其中Normal模式指先有读使能，之后FIFO才输出这个数据；而Show-ahead模式指FIFO先输出数据，遇到读使能后FIFO更新输出数据。两种模式只有读数据时存在区别，使用Show-ahead模式的好处在于读请求信号读数据同时有效，可以当做有效数据使用</li>
+<li>读、写隔离，读控制和写控制是相互独立的，相互之间除了用FIFO交流信息外，不能有任何信息传递。</li>
+<li>读使能必须判断空状态，并且用组合逻辑产生。原因在于使用Show-ahead模式当FIFO为空时，如果使用时序逻辑产生读使能，会出现在FIFO为空的情况下读数据的操作，读操作会出错。</li>
+<li>处理报文时将指示信号和数据一起存入FIFO，这样做的好处是可以将报文数据、报文头、报文尾的指示信号和数据一起原封不动地送入下游模块。</li>
+<li>读写时钟不同时，必须使用异步FIFO。</li>
+</ol>
+<h3 id="vscode-verilog使用笔记">VScode verilog使用笔记</h3>
+<h4 id="编写添加verilog代码段">编写&amp;添加Verilog代码段</h4>
+<ol>
+<li>编写代码段</li>
+</ol>
+<ul>
+<li>顶部菜单栏 文件(File) -&gt; 首选项(Preference) -&gt; 用户代码段(User Snippets)</li>
+<li>选择verilog.json打开，添加代码段模板，以编写的计数器模板为例，如下所示
+<a href="https://www.lishengxie.top/wp-content/uploads/2023/01/9.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/01/9-1024x426.png" alt="counter snippet"></a></li>
+</ul>
+<ol start="2">
+<li>插入代码段
+Ctrl+Shift+P进入命令输入，输入Insert Snippet命令选择对应的代码段插入。</li>
+</ol>
+<h3 id="数字电路相关">数字电路相关</h3>
+<h4 id="三态门电路inout端口">三态门电路/inout端口</h4>
+<p><a href="https://www.lishengxie.top/wp-content/uploads/2023/01/15.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/01/15-300x186.png" alt="三态门电路"></a></p>
+<ul>
+<li>当sio_out_en=0 时，此时sio_d作为输出口，sio_d输出sio_out的值；</li>
+<li>当sio_out_en=1 时，此时sio_d作为输入口，sio_din输出sio_d的输入值；</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-verilog" data-lang="verilog"><span class="line"><span class="cl"><span class="n">inout_sio_d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">assign</span> <span class="n">sio_d</span> <span class="o">=</span> <span class="n">sio_out_en</span> <span class="o">?</span> <span class="n">Sio_out</span> <span class="o">:</span> <span class="mh">1</span><span class="p">&#39;</span><span class="n">bz</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">assign</span> <span class="n">sio_din</span> <span class="o">=</span> <span class="n">sio_d</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">lishengxie</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-04-30
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/snn-simulator/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Snn &amp; NoC 仿真器收集</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/go-study/">
+            <span class="next-text nav-default">Gin框架学习</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="1141751053@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/lishengxie" class="iconfont icon-github" title="github"></a>
+  <a href="https://lishengxie.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Cmake 常用指令学习 - Github Pages - Lishengxie</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lishengxie" /><meta name="description" content="参考教程 Cmake Cookbook:https://www.bookstack.cn/read/CMake-Cookbook/README.md Cmake官方文档:https://cmake.org/cmake/help/latest/guide/tutorial/ind" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.109.0 with theme even" />
+
+
+<link rel="canonical" href="https://lishengxie.github.io/post/cmake-study/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Cmake 常用指令学习" />
+<meta property="og:description" content="参考教程 Cmake Cookbook:https://www.bookstack.cn/read/CMake-Cookbook/README.md Cmake官方文档:https://cmake.org/cmake/help/latest/guide/tutorial/ind" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lishengxie.github.io/post/cmake-study/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-04-30T08:36:41+08:00" />
+<meta property="article:modified_time" content="2023-04-30T08:36:41+08:00" />
+<meta itemprop="name" content="Cmake 常用指令学习">
+<meta itemprop="description" content="参考教程 Cmake Cookbook:https://www.bookstack.cn/read/CMake-Cookbook/README.md Cmake官方文档:https://cmake.org/cmake/help/latest/guide/tutorial/ind"><meta itemprop="datePublished" content="2023-04-30T08:36:41+08:00" />
+<meta itemprop="dateModified" content="2023-04-30T08:36:41+08:00" />
+<meta itemprop="wordCount" content="1132">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Cmake 常用指令学习"/>
+<meta name="twitter:description" content="参考教程 Cmake Cookbook:https://www.bookstack.cn/read/CMake-Cookbook/README.md Cmake官方文档:https://cmake.org/cmake/help/latest/guide/tutorial/ind"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Cmake 常用指令学习</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-04-30 </span>
+        <div class="post-category">
+            <a href="/categories/c&#43;&#43;/"> C&#43;&#43; </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#参考教程">参考教程</a></li>
+        <li><a href="#cmake介绍">Cmake介绍</a></li>
+        <li><a href="#cmake使用">Cmake使用</a>
+          <ul>
+            <li><a href="#基础案例">基础案例</a></li>
+            <li><a href="#cmake生成动态和静态链接库">Cmake生成动态和静态链接库</a></li>
+            <li><a href="#cmake引用外部库文件">Cmake引用外部库文件</a></li>
+          </ul>
+        </li>
+        <li><a href="#其他常见的cmkae命令">其他常见的Cmkae命令</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="参考教程">参考教程</h2>
+<ol>
+<li>Cmake Cookbook:<a href="https://www.bookstack.cn/read/CMake-Cookbook/README.md">https://www.bookstack.cn/read/CMake-Cookbook/README.md</a></li>
+<li>Cmake官方文档:<a href="https://cmake.org/cmake/help/latest/guide/tutorial/index.html">https://cmake.org/cmake/help/latest/guide/tutorial/index.html</a></li>
+<li>Cmake入门实战: <a href="https://www.hahack.com/codes/cmake/">https://www.hahack.com/codes/cmake/</a></li>
+<li>CMake 生成静态库与动态库：<a href="https://blog.csdn.net/zhiyuan2021/article/details/129032343">https://blog.csdn.net/zhiyuan2021/article/details/129032343</a></li>
+</ol>
+<h2 id="cmake介绍">Cmake介绍</h2>
+<p>Cmake是一种支持跨平台编译的工具，允许通过配置独立的配置文件<code>CMakeList.txt</code>来定制编译流程，随后在不同的平台上进一步生成本地的<code>Makefile</code>和工程文件(Linux平台的<code>Makefile</code>和Windows平台的<code>Visual Studio</code>工程等)。在linux平台下使用Cmake编译程序的主要流程是：</p>
+<ol>
+<li>编写CMakeLists.txt；</li>
+<li>执行<code>cmake PATH</code>生成<code>Makefile</code>；</li>
+<li>执行<code>make</code>编译生成可执行程序或动态/静态链接库。</li>
+</ol>
+<h2 id="cmake使用">Cmake使用</h2>
+<h3 id="基础案例">基础案例</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="line"><span class="cl"><span class="c"># CMake 最低版本号要求
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">cmake_minimum_required</span> <span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 项目信息
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">project</span> <span class="p">(</span><span class="s">project_name</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 指定生成目标
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">add_executable</span><span class="p">(</span><span class="s">project_name</span> <span class="s">main.cc</span><span class="p">)</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>CMakeLists.txt</code>的语法由命令、注释和空格组成，命令不区分大小写，<code>#</code>后面的内容是注释。命令由命令名称、小括号和参数组成，参数之间使用空格进行间隔。上面的示例中<code>CmakeLists.txt</code>中使用了几个常用的命令，依次是</p>
+<ol>
+<li><code>cmake_minimum_required</code>：指定运行当前配置文件需要的最低的Cmake版本；</li>
+<li><code>project</code>：指定项目名称</li>
+<li><code>add_executable</code>：将<code>main.cc</code>源文件编译成名为<code>project_name</code>的可执行文件。</li>
+</ol>
+<p>实际使用中可能有多个源文件，逐个添加源文件是一件非常麻烦的事情，可以使用<code>aux_source_directory</code>命令来获取指定目录下的所有源文件，并将结果存到指定变量名中，使用示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="line"><span class="cl"><span class="c"># 查找当前目录下的所有源文件
+</span></span></span><span class="line"><span class="cl"><span class="c"># 并将名称保存到 DIR_SRCS 变量
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">aux_source_directory</span><span class="p">(</span><span class="s">.</span> <span class="s">DIR_SRCS</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 指定生成目标
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">add_executable</span><span class="p">(</span><span class="s">Demo</span> <span class="o">${</span><span class="nv">DIR_SRCS</span><span class="o">}</span><span class="p">)</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cmake生成动态和静态链接库">Cmake生成动态和静态链接库</h3>
+<p>静态和动态链接库的主要目的是为了提供接口供其他程序调用，两者的主要区别在于：</p>
+<ol>
+<li>静态链接库的拓展名通常为<code>.a</code>或<code>.lib</code>，在编译时会直接整合到目标程序中，编译成功的可执行文件可以独立运行（不再需要静态库）；</li>
+<li>动态链接库的拓展名通常为<code>.so</code>或<code>.dll</code>，在编译时不会放到目标程序中，可执行文件无法离开动态链接库单独执行。</li>
+</ol>
+<p>Cmake用于生成动态和静态链接库的命令为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="line"><span class="cl"><span class="c"># 动态链接库
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">add_library</span><span class="p">(</span><span class="s">project_name</span> <span class="s">SHARED</span> <span class="o">${</span><span class="nv">SRC_FILE</span><span class="o">}</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 静态链接库
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">add_library</span><span class="p">(</span><span class="s">project_name</span> <span class="s">STATIC</span> <span class="o">${</span><span class="nv">SRC_FILE</span><span class="o">}</span><span class="p">)</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cmake引用外部库文件">Cmake引用外部库文件</h3>
+<p>Cmake中另外一个常用的使用场景是使用外部库，对于外部库，我们通常需要进行两步操作，即引入头文件和添加链接库，具体示例如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="line"><span class="cl"><span class="c"># 引入头文件所在路径
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="err">include_directories{include_path}
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 添加链接库
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">project_name</span> <span class="s">lib_name</span><span class="p">)</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="其他常见的cmkae命令">其他常见的Cmkae命令</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="line"><span class="cl"><span class="c"># 设置C++标准为C++14
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span> <span class="s">14</span><span class="p">)</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">lishengxie</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-04-30
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/makefile-study/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Makefile使用学习</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/snn-simulator/">
+            <span class="next-text nav-default">Snn &amp; NoC 仿真器收集</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="1141751053@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/lishengxie" class="iconfont icon-github" title="github"></a>
+  <a href="https://lishengxie.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C&#43;&#43; on Github Pages - Lishengxie</title>
+    <link>https://lishengxie.github.io/categories/c&#43;&#43;/</link>
+    <description>Recent content in C&#43;&#43; on Github Pages - Lishengxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>1141751053@qq.com (lishengxie)</managingEditor>
+    <webMaster>1141751053@qq.com (lishengxie)</webMaster>
+    <lastBuildDate>Sun, 30 Apr 2023 08:40:25 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gdb调试学习</title>
+      <link>https://lishengxie.github.io/post/gdb-study/</link>
+      <pubDate>Sun, 30 Apr 2023 08:40:25 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/gdb-study/</guid>
+      <description>前言 使用linux进行systemc的开发时经常出现core dump的文件，对于较大的项目vscode无法很快地进行debug，clion对</description>
+    </item>
+    
+    <item>
+      <title>Makefile使用学习</title>
+      <link>https://lishengxie.github.io/post/makefile-study/</link>
+      <pubDate>Sun, 30 Apr 2023 08:37:37 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/makefile-study/</guid>
+      <description>参考教程 原文：https://makefiletutorial.com/ 中文翻译：https://makefiletutorial.verc</description>
+    </item>
+    
+    <item>
+      <title>Cmake 常用指令学习</title>
+      <link>https://lishengxie.github.io/post/cmake-study/</link>
+      <pubDate>Sun, 30 Apr 2023 08:36:41 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/cmake-study/</guid>
+      <description>参考教程 Cmake Cookbook:https://www.bookstack.cn/read/CMake-Cookbook/README.md Cmake官方文档:https://cmake.org/cmake/help/latest/guide/tutorial/ind</description>
+    </item>
+    
+  </channel>
+</rss>

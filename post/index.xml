@@ -8,9 +8,153 @@
     <language>en</language>
     <managingEditor>1141751053@qq.com (lishengxie)</managingEditor>
     <webMaster>1141751053@qq.com (lishengxie)</webMaster>
-    <lastBuildDate>Sun, 30 Apr 2023 00:19:30 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 30 Apr 2023 08:55:32 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Snn Paper Neu_noc</title>
+      <title>建站过程</title>
+      <link>https://lishengxie.github.io/post/website-build/</link>
+      <pubDate>Sun, 30 Apr 2023 08:55:32 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/website-build/</guid>
+      <description>购买腾讯云服务器 购买腾讯云清量2核4G服务器直达链接 启动镜像 这里选择了Ubuntu server 20.04，启动镜像后设置远程登录(远程登录-&amp;gt;密</description>
+    </item>
+    
+    <item>
+      <title>Windows常见问题记录</title>
+      <link>https://lishengxie.github.io/post/windows-problem/</link>
+      <pubDate>Sun, 30 Apr 2023 08:54:20 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/windows-problem/</guid>
+      <description>触摸板无法使用 在设置中选择“插入鼠标后禁用触摸板”选项后，将鼠标拔出后触摸板仍然无法使用，出现这种问题后 关闭“插入鼠标后禁用触摸板”选项，插</description>
+    </item>
+    
+    <item>
+      <title>SystemC学习</title>
+      <link>https://lishengxie.github.io/post/systemc-study/</link>
+      <pubDate>Sun, 30 Apr 2023 08:52:48 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/systemc-study/</guid>
+      <description>视频教程 教程链接 创建模块 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 #include &amp;lt;systemc.h&amp;gt; // SC_MODULE声明模块，and2对应模块名 SC_MODULE(and2){ // s</description>
+    </item>
+    
+    <item>
+      <title>云服务器软件安装</title>
+      <link>https://lishengxie.github.io/post/cloud-server-software-install/</link>
+      <pubDate>Sun, 30 Apr 2023 08:51:16 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/cloud-server-software-install/</guid>
+      <description>Docker安装(Ubuntu 20.04)：参考知乎博客 更新软件包索引，并且安装必要的依赖软件 1 2 sudo apt update sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common 使用下面的 curl 导入源仓</description>
+    </item>
+    
+    <item>
+      <title>常用资源汇总</title>
+      <link>https://lishengxie.github.io/post/common-resources/</link>
+      <pubDate>Sun, 30 Apr 2023 08:49:48 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/common-resources/</guid>
+      <description>python pip国内镜像 1 2 3 4 5 6 7 8 # 清华镜像源 https://pypi.tuna.tsinghua.edu.cn/simple # 豆瓣镜像源 http://pypi.douban.com/simple/ # 阿里云镜像源 http://mirrors.aliyun.com/pypi/simple/ # 中国科学技术大学镜像源 http://pypi.mirrors.ustc.edu.cn/simple/ 使用方法为pip install package_name -i 镜像源 Ubunt</description>
+    </item>
+    
+    <item>
+      <title>Linux常用命令记录</title>
+      <link>https://lishengxie.github.io/post/linux-command/</link>
+      <pubDate>Sun, 30 Apr 2023 08:47:32 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/linux-command/</guid>
+      <description>Vim vim删除文件中的所有内容： ESC确保退出编辑模式，按下&amp;quot;:&amp;ldquo;切换到命令模式然后输入%d并执行 vim删除单行内容：将</description>
+    </item>
+    
+    <item>
+      <title>多目标优化问题及两种常用解法</title>
+      <link>https://lishengxie.github.io/post/algorithm-study-multiopt/</link>
+      <pubDate>Sun, 30 Apr 2023 08:45:39 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/algorithm-study-multiopt/</guid>
+      <description>多目标优化问题 多目标优化（也称为多目标规划、向量优化、多标准优化、多属性优化或帕累托优化）是多标准决策制定的一个领域，涉及同时优化多个目标函</description>
+    </item>
+    
+    <item>
+      <title>启发式优化算法学习-模拟退火</title>
+      <link>https://lishengxie.github.io/post/algorithm-study-sa/</link>
+      <pubDate>Sun, 30 Apr 2023 08:44:23 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/algorithm-study-sa/</guid>
+      <description>模拟退火算法(SA) 参考教程 https://blog.csdn.net/brilliantZC/article/details/124436967 模拟退火算法（Simulated Annealing，SA）是一种模拟物理退火过程而设计的优化算法。模拟退火算法</description>
+    </item>
+    
+    <item>
+      <title>启发式优化算法学习-PSO</title>
+      <link>https://lishengxie.github.io/post/algorithm-study-pso/</link>
+      <pubDate>Sun, 30 Apr 2023 08:42:37 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/algorithm-study-pso/</guid>
+      <description>粒子群算法(PSO) 参考教程：https://cloud.tencent.com/developer/article/1424756 粒子群算</description>
+    </item>
+    
+    <item>
+      <title>Gdb调试学习</title>
+      <link>https://lishengxie.github.io/post/gdb-study/</link>
+      <pubDate>Sun, 30 Apr 2023 08:40:25 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/gdb-study/</guid>
+      <description>前言 使用linux进行systemc的开发时经常出现core dump的文件，对于较大的项目vscode无法很快地进行debug，clion对</description>
+    </item>
+    
+    <item>
+      <title>Makefile使用学习</title>
+      <link>https://lishengxie.github.io/post/makefile-study/</link>
+      <pubDate>Sun, 30 Apr 2023 08:37:37 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/makefile-study/</guid>
+      <description>参考教程 原文：https://makefiletutorial.com/ 中文翻译：https://makefiletutorial.verc</description>
+    </item>
+    
+    <item>
+      <title>Cmake 常用指令学习</title>
+      <link>https://lishengxie.github.io/post/cmake-study/</link>
+      <pubDate>Sun, 30 Apr 2023 08:36:41 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/cmake-study/</guid>
+      <description>参考教程 Cmake Cookbook:https://www.bookstack.cn/read/CMake-Cookbook/README.md Cmake官方文档:https://cmake.org/cmake/help/latest/guide/tutorial/ind</description>
+    </item>
+    
+    <item>
+      <title>Snn &amp; NoC 仿真器收集</title>
+      <link>https://lishengxie.github.io/post/snn-simulator/</link>
+      <pubDate>Sun, 30 Apr 2023 08:33:39 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/snn-simulator/</guid>
+      <description>NoC仿真器 NoC(Network on chip)是连接同构或者异构多核心的重要的系统互联结构，NoC仿真器提供了对NoC中多种性能指标的仿真。下面这篇博客中列出了</description>
+    </item>
+    
+    <item>
+      <title>Verilog Note</title>
+      <link>https://lishengxie.github.io/post/verilog-note/</link>
+      <pubDate>Sun, 30 Apr 2023 08:30:15 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/verilog-note/</guid>
+      <description>参考书籍： 《手把手教你学FPGA设计：基于大道至简的至简设计法》 百度网盘链接：https://pan.baidu.com/s/12knuxz</description>
+    </item>
+    
+    <item>
+      <title>Gin框架学习</title>
+      <link>https://lishengxie.github.io/post/go-study/</link>
+      <pubDate>Sun, 30 Apr 2023 08:26:45 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/go-study/</guid>
+      <description>概述 Gin框架地址：https://github.com/gin-gonic/gin 参考文档： https://www.kancloud.cn/shuangdeyu/gin_book https://github.com/piexlmax/1010class Gin服务入门 1 2 3 4 5 6 7 8 9 10 11 12 13 package</description>
+    </item>
+    
+    <item>
+      <title>Go Gin Chat</title>
+      <link>https://lishengxie.github.io/post/go-gin-chat/</link>
+      <pubDate>Sun, 30 Apr 2023 08:22:37 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/go-gin-chat/</guid>
+      <description>项目地址：https://github.com/hezhizheng/go-gin-chat Gin框架学习 参考笔记 Websocket学习 We</description>
+    </item>
+    
+    <item>
+      <title>SNN映射论文阅读 Neu-NoC</title>
       <link>https://lishengxie.github.io/post/snn-paper-neu_noc/</link>
       <pubDate>Sun, 30 Apr 2023 00:19:30 +0800</pubDate>
       <author>1141751053@qq.com (lishengxie)</author>
@@ -19,7 +163,7 @@
     </item>
     
     <item>
-      <title>Snn Paper Sentryos</title>
+      <title>SNN映射论文阅读-SentryOS</title>
       <link>https://lishengxie.github.io/post/snn-paper-sentryos/</link>
       <pubDate>Sun, 30 Apr 2023 00:13:55 +0800</pubDate>
       <author>1141751053@qq.com (lishengxie)</author>
@@ -28,7 +172,7 @@
     </item>
     
     <item>
-      <title>Snn Paper Neutrams</title>
+      <title>SNN映射论文阅读-NEUTRAMS</title>
       <link>https://lishengxie.github.io/post/snn-paper-neutrams/</link>
       <pubDate>Sun, 30 Apr 2023 00:10:08 +0800</pubDate>
       <author>1141751053@qq.com (lishengxie)</author>
@@ -37,7 +181,7 @@
     </item>
     
     <item>
-      <title>Snn Paper PSOPART</title>
+      <title>SNN映射论文阅读-PSOPART</title>
       <link>https://lishengxie.github.io/post/snn-paper-psopart/</link>
       <pubDate>Sat, 29 Apr 2023 22:14:32 +0800</pubDate>
       <author>1141751053@qq.com (lishengxie)</author>
@@ -46,7 +190,7 @@
     </item>
     
     <item>
-      <title>Snn Paper Spinemap</title>
+      <title>SNN映射论文阅读-SpiNeMap</title>
       <link>https://lishengxie.github.io/post/snn-paper-spinemap/</link>
       <pubDate>Sat, 29 Apr 2023 22:14:32 +0800</pubDate>
       <author>1141751053@qq.com (lishengxie)</author>

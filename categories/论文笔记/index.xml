@@ -8,9 +8,18 @@
     <language>en</language>
     <managingEditor>1141751053@qq.com (lishengxie)</managingEditor>
     <webMaster>1141751053@qq.com (lishengxie)</webMaster>
-    <lastBuildDate>Sun, 30 Apr 2023 00:19:30 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 30 Apr 2023 08:33:39 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Snn Paper Neu_noc</title>
+      <title>Snn &amp; NoC 仿真器收集</title>
+      <link>https://lishengxie.github.io/post/snn-simulator/</link>
+      <pubDate>Sun, 30 Apr 2023 08:33:39 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/snn-simulator/</guid>
+      <description>NoC仿真器 NoC(Network on chip)是连接同构或者异构多核心的重要的系统互联结构，NoC仿真器提供了对NoC中多种性能指标的仿真。下面这篇博客中列出了</description>
+    </item>
+    
+    <item>
+      <title>SNN映射论文阅读 Neu-NoC</title>
       <link>https://lishengxie.github.io/post/snn-paper-neu_noc/</link>
       <pubDate>Sun, 30 Apr 2023 00:19:30 +0800</pubDate>
       <author>1141751053@qq.com (lishengxie)</author>
@@ -19,7 +28,7 @@
     </item>
     
     <item>
-      <title>Snn Paper Sentryos</title>
+      <title>SNN映射论文阅读-SentryOS</title>
       <link>https://lishengxie.github.io/post/snn-paper-sentryos/</link>
       <pubDate>Sun, 30 Apr 2023 00:13:55 +0800</pubDate>
       <author>1141751053@qq.com (lishengxie)</author>
@@ -28,7 +37,7 @@
     </item>
     
     <item>
-      <title>Snn Paper Neutrams</title>
+      <title>SNN映射论文阅读-NEUTRAMS</title>
       <link>https://lishengxie.github.io/post/snn-paper-neutrams/</link>
       <pubDate>Sun, 30 Apr 2023 00:10:08 +0800</pubDate>
       <author>1141751053@qq.com (lishengxie)</author>
@@ -37,7 +46,7 @@
     </item>
     
     <item>
-      <title>Snn Paper PSOPART</title>
+      <title>SNN映射论文阅读-PSOPART</title>
       <link>https://lishengxie.github.io/post/snn-paper-psopart/</link>
       <pubDate>Sat, 29 Apr 2023 22:14:32 +0800</pubDate>
       <author>1141751053@qq.com (lishengxie)</author>
@@ -46,7 +55,7 @@
     </item>
     
     <item>
-      <title>Snn Paper Spinemap</title>
+      <title>SNN映射论文阅读-SpiNeMap</title>
       <link>https://lishengxie.github.io/post/snn-paper-spinemap/</link>
       <pubDate>Sat, 29 Apr 2023 22:14:32 +0800</pubDate>
       <author>1141751053@qq.com (lishengxie)</author>
