@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>内网离线服务器使用 - Github Pages - Lishengxie</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lishengxie" /><meta name="description" content="最近在跑实验时，自己的电脑出现内存不够用的问题，想到在实验室的一台闲置的服务器上运行程序。但是该服务器只能通过内网连接，无法使用外网，因此这" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.109.0 with theme even" />
+
+
+<link rel="canonical" href="https://lishengxie.github.io/post/offline-server-usage/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="内网离线服务器使用" />
+<meta property="og:description" content="最近在跑实验时，自己的电脑出现内存不够用的问题，想到在实验室的一台闲置的服务器上运行程序。但是该服务器只能通过内网连接，无法使用外网，因此这" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lishengxie.github.io/post/offline-server-usage/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-06-03T20:34:46+08:00" />
+<meta property="article:modified_time" content="2023-06-03T20:34:46+08:00" />
+<meta itemprop="name" content="内网离线服务器使用">
+<meta itemprop="description" content="最近在跑实验时，自己的电脑出现内存不够用的问题，想到在实验室的一台闲置的服务器上运行程序。但是该服务器只能通过内网连接，无法使用外网，因此这"><meta itemprop="datePublished" content="2023-06-03T20:34:46+08:00" />
+<meta itemprop="dateModified" content="2023-06-03T20:34:46+08:00" />
+<meta itemprop="wordCount" content="1083">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="内网离线服务器使用"/>
+<meta name="twitter:description" content="最近在跑实验时，自己的电脑出现内存不够用的问题，想到在实验室的一台闲置的服务器上运行程序。但是该服务器只能通过内网连接，无法使用外网，因此这"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">内网离线服务器使用</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-06-03 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#程序运行环境配置">程序运行环境配置</a>
+          <ul>
+            <li><a href="#c">C++</a></li>
+            <li><a href="#python">Python</a></li>
+            <li><a href="#vscode连接服务器开发">vscode连接服务器开发</a></li>
+            <li><a href="#服务器安装screen应用">服务器安装screen应用</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>最近在跑实验时，自己的电脑出现内存不够用的问题，想到在实验室的一台闲置的服务器上运行程序。但是该服务器只能通过内网连接，无法使用外网，因此这里记录了内网离线服务器使用的一些经历。
+可以考虑在服务器上安装docker，然后在自己电脑上配好环境后导出docker镜像到服务器上运行。这里没有使用docker环境，本地环境是WSL2-Ubuntu20.04。</p>
+<h2 id="程序运行环境配置">程序运行环境配置</h2>
+<h3 id="c">C++</h3>
+<p>针对C++程序，重新下载代码编译；</p>
+<h3 id="python">Python</h3>
+<p>重新配置Python环境主要经历了以下步骤：</p>
+<ol>
+<li>下载miniconda安装程序并安装；</li>
+<li>WSL2环境迁移到服务器中，这里选择直接打包WSL2下面的虚拟环境目录并到服务器相应目录下解压，参考了教程<a href="https://blog.csdn.net/qq_45893319/article/details/122226053">https://blog.csdn.net/qq_45893319/article/details/122226053</a>;</li>
+<li>直接打包的环境，无法使用pip的问题，可以通过修改pip文件解决，参考教程<a href="https://blog.csdn.net/qq_40933913/article/details/127907916">https://blog.csdn.net/qq_40933913/article/details/127907916</a></li>
+<li>环境迁移后发现在迁移的环境中无法使用clear命令，原因是迁移过来的环境中clear文件有问题。解决方案如下：</li>
+</ol>
+<ul>
+<li>在出错的环境下，输入<code>which clear</code>，然后将<code>clear</code>地址重命名，下次再<code>clear</code>时会生成新的。
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mv /home/xxx/.conda/envs/yolox/bin/clear /home/xxx/.conda/envs/yolox/bin/clear_old
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h3 id="vscode连接服务器开发">vscode连接服务器开发</h3>
+<p>参考教程<a href="https://blog.csdn.net/ffriend/article/details/126680223">https://blog.csdn.net/ffriend/article/details/126680223</a>。
+由于服务器离线，使用vscode连接时无法在远程服务器上下载vscode-server，这里需要手动下载一下。步骤如下</p>
+<ol>
+<li>查看本地vscode的commit id：帮助-关于，复制commit id</li>
+<li>本地下载vscode-server</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://update.code.visualstudio.com/commit:<span class="si">${</span><span class="nv">commit_id</span><span class="si">}</span>/server-linux-x64/stable
+</span></span><span class="line"><span class="cl"><span class="c1"># 注意把:${commit_id}替换成对应的Commit ID</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>复制到服务器并安装</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm ~/.vscode-server/bin/* -rf  <span class="c1">#把$HOME/.vscode-server/bin下的内容删干净，防止出错</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ~/.vscode-server/bin
+</span></span><span class="line"><span class="cl">tar -zxf vscode-server-linux-x64.tar.gz
+</span></span><span class="line"><span class="cl">mv vscode-server-linux-x64 <span class="si">${</span><span class="nv">commit_id</span><span class="si">}</span> <span class="c1"># 注意把:${commit_id}替换成对应的Commit ID</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="服务器安装screen应用">服务器安装screen应用</h3>
+<p>参考教程<a href="https://blog.csdn.net/Demo_Null/article/details/110873673">https://blog.csdn.net/Demo_Null/article/details/110873673</a>，主要是编译安装screen和ncurses两个可执行程序，这里需要管理员权限，负责无法安装到默认的安装位置。</p>
+<h4 id="screen常用命令如下">screen常用命令如下</h4>
+<p>1、启动共享窗口：screen -S 名称
+2、查看当前所有共享会话：screen -ls
+3、进入共享会话：screen -r 名称
+4、退出共享会话：ctrl +a +d</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">lishengxie</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-06-03
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/snn-paper-spinemap/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">SNN映射论文阅读-SpiNeMap</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/my-first-blog/">
+            <span class="next-text nav-default">My First Blog</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="1141751053@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/lishengxie" class="iconfont icon-github" title="github"></a>
+  <a href="https://lishengxie.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

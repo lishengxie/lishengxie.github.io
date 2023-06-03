@@ -156,21 +156,28 @@
   </url>
   
   <url>
-    <loc>https://lishengxie.github.io/categories/</loc>
-    <lastmod>2023-04-30T08:55:32+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://lishengxie.github.io/</loc>
-    <lastmod>2023-04-30T08:55:32+08:00</lastmod>
+    <lastmod>2023-06-03T20:34:46+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://lishengxie.github.io/post/</loc>
+    <lastmod>2023-06-03T20:34:46+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://lishengxie.github.io/post/offline-server-usage/</loc>
+    <lastmod>2023-06-03T20:34:46+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://lishengxie.github.io/categories/</loc>
     <lastmod>2023-04-30T08:55:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
