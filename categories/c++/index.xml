@@ -8,7 +8,16 @@
     <language>en</language>
     <managingEditor>1141751053@qq.com (lishengxie)</managingEditor>
     <webMaster>1141751053@qq.com (lishengxie)</webMaster>
-    <lastBuildDate>Sun, 30 Apr 2023 08:40:25 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Aug 2023 10:42:01 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LJson</title>
+      <link>https://lishengxie.github.io/post/ljson/</link>
+      <pubDate>Wed, 16 Aug 2023 10:42:01 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/ljson/</guid>
+      <description>LJSon A C++ library for json parse/creation/update package地址：https://github.com/lishengxie/LJson 开发原因 最近在复习C++相关的知识，</description>
+    </item>
+    
     <item>
       <title>Gdb调试学习</title>
       <link>https://lishengxie.github.io/post/gdb-study/</link>

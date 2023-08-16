@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>LJson - Github Pages - Lishengxie</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lishengxie" /><meta name="description" content="LJSon A C&#43;&#43; library for json parse/creation/update package地址：https://github.com/lishengxie/LJson 开发原因 最近在复习C&#43;&#43;相关的知识，" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.109.0 with theme even" />
+
+
+<link rel="canonical" href="https://lishengxie.github.io/post/ljson/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="LJson" />
+<meta property="og:description" content="LJSon A C&#43;&#43; library for json parse/creation/update package地址：https://github.com/lishengxie/LJson 开发原因 最近在复习C&#43;&#43;相关的知识，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lishengxie.github.io/post/ljson/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-08-16T10:42:01+08:00" />
+<meta property="article:modified_time" content="2023-08-16T10:42:01+08:00" />
+<meta itemprop="name" content="LJson">
+<meta itemprop="description" content="LJSon A C&#43;&#43; library for json parse/creation/update package地址：https://github.com/lishengxie/LJson 开发原因 最近在复习C&#43;&#43;相关的知识，"><meta itemprop="datePublished" content="2023-08-16T10:42:01+08:00" />
+<meta itemprop="dateModified" content="2023-08-16T10:42:01+08:00" />
+<meta itemprop="wordCount" content="3520">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="LJson"/>
+<meta name="twitter:description" content="LJSon A C&#43;&#43; library for json parse/creation/update package地址：https://github.com/lishengxie/LJson 开发原因 最近在复习C&#43;&#43;相关的知识，"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">LJson</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-08-16 </span>
+        <div class="post-category">
+            <a href="/categories/c&#43;&#43;/"> C&#43;&#43; </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ljson">LJSon</a>
+      <ul>
+        <li><a href="#开发原因">开发原因</a></li>
+        <li><a href="#参考仓库">参考仓库</a></li>
+        <li><a href="#json文件格式">json文件格式</a></li>
+        <li><a href="#使用数据结构表示json对象">使用数据结构表示json对象</a></li>
+        <li><a href="#方法设计">方法设计</a></li>
+        <li><a href="#解析json对象">解析Json对象</a></li>
+        <li><a href="#添加json节点">添加json节点</a></li>
+        <li><a href="#删除json节点">删除json节点</a></li>
+        <li><a href="#查找json节点">查找json节点</a></li>
+        <li><a href="#更改json节点">更改json节点</a></li>
+        <li><a href="#其他工具函数">其他工具函数</a></li>
+        <li><a href="#待实现">待实现</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="ljson">LJSon</h1>
+<ul>
+<li>A C++ library for json parse/creation/update</li>
+<li>package地址：<a href="https://github.com/lishengxie/LJson">https://github.com/lishengxie/LJson</a></li>
+</ul>
+<h2 id="开发原因">开发原因</h2>
+<p>最近在复习C++相关的知识，想要通过一个项目来巩固C++和算法的一些相关知识，但是网上推荐的相关C++项目大多比较复杂，很难下手。刚好最近实验室项目中频繁使用json文件，想到是否可以使用C++来实现一个json的解析库，在github上搜索后看到了一些现有的json仓库，初步了解后开始进行实现。</p>
+<h2 id="参考仓库">参考仓库</h2>
+<ul>
+<li><a href="https://github.com/510850111/cJSON/tree/master">https://github.com/510850111/cJSON/tree/master</a>，在这个项目中学习了json对象的表示以及如何操作json对象；</li>
+<li><a href="https://github.com/ACking-you/MyUtil/tree/master/json-parser">https://github.com/ACking-you/MyUtil/tree/master/json-parser</a>，在这个项目中学习了如何从json字符串中解析数据，服用了部分解析json字符串的代码；</li>
+<li><a href="https://github.com/nlohmann/json">https://github.com/nlohmann/json</a>，著名的json处理库，从中学习了如何使用初始化列表来实现类Python的方式创建和更新json对象。</li>
+</ul>
+<h2 id="json文件格式">json文件格式</h2>
+<blockquote>
+<p>这里只做简单介绍，具体的格式可以参考json官网<a href="http://www.json.org">http://www.json.org</a>。</p>
+</blockquote>
+<p>json主要基于两种结构，分别是“键值对集合”和“值的有序列表”，前者可以看做字典或哈希表，后者可以看做数组。</p>
+<ol>
+<li>对象是无序的键值对集合，一个对象被包含在<code>{}</code>中，每个键值对的格式为<code>key:value</code>，其中<code>key</code>是字符串，value可以是字符串、布尔类型(<code>true</code>/<code>false</code>)、<code>null</code>、数值(整数或浮点数)、对象、数组；键值对之间使用<code>,</code>分隔，对象应该使用key索引对应的值；</li>
+<li>数组是值的有序集合，包含在<code>[]</code>中，值可以是前面提到的字符串、布尔类型(<code>true</code>/<code>false</code>)、<code>null</code>、数值(整数或浮点数)、对象、数组，值之间使用<code>,</code>分隔；</li>
+</ol>
+<p>通过使用对象、数组以及支持两者之间的嵌套，json可以支持复杂的数据格式定义和传递。</p>
+<h2 id="使用数据结构表示json对象">使用数据结构表示json对象</h2>
+<p>前面提到了json文件的格式，一种很自然的表示json对象的方式应该是使用字典表示对象，字典的值本身也可以是一个json对象，有一些json解析库中使用了这种方式，可以参考Python中<code>json</code>库对json文件的读写。我们使用了另外一种方式，即使用树形结构来表示整个json对象，如下图所示：
+<a href="https://www.lishengxie.top/wp-content/uploads/2023/08/json-node-fig.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/08/json-node-fig-1024x430.png" alt=""></a>
+对应的C++定义如下，对象中的每个键值对以及数组中的每个值都使用一个JsonObject对象来表示，整个对象/数组的键值对/值使用双向链表进行表示，遍历整个双向链表即可以遍历整个json对象或数组。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">enum</span> <span class="nc">JsonType</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T_FALSE</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">T_TRUE</span><span class="p">,</span> <span class="n">T_NULL</span><span class="p">,</span> <span class="n">T_INT</span><span class="p">,</span> <span class="n">T_FLOAT</span><span class="p">,</span> <span class="n">T_STRING</span><span class="p">,</span> <span class="n">T_ARRAY</span><span class="p">,</span> <span class="n">T_OBJECT</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">JsonObject</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* next和prev分别指向前一个对象和后一个对象 */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JsonObject</span> <span class="o">*</span><span class="n">next</span><span class="p">,</span> <span class="o">*</span><span class="n">prev</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* Object和Array类型对象需要设置child指针 */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JsonObject</span> <span class="o">*</span><span class="n">child</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* Object的类型 */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JsonType</span> <span class="n">type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* String对象的值 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="o">*</span><span class="n">valueString</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 整数对象的值 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">valueInt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 浮点数的值 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">valueDouble</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 键值对的键 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以上图为例，假设有如下的json对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;runoob&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;alexa&#34;</span><span class="p">:</span><span class="mi">10000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;sites&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;site1&#34;</span><span class="p">:</span><span class="s2">&#34;www.runoob.com&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;site2&#34;</span><span class="p">:</span><span class="s2">&#34;m.runoob.com&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;site3&#34;</span><span class="p">:</span><span class="s2">&#34;c.runoob.com&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;search&#34;</span><span class="p">:[</span> <span class="s2">&#34;Google&#34;</span><span class="p">,</span> <span class="s2">&#34;Runoob&#34;</span><span class="p">,</span> <span class="s2">&#34;Taobao&#34;</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>那么对应到上面的树形结构应该为(以下提到的变量都是<code>JsonObject</code>类型)，首先有一个<code>root</code>表示整个json对象，<code>root-&gt;child</code>对应对象内键值对的双向链表，<code>root-&gt;child</code>对应<code>&quot;name&quot;:&quot;runoob&quot;</code>，<code>root-&gt;child-&gt;next</code>对应<code>&quot;alexa&quot;:10000</code>，以此类推。对于双向链表中的第四个节点<code>node4</code>，节点类型为数组，<code>node4-&gt;child</code>对应数组内值的双向链表，<code>node4-&gt;child</code>为<code>&quot;Google&quot;</code>，<code>node4-&gt;child-&gt;next</code>为<code>Runoob</code>，以此类推。第三个节点的对象也使用类似的方式表示。</p>
+<h2 id="方法设计">方法设计</h2>
+<p>根据以上的数据结构，我们可以表示整个json对象，那么接下来就是对整个json对象的操作，应该包含两部分：</p>
+<ol>
+<li>从外部字符串解析出json数据对象；</li>
+<li>创建json对象并导出。</li>
+</ol>
+<p>对于json对象，这里又进一步划分为了“增、删、改、查”四个部分，接下来分别对这四个部分的设计做一下介绍。</p>
+<h2 id="解析json对象">解析Json对象</h2>
+<p>这里参考了<a href="https://github.com/ACking-you/MyUtil/tree/master/json-parser">https://github.com/ACking-you/MyUtil/tree/master/json-parser</a>中的解析方式，大致的实现思路为跳过给定字符串中的空白字符和注释，每次对于不同的字符解析出对应的对象。这里使用了C++标准库<code>string</code>中解析整数和浮点数的方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">JsonObject</span><span class="o">*</span> <span class="n">JsonParser</span><span class="o">::</span><span class="n">parse</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">token</span> <span class="o">=</span> <span class="n">get_next_token</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">token</span> <span class="o">==</span> <span class="sc">&#39;n&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">parseNULL</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">token</span> <span class="o">==</span> <span class="sc">&#39;t&#39;</span> <span class="o">||</span> <span class="n">token</span> <span class="o">==</span> <span class="sc">&#39;f&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">parseBool</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">token</span> <span class="o">==</span> <span class="sc">&#39;-&#39;</span> <span class="o">||</span> <span class="n">std</span><span class="o">::</span><span class="n">isdigit</span><span class="p">(</span><span class="n">token</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">parseNumber</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">token</span> <span class="o">==</span> <span class="sc">&#39;\&#34;&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">parseString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">token</span> <span class="o">==</span> <span class="sc">&#39;[&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">parseArray</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">token</span> <span class="o">==</span> <span class="sc">&#39;{&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">parseObject</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">logic_error</span><span class="p">(</span><span class="s">&#34;unexpected character in parsing json.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="添加json节点">添加json节点</h2>
+<p>添加json节点应该是将给定的json节点添加到一个对象或数组中，对于添加到对象中，还需要同时提供键值对的<code>key</code>。添加的方法比较简单，在当前调用的<code>JsonObject</code>的<code>child</code>对应的双向链表中将给定的<code>JsonObject</code>对象插入，对于插入到对象中的情况还需要设置<code>key</code>。这里使用尾插法，即将新加入的节点插入到双向链表的尾部，方便检索。插入对象的实现方式如下所示，插入数组的实现类似。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">JsonObject</span><span class="o">::</span><span class="n">addItem</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">iKey</span><span class="p">,</span> <span class="n">JsonObject</span><span class="o">*</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">item</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">T_OBJECT</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">logic_error</span><span class="p">(</span><span class="s">&#34;must be json object to add key-value pair&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// set key for item
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">char</span><span class="o">*</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">strlen</span><span class="p">(</span><span class="n">iKey</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">strcpy</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">iKey</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">item</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">=</span> <span class="n">out</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// no child yet
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">child</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">-&gt;</span><span class="n">child</span> <span class="o">=</span> <span class="n">item</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 尾插法, 检索更快
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">JsonObject</span><span class="o">*</span> <span class="n">pChild</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">child</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="n">pChild</span><span class="o">!=</span> <span class="k">nullptr</span> <span class="o">&amp;&amp;</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">!=</span><span class="k">nullptr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pChild</span> <span class="o">=</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">item</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">item</span><span class="o">-&gt;</span><span class="n">prev</span> <span class="o">=</span> <span class="n">pChild</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="删除json节点">删除json节点</h2>
+<p>删除节点和增加节点相反，给定<code>key</code>从对应的对象中或给定<code>index</code>从给定的数组中删除对应的节点，同样是在数组中删除相应的节点，需要注意的是对于删除的节点需要及时释放相应的内存。释放内存被实现成了<code>JsonObject</code>类的静态方法，通过递归的方式释放，如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">JsonObject</span><span class="o">::</span><span class="n">deleteNode</span><span class="p">(</span><span class="n">JsonObject</span> <span class="o">*</span><span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JsonObject</span> <span class="o">*</span><span class="n">nextNode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JsonObject</span> <span class="o">*</span><span class="n">curNode</span> <span class="o">=</span> <span class="n">node</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">curNode</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">nextNode</span> <span class="o">=</span> <span class="n">curNode</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">curNode</span><span class="o">-&gt;</span><span class="n">child</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">deleteNode</span><span class="p">(</span><span class="n">curNode</span><span class="o">-&gt;</span><span class="n">child</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">curNode</span><span class="o">-&gt;</span><span class="n">valueString</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">delete</span> <span class="p">[](</span><span class="n">curNode</span><span class="o">-&gt;</span><span class="n">valueString</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">curNode</span><span class="o">-&gt;</span><span class="n">valueString</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">curNode</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">delete</span> <span class="p">[](</span><span class="n">curNode</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">curNode</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">delete</span> <span class="n">curNode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">curNode</span> <span class="o">=</span> <span class="n">nextNode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="查找json节点">查找json节点</h2>
+<p>给定<code>key</code>从对应的对象中或给定<code>index</code>从给定的数组中查找对应的节点，这里通过重载<code>[]</code>运算符实现，下面给出了给定<code>key</code>查找出对应值的实现，在<code>key</code>不存在的情况下会创建出一个<code>null</code>对象并返回。对于给定<code>index</code>查找数组的实现，在<code>index</code>超出数组索引范围的情况下会返回一个全局的查找标志表示返回失败，后续可以实现为添加对应数量的<code>null</code>节点。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">JsonObject</span><span class="o">&amp;</span> <span class="n">JsonObject</span><span class="o">::</span><span class="k">operator</span><span class="p">[]</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">iKey</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JsonObject</span> <span class="o">*</span><span class="n">cur</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">child</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">cur</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">iKey</span><span class="p">,</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="o">*</span><span class="n">cur</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JsonObject</span> <span class="o">*</span><span class="n">object</span> <span class="o">=</span> <span class="n">JsonObject</span><span class="o">::</span><span class="n">createNULL</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">addItem</span><span class="p">(</span><span class="n">iKey</span><span class="p">,</span> <span class="n">object</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="n">object</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="更改json节点">更改json节点</h2>
+<p>对于修改json节点，通过重载<code>=</code>运算符的方式加以实现，前面几个函数对数字、字符串、布尔值和空值几种基本数据类型实现了重载，最后一个函数提供通过<code>initializer_list</code>的方式来更新<code>JsonObject</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">JsonObject</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="kt">int</span> <span class="n">number</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">JsonObject</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="kt">double</span> <span class="n">number</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">JsonObject</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">strValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">JsonObject</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="kt">bool</span> <span class="n">boolValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">JsonObject</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">nullptr_t</span> <span class="n">nullValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">JsonObject</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">InitType</span><span class="o">&gt;</span> <span class="n">initList</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对于前几个函数，实现的方式为修改节点的类型，如果被修改的节点是对象或数组类型，那么使用<code>deleteNode</code>方法删除其<code>child</code>指向的双向链表，以赋值为整数为例，其函数实现如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">JsonObject</span><span class="o">&amp;</span> <span class="n">JsonObject</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="kt">int</span> <span class="n">number</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="k">this</span> <span class="o">==</span> <span class="n">LJson</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;can not assign to non-existent object</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">T_OBJECT</span> <span class="o">||</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">T_ARRAY</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">JsonObject</span><span class="o">::</span><span class="n">deleteNode</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">child</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">-&gt;</span><span class="n">child</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">=</span> <span class="n">T_INT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">valueInt</span> <span class="o">=</span> <span class="n">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对于使用<code>initializer_list</code>来更新<code>JsonObject</code>的例子，通过自定义一个<code>InitType</code>结构体来加以支持，<code>InitType</code>会将初始化列表转换成一个数组类型的<code>JsonObject</code>，随后我们检查整个数组并进行数组到对象的转换。判断一个数组是否是对象的标准如下：</p>
+<ol>
+<li>数组中的每个值都是一个数组；</li>
+<li>数组中每个值对应的子数组长度都为2；</li>
+<li>数组中每个值对应的子数组的第一个元素都是字符串类型。</li>
+</ol>
+<p>满足以上三个条件的数组应该被转换成一个对象，转换过程递归进行，具体实现可以参考github中的代码。</p>
+<h2 id="其他工具函数">其他工具函数</h2>
+<p>提供了一个<code>JsonParser</code>工具类用于解析json字符串，提供了一个<code>Json</code>类来将<code>JsonObject</code>和<code>JsonParser</code>的功能进行封装，方便使用。此外，还提供了json对象转换为字符串的格式化方法。</p>
+<h2 id="待实现">待实现</h2>
+<ul>
+<li><input disabled="" type="checkbox"> 检查实现中的动态内存分配和释放，避免造成内存泄漏；</li>
+<li><input disabled="" type="checkbox"> 有一些冗余代码，后续考虑使用模版函数进行替换；</li>
+<li><input disabled="" type="checkbox"> 接口目前有些混乱，另外异常情况目前没有很好地处理；</li>
+<li><input disabled="" type="checkbox"> 添加HashTable用于记录键-&gt;JsonObject指针，避免每次检索时都需要遍历，提高检索速度。</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">lishengxie</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-08-16
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/offline-server-usage/">
+            <span class="next-text nav-default">内网离线服务器使用</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="1141751053@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/lishengxie" class="iconfont icon-github" title="github"></a>
+  <a href="https://lishengxie.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
