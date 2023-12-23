@@ -8,7 +8,25 @@
     <language>en</language>
     <managingEditor>1141751053@qq.com (lishengxie)</managingEditor>
     <webMaster>1141751053@qq.com (lishengxie)</webMaster>
-    <lastBuildDate>Tue, 17 Oct 2023 20:15:23 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Dec 2023 23:17:56 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Transfer Server</title>
+      <link>https://lishengxie.github.io/post/transfer-server/</link>
+      <pubDate>Sat, 23 Dec 2023 23:17:56 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/transfer-server/</guid>
+      <description>站点迁移 之前使用的是云服务器是腾讯与的2核4G服务器，但是由于最开始购买时只买了一年，续费时价格太贵，因此转到阿里云，可以有四年每年99元的</description>
+    </item>
+    
+    <item>
+      <title>算法学习-差分数组</title>
+      <link>https://lishengxie.github.io/post/differential-array/</link>
+      <pubDate>Sat, 23 Dec 2023 23:05:16 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/differential-array/</guid>
+      <description>差分数组 参考教程：https://wansuanfa.com/index.php/589 leetcode题目：1109. 航班预订统计 问题描述</description>
+    </item>
+    
     <item>
       <title>LeetCode刷题-二叉树遍历迭代法</title>
       <link>https://lishengxie.github.io/post/traverse-binary-tree/</link>
