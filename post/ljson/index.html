@@ -189,7 +189,7 @@
 <p>通过使用对象、数组以及支持两者之间的嵌套，json可以支持复杂的数据格式定义和传递。</p>
 <h2 id="使用数据结构表示json对象">使用数据结构表示json对象</h2>
 <p>前面提到了json文件的格式，一种很自然的表示json对象的方式应该是使用字典表示对象，字典的值本身也可以是一个json对象，有一些json解析库中使用了这种方式，可以参考Python中<code>json</code>库对json文件的读写。我们使用了另外一种方式，即使用树形结构来表示整个json对象，如下图所示：
-<a href="https://www.lishengxie.top/wp-content/uploads/2023/08/json-node-fig.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/08/json-node-fig-1024x430.png" alt=""></a>
+<a href="/uploads/2023/08/json-node-fig.png"><img src="/uploads/2023/08/json-node-fig.png" alt=""></a>
 对应的C++定义如下，对象中的每个键值对以及数组中的每个值都使用一个JsonObject对象来表示，整个对象/数组的键值对/值使用双向链表进行表示，遍历整个双向链表即可以遍历整个json对象或数组。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -613,7 +613,8 @@
 
   <span class="copyright-year">
     &copy; 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
+    2023 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
   </span>
 </div>
 

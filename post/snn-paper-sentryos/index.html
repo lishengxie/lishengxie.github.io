@@ -154,18 +154,18 @@
 <li>使用分段总线，实现核心之间的一对一互联（实际根据运行数据存在分时复用）；</li>
 <li>基于异构大小核，大网络分割后的子网络规模不同，使用异构大小核来减少uBrain核心中的硬件空闲率</li>
 </ul>
-<p><a href="https://www.lishengxie.top/wp-content/uploads/2023/01/10.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/01/10-1024x495.png" alt="uBrain使用的三层全连接结构"></a></p>
+<p><a href="/uploads/2023/01/10.png"><img src="/uploads/2023/01/10.png" alt="uBrain使用的三层全连接结构"></a></p>
 <center><b> uBrain使用的三层全连接结构 </b></center>
 <ol>
 <li>
 <p>异构大小核设计
 根据uBrain中使用的三层全连接结构，作者分析了LeNet、AlextNet、VGGNet、ResNet和DenseNet五种模型中L1和L2 neighbors 的数目，发现对于不同应用差别较大，因此使用异构的不同大小的uBrain核心可以提高硬件资源（神经元和突触连接）的利用率。
-<a href="https://www.lishengxie.top/wp-content/uploads/2023/01/11.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/01/11.png" alt="整体架构"></a></p>
+<a href="/uploads/2023/01/11.png"><img src="/uploads/2023/01/11.png" alt="整体架构"></a></p>
 </li>
 <li>
 <p>分段总线互联
 文中使用分段总线连接不同的uBrain核心来完成通信，相较于传统的共享式的总线结构，分段式总线结构可以价格总线分段，不同段之间可以并行通信，互不影响。为了实现同一时刻所有核心之间可以并行通信，需要多条并行总线，基于训练数据获取到同一时刻最大的并行通行量，从而可以确定所需要的最小的并行总线数目。
-<a href="https://www.lishengxie.top/wp-content/uploads/2023/01/12.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/01/12-1024x337.png" alt="分段总线"></a></p>
+<a href="/uploads/2023/01/12.png"><img src="/uploads/2023/01/12.png" alt="分段总线"></a></p>
 </li>
 <li>
 <p>SentryOS设计</p>
@@ -187,9 +187,9 @@ $$Power(S_i,j)\lt Power(S_i)+ Power(S_j)$$</p>
 </li>
 </ol>
 <p>文中提到可以将SentryOS的方案扩展到基于crossbar的神经形态硬件上，即认为crossbar为两层全连接结构（uBrain是三层）
-<a href="https://www.lishengxie.top/wp-content/uploads/2023/01/13.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/01/13-798x1024.png" alt="SentryC算法"></a></p>
+<a href="/uploads/2023/01/13.png"><img src="/uploads/2023/01/13.png" alt="SentryC算法"></a></p>
 <p>b. SentryRT运行时：类似于DFSynthesizer，使用Max-Plus Algebras的方式确定自网络之间的执行顺序，这篇文章在DFSynthesizer上进一步改善，一方面使用多流水线来执行一个网络，另一方面使用Batch依次运算多个输入图片提高吞吐量。
-<a href="https://www.lishengxie.top/wp-content/uploads/2023/01/14.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/01/14.png" alt="SentryRT"></a></p>
+<a href="/uploads/2023/01/14.png"><img src="/uploads/2023/01/14.png" alt="SentryRT"></a></p>
 </li>
 <li>
 <p>实验评估</p>
@@ -271,7 +271,8 @@ $$Power(S_i,j)\lt Power(S_i)+ Power(S_j)$$</p>
 
   <span class="copyright-year">
     &copy; 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
+    2023 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
   </span>
 </div>
 

@@ -149,7 +149,7 @@
 <p><strong>开源代码地址</strong>：https://github.com/hoangt/neutrams</p>
 <p><strong>使用芯片</strong>：TianJi，Prime</p>
 <p><strong>优化指标</strong>：Crossbar之间的脉冲通信量</p>
-<p><a href="https://www.lishengxie.top/wp-content/uploads/2023/01/3.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/01/3.png" alt="Neutrams提出的工具链层级"></a></p>
+<p><a href="/uploads/2023/01/3.png"><img src="/uploads/2023/01/3.png" alt="Neutrams提出的工具链层级"></a></p>
 <center><b>图 1.</b> NEUTRAMS提出的工具链的层级结构</center>
 <p><strong>实现步骤</strong>：</p>
 <ol>
@@ -164,7 +164,7 @@
 <p>c. 权重量化，将原有的浮点数权重量化为低精度权重，同时使用BP算法微调模型(BP算法中仍然使用浮点数计算)。</p>
 <p>d. 在原有的两层中间插入新的全连接层，对于大小为m和n的两个层之间的连接，插入\(\frac{m+n}{2}\)的全连接层，重新训练后减少准确度的损失。</p>
 <p>e. 对于复杂的神经网络(非顺序连接的/循环的)：对于复杂的神经网络，可以通过图2所示的复制和合并的方式，逐层训练神经元分组之间的突触连接；对于循环神经网络，脉冲神经网络需要将循环连接暂时删除，然后记录循环连接中的信息，将上一时刻信息送入连接后神经元并保存当前时刻连接前神经元送入的信息。
-<a href="https://www.lishengxie.top/wp-content/uploads/2023/01/4.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/01/4.png" alt="复杂神经网络训练"></a></p>
+<a href="/uploads/2023/01/4.png"><img src="/uploads/2023/01/4.png" alt="复杂神经网络训练"></a></p>
 </li>
 </ol>
 <center><b>图 2.</b> 复杂神经网络训练</center>
@@ -265,7 +265,8 @@
 
   <span class="copyright-year">
     &copy; 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
+    2023 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
   </span>
 </div>
 

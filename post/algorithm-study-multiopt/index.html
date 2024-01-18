@@ -170,7 +170,7 @@
 <h4 id="帕累托最优">帕累托最优</h4>
 <p>帕累托最优是指这样一种情况，没有可用的行动或分配可以使一个人过得更好而不会使另一个人过得更糟。多目标优化问题中我们希望找到的就是帕累托最优解，再由决策者决定具体使用那个解。帕累托最优解集指的是所有可行解中的不可支配解集，下面我们将介绍支配和不可支配解集的概念。</p>
 <h4 id="支配和不可支配解集">支配和不可支配解集</h4>
-<p><a href="https://www.lishengxie.top/wp-content/uploads/2023/03/22.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/03/22.png" alt="帕累托前沿"></a>
+<p><a href="/uploads/2023/03/22.png"><img src="/uploads/2023/03/22.png" alt="帕累托前沿"></a>
 当解\(x_1\)和\(x_2\)满足以下两个条件时</p>
 <ul>
 <li>对于所有的目标函数，\(f_i(x_1)\leq f_i(x_2)\)，其中\(1\leq i \leq k\)</li>
@@ -181,7 +181,7 @@
 <p>求解多目标优化问题的方法主要分为两类，一种是将多目标优化问题转换成单目标优化问题，常用的方法是对目标函数值加权求和或保留一个目标函数、其余的目标函数被转化为限定条件。但是由于实际应用中目标函数的函数值范围不好确定，因此转换成单目标优化算法的效果常常不好。实际应用更加广泛的是另一种采用多目标的优化算法。</p>
 <h3 id="多目标粒子群算法mopso">多目标粒子群算法MOPSO</h3>
 <p>多目标粒子群算法最早由Coello等人提出<a href="#refer-anchor"><sup>[1]</sup></a>，算法的大致处理步骤如下所示：
-<a href="https://www.lishengxie.top/wp-content/uploads/2023/03/23.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/03/23.png" alt="MOPSO"></a></p>
+<a href="/uploads/2023/03/23.png"><img src="/uploads/2023/03/23.png" alt="MOPSO"></a></p>
 <p>和粒子群算法不同的是，这里添加了支配关系判断的步骤，同时选择全局最优解以及更新个体最优的步骤和粒子群算法也有所不同。此外，MOPSO还额外维护了精英解和解空间的网格，下面我们将分别加以介绍。</p>
 <p>首先是支配关系的判断，根据第一部分中对于帕累托前沿和支配关系的介绍，我们知道多目标优化问题中解的优劣由支配关系来加以判断。</p>
 <p>每次迭代开始时，我们需要从精英解集合中选择当前的全局最优解，精英解中包含的是不被其他解支配的解的集合，换言之，精英解包含的是目前获取到的帕累托前沿。选择全局最优解的步骤如下：</p>
@@ -195,11 +195,11 @@
 <p>更新完局部最优解之后更新精英解集合，保留当前不被其他解支配的解，同时为了避免精英解过大，可以设置一个阈值来控制精英解集合中的解数目，多余的精英解被随机抛弃。</p>
 <h3 id="多目标遗传算法nsga-ii">多目标遗传算法NSGA-II</h3>
 <p>多目标遗传算法NSGA-II由Deb等人提出<a href="#refer-anchor"><sup>[2]</sup></a>，算法的大致处理步骤如下所示：
-<a href="https://www.lishengxie.top/wp-content/uploads/2023/03/24.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/03/24.png" alt="NSGA-II"></a>
+<a href="/uploads/2023/03/24.png"><img src="/uploads/2023/03/24.png" alt="NSGA-II"></a>
 相较于单目标进化算法添加了快速非支配排序和父代、子代合并操作增加种群多样性，此外从\(rank_i\) 中取出一部分个体有两种方式、一种是拥挤距离排序、另一种是随机选择。下面我们将分别加以介绍。</p>
 <p>对于当前已有的父代解和子代集合，融合两个集合产生当前的解集合，首先执行非支配排序，非支配排序的大致步骤为，先找出解集中的非支配边沿，将这部分的解的\(rank\)置为1；去掉这部分解，继续找出剩下的解集中的非支配边沿，将这部分的解的\(rank\)置为2，重复上述步骤知道遍历完所有的解。实际实现中需要记录每个解支配的解，方便后续的\(rank\)计算，具体可以参考后面的参考代码实现。</p>
 <p>在当前解集合中选取下一轮迭代的父代解集合。需要注意的是对于固定大小的父代解集合，这里依次从\(rank=1\)的解开始加入，知道数量满足要求。最后可能需要从\(rank=i\)的解集合中选取一部分，此时有两种方式，一种是随机选取，一种是根据拥挤度距离排序后选取。拥挤度距离计算的示意图如下，
-<a href="https://www.lishengxie.top/wp-content/uploads/2023/03/25.png"><img src="https://www.lishengxie.top/wp-content/uploads/2023/03/25.png" alt="拥挤度距离"></a>
+<a href="/uploads/2023/03/25.png"><img src="/uploads/2023/03/25.png" alt="拥挤度距离"></a>
 拥挤度距离可以用来衡量当前解周围的解的密度，优先选择拥挤度距离大(解稀疏)的地方可以使得最后求得的帕累托前沿上解分布更均匀。</p>
 <p>对当前的解执行交叉变异操作产生下一轮迭代的子代解，交叉变异操作可以有不同的实现。</p>
 <h3 id="代码实现">代码实现</h3>
@@ -1812,7 +1812,8 @@
 
   <span class="copyright-year">
     &copy; 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
+    2023 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
   </span>
 </div>
 
