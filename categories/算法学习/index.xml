@@ -8,7 +8,16 @@
     <language>en</language>
     <managingEditor>1141751053@qq.com (lishengxie)</managingEditor>
     <webMaster>1141751053@qq.com (lishengxie)</webMaster>
-    <lastBuildDate>Sat, 23 Dec 2023 23:05:16 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Feb 2024 18:48:10 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode刷题 - KMP算法</title>
+      <link>https://lishengxie.github.io/post/leetcode-kmp/</link>
+      <pubDate>Sun, 04 Feb 2024 18:48:10 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/leetcode-kmp/</guid>
+      <description>KMP算法是一种高效的字符串匹配算法，但是之前每次学过之后都会忘记，这次做一下总结加深印象，主要参考了以下链接。 [https://programmercarl.com/0028.%E5%AE%9E%E7%8E%B0strStr.html][https://programmercarl.com/0028.%E5%AE%9E%E7%8E%B0strStr.html] 问题 给定一个字符串$s$(</description>
+    </item>
+    
     <item>
       <title>算法学习-差分数组</title>
       <link>https://lishengxie.github.io/post/differential-array/</link>
