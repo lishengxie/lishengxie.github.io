@@ -8,7 +8,7 @@
     <language>en</language>
     <managingEditor>1141751053@qq.com (lishengxie)</managingEditor>
     <webMaster>1141751053@qq.com (lishengxie)</webMaster>
-    <lastBuildDate>Sun, 04 Feb 2024 18:48:10 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 May 2024 21:48:52 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://lishengxie.github.io/about/</link>
@@ -16,6 +16,15 @@
       <author>1141751053@qq.com (lishengxie)</author>
       <guid>https://lishengxie.github.io/about/</guid>
       <description>This the github pages for lishengxie. 同步备份wordpress站点中的个人博客，wordpress博客网址https://www.lishengxie.top.</description>
+    </item>
+    
+    <item>
+      <title>Nginx禁止使用IP直接访问服务器上相应端口</title>
+      <link>https://lishengxie.github.io/post/nginx-prohibit-ip-request/</link>
+      <pubDate>Sat, 11 May 2024 21:48:52 +0800</pubDate>
+      <author>1141751053@qq.com (lishengxie)</author>
+      <guid>https://lishengxie.github.io/post/nginx-prohibit-ip-request/</guid>
+      <description>起因 我的服务器中部署了一个typecho博客和两个使用docker容器的服务，其中docker容器使用端口映射，将容器中的端口映射到宿主机上</description>
     </item>
     
     <item>
