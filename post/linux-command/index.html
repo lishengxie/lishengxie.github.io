@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
@@ -8,7 +8,7 @@
 
 <meta name="description" content="A personal blog powered by Hugo.">
 <meta name="author" content="Lishengxie">
-<link rel="canonical" href="http://localhost:1313/post/linux-command/">
+<link rel="canonical" href="https://lishengxie.github.io/post/linux-command/">
 
 
 
@@ -62,7 +62,7 @@ mkdir 文件夹名称
 new-item 文件名称.文件格式 -type file
 ">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/post/linux-command/">
+<meta property="og:url" content="https://lishengxie.github.io/post/linux-command/">
 
 
 
@@ -130,7 +130,7 @@ new-item 文件名称.文件格式 -type file
   "headline": "Linux常用命令记录",
   "name": "Linux常用命令记录",
   "description": "\u003ch3 id=\u0022vim\u0022\u003eVim\u003c\/h3\u003e\n\u003cp\u003e\u003cstrong\u003evim删除文件中的所有内容\u003c\/strong\u003e： ESC确保退出编辑模式，按下\u0026quot;:\u0026ldquo;切换到命令模式然后输入%d并执行\n\u003cstrong\u003evim删除单行内容\u003c\/strong\u003e：将光标移动到需要删除的行，ESC确保退出编辑模式，按两次d键。\n\u003cstrong\u003evim删除多行内容\u003c\/strong\u003e：将光标移动到需要删除的第一行，ESC确保退出编辑模式。在dd命令前面加上要删除的行数。例如，如果要删除第4行以下的3行，请先移动至第四行，再按下3dd。\n\u003cstrong\u003evim撤销\u0026amp;恢复\u003c\/strong\u003e：u是撤销刚才做的动作，ctrl\u002br 是恢复刚才撤销的动作。\u003c\/p\u003e\n\u003ch3 id=\u0022文件操作\u0022\u003e文件操作\u003c\/h3\u003e\n\u003cp\u003e参考博客\u003ca href=\u0022https:\/\/www.cnblogs.com\/liaojie970\/p\/6746230.html\u0022\u003ehttps:\/\/www.cnblogs.com\/liaojie970\/p\/6746230.html\u003c\/a\u003e\u003c\/p\u003e\n\u003ch4 id=\u0022文件复制\u0022\u003e文件复制\u003c\/h4\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e命令格式：cp \u003cspan style=\u0022color:#f92672\u0022\u003e[\u003c\/span\u003e-adfilprsu\u003cspan style=\u0022color:#f92672\u0022\u003e]\u003c\/span\u003e 源文件\u003cspan style=\u0022color:#f92672\u0022\u003e(\u003c\/span\u003esource\u003cspan style=\u0022color:#f92672\u0022\u003e)\u003c\/span\u003e 目标文件\u003cspan style=\u0022color:#f92672\u0022\u003e(\u003c\/span\u003edestination\u003cspan style=\u0022color:#f92672\u0022\u003e)\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ecp \u003cspan style=\u0022color:#f92672\u0022\u003e[\u003c\/span\u003eoption\u003cspan style=\u0022color:#f92672\u0022\u003e]\u003c\/span\u003e source1 source2 source3 ... directory\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e参数说明：\u003c\/p\u003e\n\u003cpre tabindex=\u00220\u0022\u003e\u003ccode\u003e-a:是指archive的意思，也说是指复制所有的目录\n-d:若源文件为连接文件(link file)，则复制连接文件属性而非文件本身\n-f:强制(force)，若有重复或其它疑问时，不会询问用户，而强制复制\n-i:若目标文件(destination)已存在，在覆盖时会先询问是否真的操作\n-l:建立硬连接(hard link)的连接文件，而非复制文件本身\n-p:与文件的属性一起复制，而非使用默认属性\n-r:递归复制，用于目录的复制操作\n-s:复制成符号连接文件(symbolic link)，即“快捷方式”文件\n-u:若目标文件比源文件旧，更新目标文件 \n\u003c\/code\u003e\u003c\/pre\u003e\u003cp\u003e如将\/test1目录下的file1复制到\/test3目录，并将文件名改为file2,可输入以下命令：\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ecp \/test1\/file1 \/test3\/file2\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003ch4 id=\u0022文件移动\u0022\u003e文件移动\u003c\/h4\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e命令格式：mv \u003cspan style=\u0022color:#f92672\u0022\u003e[\u003c\/span\u003e-fiv\u003cspan style=\u0022color:#f92672\u0022\u003e]\u003c\/span\u003e source destination\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e参数说明:\u003c\/p\u003e\n\u003cpre tabindex=\u00220\u0022\u003e\u003ccode\u003e-f:force，强制直接移动而不询问\n-i:若目标文件(destination)已经存在，就会询问是否覆盖\n-u:若目标文件已经存在，且源文件比较新，才会更新\n\u003c\/code\u003e\u003c\/pre\u003e\u003cp\u003e如将\/test1目录下的file1移动到\/test3 目录，并将文件名改为file2,可输入以下命令：\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003emv \/test1\/file1 \/test3\/file2\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003ch4 id=\u0022文件删除\u0022\u003e文件删除\u003c\/h4\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e命令格式：rm \u003cspan style=\u0022color:#f92672\u0022\u003e[\u003c\/span\u003efir\u003cspan style=\u0022color:#f92672\u0022\u003e]\u003c\/span\u003e 文件或目录\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e参数说明：\u003c\/p\u003e\n\u003cpre tabindex=\u00220\u0022\u003e\u003ccode\u003e-f:强制删除\n-i:交互模式，在删除前询问用户是否操作\n-r:递归删除，常用在目录的删除\n\u003c\/code\u003e\u003c\/pre\u003e\u003cp\u003e如删除\/test目录下的file1文件，可以输入以下命令：\u003c\/p\u003e\n\u003cpre tabindex=\u00220\u0022\u003e\u003ccode\u003erm -i \/test\/file1\n\u003c\/code\u003e\u003c\/pre\u003e\u003ch3 id=\u0022windows-常用命令\u0022\u003eWindows 常用命令\u003c\/h3\u003e\n\u003cp\u003e\u003cstrong\u003ePowerShell创建新文件夹和新文件\u003c\/strong\u003e\u003c\/p\u003e\n\u003cpre tabindex=\u00220\u0022\u003e\u003ccode\u003emkdir 文件夹名称\nnew-item 文件名称.文件格式 -type file\n\u003c\/code\u003e\u003c\/pre\u003e",
-  "url": "http:\/\/localhost:1313\/post\/linux-command\/",
+  "url": "https:\/\/lishengxie.github.io\/post\/linux-command\/",
   
   "datePublished": "2023-04-30T08:47:32\u002b08:00",
   "dateModified": "2023-04-30T08:47:32\u002b08:00",
@@ -141,14 +141,14 @@ new-item 文件名称.文件格式 -type file
   
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http:\/\/localhost:1313\/post\/linux-command\/"
+    "@id": "https:\/\/lishengxie.github.io\/post\/linux-command\/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Lishengxie",
     "logo": {
       "@type": "ImageObject",
-      "url": "http:\/\/localhost:1313\/apple-touch-icon.png"
+      "url": "https:\/\/lishengxie.github.io\/apple-touch-icon.png"
     }
   }
 }
@@ -226,7 +226,7 @@ new-item 文件名称.文件格式 -type file
         </ul>
       </div>
       <div class="nav-utils">
-        <a href="http://localhost:1313/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
+        <a href="https://lishengxie.github.io/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
         </a>
         

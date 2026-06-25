@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
@@ -8,7 +8,7 @@
 
 <meta name="description" content="A personal blog powered by Hugo.">
 <meta name="author" content="Lishengxie">
-<link rel="canonical" href="http://localhost:1313/post/cloud-server-software-install/">
+<link rel="canonical" href="https://lishengxie.github.io/post/cloud-server-software-install/">
 
 
 
@@ -50,7 +50,7 @@ sudo systemctl status docker
 docker container run hello-world
 Golang安装：参考腾讯云博客">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/post/cloud-server-software-install/">
+<meta property="og:url" content="https://lishengxie.github.io/post/cloud-server-software-install/">
 
 
 
@@ -106,7 +106,7 @@ Golang安装：参考腾讯云博客">
   "headline": "云服务器软件安装",
   "name": "云服务器软件安装",
   "description": "\u003cp\u003e\u003cstrong\u003eDocker安装(Ubuntu 20.04)\u003c\/strong\u003e：参考\u003ca href=\u0022https:\/\/zhuanlan.zhihu.com\/p\/143156163\u0022\u003e知乎博客\u003c\/a\u003e\u003c\/p\u003e\n\u003col\u003e\n\u003cli\u003e更新软件包索引，并且安装必要的依赖软件\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cpre tabindex=\u00220\u0022\u003e\u003ccode\u003esudo apt update\nsudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common\n\u003c\/code\u003e\u003c\/pre\u003e\u003col start=\u00222\u0022\u003e\n\u003cli\u003e使用下面的 curl 导入源仓库的 GPG key：\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cpre tabindex=\u00220\u0022\u003e\u003ccode\u003ecurl -fsSL https:\/\/download.docker.com\/linux\/ubuntu\/gpg | sudo apt-key add -\n\u003c\/code\u003e\u003c\/pre\u003e\u003col start=\u00223\u0022\u003e\n\u003cli\u003e将 Docker APT 软件源添加到你的系统：\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cpre tabindex=\u00220\u0022\u003e\u003ccode\u003esudo add-apt-repository \u0026#34;deb [arch=amd64] https:\/\/download.docker.com\/linux\/ubuntu $(lsb_release -cs) stable\u0026#34;\n\u003c\/code\u003e\u003c\/pre\u003e\u003col start=\u00224\u0022\u003e\n\u003cli\u003e安装Docker\na. 安装最新版本的Docker\n\u003cpre tabindex=\u00220\u0022\u003e\u003ccode\u003esudo apt update\nsudo apt install docker-ce docker-ce-cli containerd.io\n\u003c\/code\u003e\u003c\/pre\u003eb. 安装指定版本的docker\n\u003cpre tabindex=\u00220\u0022\u003e\u003ccode\u003e# 列出所有可用的docker版本\nsudo apt update\napt list -a docker-ce\n# 安装docker\nsudo apt install docker-ce=\u0026lt;VERSION\u0026gt; docker-ce-cli=\u0026lt;VERSION\u0026gt; containerd.io\n\u003c\/code\u003e\u003c\/pre\u003e\u003c\/li\u003e\n\u003cli\u003e验证安装成功\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cpre tabindex=\u00220\u0022\u003e\u003ccode\u003esudo systemctl status docker\ndocker container run hello-world\n\u003c\/code\u003e\u003c\/pre\u003e\u003cp\u003e\u003cstrong\u003eGolang安装\u003c\/strong\u003e：参考\u003ca href=\u0022https:\/\/cloud.tencent.com\/developer\/article\/1623121\u0022\u003e腾讯云博客\u003c\/a\u003e\u003c\/p\u003e",
-  "url": "http:\/\/localhost:1313\/post\/cloud-server-software-install\/",
+  "url": "https:\/\/lishengxie.github.io\/post\/cloud-server-software-install\/",
   
   "datePublished": "2023-04-30T08:51:16\u002b08:00",
   "dateModified": "2023-04-30T08:51:16\u002b08:00",
@@ -117,14 +117,14 @@ Golang安装：参考腾讯云博客">
   
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http:\/\/localhost:1313\/post\/cloud-server-software-install\/"
+    "@id": "https:\/\/lishengxie.github.io\/post\/cloud-server-software-install\/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Lishengxie",
     "logo": {
       "@type": "ImageObject",
-      "url": "http:\/\/localhost:1313\/apple-touch-icon.png"
+      "url": "https:\/\/lishengxie.github.io\/apple-touch-icon.png"
     }
   }
 }
@@ -202,7 +202,7 @@ Golang安装：参考腾讯云博客">
         </ul>
       </div>
       <div class="nav-utils">
-        <a href="http://localhost:1313/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
+        <a href="https://lishengxie.github.io/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
         </a>
         

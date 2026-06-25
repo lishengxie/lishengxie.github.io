@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
@@ -8,7 +8,7 @@
 
 <meta name="description" content="A personal blog powered by Hugo.">
 <meta name="author" content="Lishengxie">
-<link rel="canonical" href="http://localhost:1313/post/transfer-server/">
+<link rel="canonical" href="https://lishengxie.github.io/post/transfer-server/">
 
 
 
@@ -65,7 +65,7 @@ leanote: https://www.bilibili.com/read/cv23693842/
 站点备案迁移
 为了方便使用，计划将域名和服务器都转移到阿里云。因为服务器需要在所在服务商处备案，因此还需要再阿里云备案，主要参考了这篇博客：https://www.zuozuovera.com/posts/1644/。">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/post/transfer-server/">
+<meta property="og:url" content="https://lishengxie.github.io/post/transfer-server/">
 
 
 
@@ -136,7 +136,7 @@ leanote: https://www.bilibili.com/read/cv23693842/
   "headline": "Transfer Server",
   "name": "Transfer Server",
   "description": "\u003ch2 id=\u0022站点迁移\u0022\u003e站点迁移\u003c\/h2\u003e\n\u003cp\u003e之前使用的是云服务器是腾讯与的2核4G服务器，但是由于最开始购买时只买了一年，续费时价格太贵，因此转到阿里云，可以有四年每年99元的2核2G服务器可以白嫖~\u003c\/p\u003e\n\u003cp\u003e迁移过程大概分为两步：站点数据迁移和站点备案迁移\u003c\/p\u003e\n\u003ch3 id=\u0022数据迁移\u0022\u003e数据迁移\u003c\/h3\u003e\n\u003ch4 id=\u0022博客迁移wordpress-typecho\u0022\u003e博客迁移wordpress-\u0026gt;typecho\u003c\/h4\u003e\n\u003cp\u003e原来的博客使用wordpress框架，但是wordpress框架功能齐全、有些臃肿，因此这里换成了更精简的typecho框架。\u003c\/p\u003e\n\u003col\u003e\n\u003cli\u003etypecho安装\n参考了知乎博客\u003ca href=\u0022https:\/\/zhuanlan.zhihu.com\/p\/34211709\u0022\u003ehttps:\/\/zhuanlan.zhihu.com\/p\/34211709\u003c\/a\u003e；\u003c\/li\u003e\n\u003cli\u003e导出wordpress数据库并在新服务器中导入\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cul\u003e\n\u003cli\u003emysql导入导出命令参考: \u003ca href=\u0022https:\/\/www.runoob.com\/w3cnote\/linux-mysql-import-export-data.html\u0022\u003ehttps:\/\/www.runoob.com\/w3cnote\/linux-mysql-import-export-data.html\u003c\/a\u003e；\u003c\/li\u003e\n\u003cli\u003e先将原服务器上的wordpress数据库导出为*.sql文件，再导入到新服务器中；\u003c\/li\u003e\n\u003cli\u003e这一步是为了方便下一步转换到typecho，因为这样可以直接访问本地数据库。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003col start=\u00223\u0022\u003e\n\u003cli\u003e数据迁移到typecho\n基于typecho插件：\u003ca href=\u0022https:\/\/docs.typecho.org\/plugins\/wordpress-to-typecho\u0022\u003ehttps:\/\/docs.typecho.org\/plugins\/wordpress-to-typecho\u003c\/a\u003e\u003c\/li\u003e\n\u003cli\u003e还原wordpress中的图片附件到typecho中\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cul\u003e\n\u003cli\u003e将WordPress的wp-content\/uploads目录下的附件全部移动到Typecho的usr\/uploads目录下，保持目录结构不变。\u003c\/li\u003e\n\u003cli\u003e在mysql typecho对应数据库中执行以下代码以完成图片路径的替换：\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003cpre tabindex=\u00220\u0022\u003e\u003ccode\u003e update typecho_contents set text=replace(text,\u0026#39;wp-content\/uploads\u0026#39;,\u0026#39;usr\/uploads\u0026#39;)\n update typecho_contents set text=replace(text,\u0026#39;wordpree站点url\u0026#39;,\u0026#39;typecho站点url\u0026#39;)\n\u003c\/code\u003e\u003c\/pre\u003e\u003col start=\u00225\u0022\u003e\n\u003cli\u003e\n\u003cp\u003etypecho使用数学公式\n使用插件：\u003ca href=\u0022https:\/\/github.com\/yuzhongzhibi\/typecho_mathjax_plugin\u0022\u003ehttps:\/\/github.com\/yuzhongzhibi\/typecho_mathjax_plugin\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/li\u003e\n\u003cli\u003e\n\u003cp\u003etypecho主题页面更改\n参考链接：\u003ca href=\u0022https:\/\/www.skyqian.com\/archives\/typecho-pages.html\u0022\u003ehttps:\/\/www.skyqian.com\/archives\/typecho-pages.html\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003ch4 id=\u0022docker容器迁移\u0022\u003edocker容器迁移\u003c\/h4\u003e\n\u003cp\u003e做法是现在新服务器上安装docker，然后迁移旧服务器上的docker挂载文件夹到新服务器相同位置，最后在新服务器启动容器。参考链接：\u003ca href=\u0022https:\/\/zhuanlan.zhihu.com\/p\/643367054\u0022\u003ehttps:\/\/zhuanlan.zhihu.com\/p\/643367054\u003c\/a\u003e\n这里我主要使用了两个容器用于存储电子书和笔记\u003c\/p\u003e\n\u003col\u003e\n\u003cli\u003eTalebook：\u003ca href=\u0022https:\/\/github.com\/talebook\/talebook\u0022\u003ehttps:\/\/github.com\/talebook\/talebook\u003c\/a\u003e\u003c\/li\u003e\n\u003cli\u003eleanote: \u003ca href=\u0022https:\/\/www.bilibili.com\/read\/cv23693842\/\u0022\u003ehttps:\/\/www.bilibili.com\/read\/cv23693842\/\u003c\/a\u003e\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003ch3 id=\u0022站点备案迁移\u0022\u003e站点备案迁移\u003c\/h3\u003e\n\u003cp\u003e为了方便使用，计划将域名和服务器都转移到阿里云。因为服务器需要在所在服务商处备案，因此还需要再阿里云备案，主要参考了这篇博客：\u003ca href=\u0022https:\/\/www.zuozuovera.com\/posts\/1644\/\u0022\u003ehttps:\/\/www.zuozuovera.com\/posts\/1644\/\u003c\/a\u003e。\u003c\/p\u003e",
-  "url": "http:\/\/localhost:1313\/post\/transfer-server\/",
+  "url": "https:\/\/lishengxie.github.io\/post\/transfer-server\/",
   
   "datePublished": "2023-12-23T23:17:56\u002b08:00",
   "dateModified": "2023-12-23T23:17:56\u002b08:00",
@@ -147,14 +147,14 @@ leanote: https://www.bilibili.com/read/cv23693842/
   
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http:\/\/localhost:1313\/post\/transfer-server\/"
+    "@id": "https:\/\/lishengxie.github.io\/post\/transfer-server\/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Lishengxie",
     "logo": {
       "@type": "ImageObject",
-      "url": "http:\/\/localhost:1313\/apple-touch-icon.png"
+      "url": "https:\/\/lishengxie.github.io\/apple-touch-icon.png"
     }
   }
 }
@@ -232,7 +232,7 @@ leanote: https://www.bilibili.com/read/cv23693842/
         </ul>
       </div>
       <div class="nav-utils">
-        <a href="http://localhost:1313/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
+        <a href="https://lishengxie.github.io/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
         </a>
         

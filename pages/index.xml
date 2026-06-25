@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Pages on Lishengxie</title>
-		<link>http://localhost:1313/pages/</link>
+		<link>https://lishengxie.github.io/pages/</link>
 		<description>Recent content in Pages on Lishengxie</description>
 		<generator>Hugo</generator>
 		<language>en-us</language>
@@ -12,19 +12,19 @@
 		
 			<lastBuildDate>Sun, 30 Apr 2023 08:15:52 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:1313/pages/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="https://lishengxie.github.io/pages/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>About</title>
-				<link>http://localhost:1313/pages/about/</link>
+				<link>https://lishengxie.github.io/pages/about/</link>
 				<pubDate>Sun, 30 Apr 2023 08:15:52 +0800</pubDate>
-				<guid>http://localhost:1313/pages/about/</guid>
+				<guid>https://lishengxie.github.io/pages/about/</guid>
 				<description>&lt;p&gt;This the github pages for lishengxie.&lt;/p&gt;&#xA;&lt;p&gt;同步备份wordpress站点中的个人博客，wordpress博客网址&lt;a href=&#34;https://www.lishengxie.top&#34;&gt;https://www.lishengxie.top&lt;/a&gt;.&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>Contact</title>
-				<link>http://localhost:1313/pages/contact/</link>
+				<link>https://lishengxie.github.io/pages/contact/</link>
 				<pubDate>Sun, 30 Apr 2023 08:15:52 +0800</pubDate>
-				<guid>http://localhost:1313/pages/contact/</guid>
+				<guid>https://lishengxie.github.io/pages/contact/</guid>
 				<description>&lt;p&gt;You can reach me through my WordPress blog: &lt;a href=&#34;https://www.lishengxie.top&#34;&gt;https://www.lishengxie.top&lt;/a&gt;.&lt;/p&gt;</description>
 			</item>
 	</channel>
