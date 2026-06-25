@@ -31,10 +31,7 @@ Let&rsquo;s Encrypt 证书颁发
 Let’s Encrypt 是一个免费的、自动化的、开放的证书颁发机构（CA），提供免费 SSL 证书。它的目标是让所有网站都能轻松实现 HTTPS 加密，保障用户数据的安全。通过 Let’s Encrypt 可以为网站的主域名、子域名，甚至泛域名配置安全证书，而且过程完全自动化，不需要手动申请和管理证书，官方推荐使用 Certbot。
 Certbot 安装
 Linux 平台上可以使用 snap 或 pip 安装 Certbot，这里使用 Python &#43; pip 的方式，参考安装流程。
-1、首先安装 Python 环境。
-sudo apt update
-sudo apt install python3 python3-dev python3-venv libaugeas-dev gcc
-2、移除旧版本的 Certbot 工具。">
+1、首先安装 Python 环境。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://lishengxie.github.io/post/lets-encrypt-ssl/">
 
@@ -66,10 +63,7 @@ Let&rsquo;s Encrypt 证书颁发
 Let’s Encrypt 是一个免费的、自动化的、开放的证书颁发机构（CA），提供免费 SSL 证书。它的目标是让所有网站都能轻松实现 HTTPS 加密，保障用户数据的安全。通过 Let’s Encrypt 可以为网站的主域名、子域名，甚至泛域名配置安全证书，而且过程完全自动化，不需要手动申请和管理证书，官方推荐使用 Certbot。
 Certbot 安装
 Linux 平台上可以使用 snap 或 pip 安装 Certbot，这里使用 Python &#43; pip 的方式，参考安装流程。
-1、首先安装 Python 环境。
-sudo apt update
-sudo apt install python3 python3-dev python3-venv libaugeas-dev gcc
-2、移除旧版本的 Certbot 工具。">
+1、首先安装 Python 环境。">
 
 <script type="application/ld+json">
 {
@@ -77,7 +71,7 @@ sudo apt install python3 python3-dev python3-venv libaugeas-dev gcc
   "@type": "BlogPosting",
   "headline": "Let\u0027s Encrypt 免费申请 SSL 证书，并实现自动续期",
   "name": "Let\u0027s Encrypt 免费申请 SSL 证书，并实现自动续期",
-  "description": "\u003ch2 id=\u0022背景\u0022\u003e背景\u003c\/h2\u003e\n\u003cp\u003e对于公网可以访问的网站，使用 HTTPS 协议是保证安全访问的基础要求，而 SSL 证书又是 HTTPS 协议不可或缺的一环。SSL 证书需要 CA 机构颁发，当前使用了阿里云的个人测试证书（免费证书），申请后上传到服务器并更新 nginx 配置。\u003c\/p\u003e\n\u003cp\u003e当前存在的问题是，阿里云的免费 SSL 证书每三个月过期一次，需要手动重新申请并部署到服务器上，流程比较复杂。在网上看到可以使用 Let\u0026rsquo;s Encrypt 免费申请 SSL 证书，并实现自动续期，于是做了尝试，这里记录下相关流程。\u003c\/p\u003e\n\u003ch2 id=\u0022环境准备\u0022\u003e环境准备\u003c\/h2\u003e\n\u003cul\u003e\n\u003cli\u003e一台可以访问公网的服务器，我使用的是 Linux\/Ubuntu。\u003c\/li\u003e\n\u003cli\u003eroot 权限或者 sudo 权限。\u003c\/li\u003e\n\u003cli\u003e存在 DNS 解析的域名。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003ch2 id=\u0022lets-encrypt-证书颁发\u0022\u003eLet\u0026rsquo;s Encrypt 证书颁发\u003c\/h2\u003e\n\u003cp\u003eLet’s Encrypt 是一个免费的、自动化的、开放的证书颁发机构（CA），提供免费 SSL 证书。它的目标是让所有网站都能轻松实现 HTTPS 加密，保障用户数据的安全。通过 Let’s Encrypt 可以为网站的主域名、子域名，甚至泛域名配置安全证书，而且过程完全自动化，不需要手动申请和管理证书，官方推荐使用 \u003ca href=\u0022https:\/\/certbot.eff.org\/\u0022\u003eCertbot\u003c\/a\u003e。\u003c\/p\u003e\n\u003ch3 id=\u0022certbot-安装\u0022\u003eCertbot 安装\u003c\/h3\u003e\n\u003cp\u003eLinux 平台上可以使用 snap 或 pip 安装 Certbot，这里使用 Python \u002b pip 的方式，参考\u003ca href=\u0022https:\/\/certbot.eff.org\/instructions?ws=nginx\u0026amp;os=pip\u0022\u003e安装流程\u003c\/a\u003e。\u003c\/p\u003e\n\u003cp\u003e1、首先安装 Python 环境。\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003esudo apt update\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003esudo apt install python3 python3-dev python3-venv libaugeas-dev gcc\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e2、移除旧版本的 Certbot 工具。\u003c\/p\u003e",
+  "description": "\u003ch2 id=\u0022背景\u0022\u003e背景\u003c\/h2\u003e\n\u003cp\u003e对于公网可以访问的网站，使用 HTTPS 协议是保证安全访问的基础要求，而 SSL 证书又是 HTTPS 协议不可或缺的一环。SSL 证书需要 CA 机构颁发，当前使用了阿里云的个人测试证书（免费证书），申请后上传到服务器并更新 nginx 配置。\u003c\/p\u003e\n\u003cp\u003e当前存在的问题是，阿里云的免费 SSL 证书每三个月过期一次，需要手动重新申请并部署到服务器上，流程比较复杂。在网上看到可以使用 Let\u0026rsquo;s Encrypt 免费申请 SSL 证书，并实现自动续期，于是做了尝试，这里记录下相关流程。\u003c\/p\u003e\n\u003ch2 id=\u0022环境准备\u0022\u003e环境准备\u003c\/h2\u003e\n\u003cul\u003e\n\u003cli\u003e一台可以访问公网的服务器，我使用的是 Linux\/Ubuntu。\u003c\/li\u003e\n\u003cli\u003eroot 权限或者 sudo 权限。\u003c\/li\u003e\n\u003cli\u003e存在 DNS 解析的域名。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003ch2 id=\u0022lets-encrypt-证书颁发\u0022\u003eLet\u0026rsquo;s Encrypt 证书颁发\u003c\/h2\u003e\n\u003cp\u003eLet’s Encrypt 是一个免费的、自动化的、开放的证书颁发机构（CA），提供免费 SSL 证书。它的目标是让所有网站都能轻松实现 HTTPS 加密，保障用户数据的安全。通过 Let’s Encrypt 可以为网站的主域名、子域名，甚至泛域名配置安全证书，而且过程完全自动化，不需要手动申请和管理证书，官方推荐使用 \u003ca href=\u0022https:\/\/certbot.eff.org\/\u0022\u003eCertbot\u003c\/a\u003e。\u003c\/p\u003e\n\u003ch3 id=\u0022certbot-安装\u0022\u003eCertbot 安装\u003c\/h3\u003e\n\u003cp\u003eLinux 平台上可以使用 snap 或 pip 安装 Certbot，这里使用 Python \u002b pip 的方式，参考\u003ca href=\u0022https:\/\/certbot.eff.org\/instructions?ws=nginx\u0026amp;os=pip\u0022\u003e安装流程\u003c\/a\u003e。\u003c\/p\u003e\n\u003cp\u003e1、首先安装 Python 环境。\u003c\/p\u003e",
   "url": "https:\/\/lishengxie.github.io\/post\/lets-encrypt-ssl\/",
   
   "datePublished": "2025-09-14T21:58:04\u002b08:00",
@@ -114,7 +108,7 @@ sudo apt install python3 python3-dev python3-venv libaugeas-dev gcc
 
 
 
-<link rel="stylesheet" href="/css/style.444aa50704e4c1bf29dab952f95176e6eb7656beb818e5c84b386bf5e78f3225.css" integrity="">
+<link rel="stylesheet" href="/css/style.88502f31cafe1951e4c79187c358a993ad3d9dc0d6a5d48e71530b8ea4115d2f.css" integrity="">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
@@ -146,8 +140,6 @@ sudo apt install python3 python3-dev python3-venv libaugeas-dev gcc
         
         <span class="site-title">Lishengxie</span>
       </a>
-      
-        <p class="site-tagline">同步备份自 https://www.lishengxie.top</p>
       
     </div>
     <button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">
@@ -501,8 +493,17 @@ sudo apt install python3 python3-dev python3-venv libaugeas-dev gcc
   <div class="container">
     
     
-    <div class="copyright">
-      Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/yogirk/explore" target="_blank" rel="noopener">Explore Theme</a>.
+    <div class="footer-info" style="text-align:center;">
+      <div style="white-space:nowrap;">
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">皖ICP备2023003716号-1</a>
+        <span style="margin:0 6px;">|</span>
+        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34012202341113" target="_blank" rel="noopener"><img src="/uploads/2023/04/beian.png" alt="公安备案" style="vertical-align:middle;margin-right:3px;display:inline;">皖公网安备34012202341113</a>
+        <span style="margin:0 6px;">|</span>
+        违法和不良信息举报邮箱：<a href="mailto:1141751053@qq.com">1141751053@qq.com</a>
+      </div>
+      <div style="white-space:nowrap;">
+        Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/yogirk/explore" target="_blank" rel="noopener">Explore Theme</a>.
+      </div>
     </div>
   </div>
 </footer>

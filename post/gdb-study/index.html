@@ -49,16 +49,7 @@ $ file main
 无参数程序
 $ gdb main
 (gdb) run
-输入run命令即可运行程序。
-有参数程序
-$ gdb main
-# world对应参数
-(gdb) run world
-# 使用set args
-(gdb) set args world
-(gdb) run
-结束调试
-使用quit指令。">
+输入run命令即可运行程序。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://lishengxie.github.io/post/gdb-study/">
 
@@ -108,16 +99,7 @@ $ file main
 无参数程序
 $ gdb main
 (gdb) run
-输入run命令即可运行程序。
-有参数程序
-$ gdb main
-# world对应参数
-(gdb) run world
-# 使用set args
-(gdb) set args world
-(gdb) run
-结束调试
-使用quit指令。">
+输入run命令即可运行程序。">
 
 <script type="application/ld+json">
 {
@@ -125,7 +107,7 @@ $ gdb main
   "@type": "BlogPosting",
   "headline": "Gdb调试学习",
   "name": "Gdb调试学习",
-  "description": "\u003ch2 id=\u0022前言\u0022\u003e前言\u003c\/h2\u003e\n\u003cp\u003e使用linux进行systemc的开发时经常出现core dump的文件，对于较大的项目vscode无法很快地进行debug，clion对makefile的支持不是很好，此时想到使用gdb进行调试并学习了一些基本的操作。以下的内容主要参考这篇博客和gdb debug的参考文档。\u003c\/p\u003e\n\u003cp\u003e参考资料：\u003c\/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003ca href=\u0022https:\/\/www.yanbinghu.com\/2019\/04\/20\/41283.html\u0022\u003ehttps:\/\/www.yanbinghu.com\/2019\/04\/20\/41283.html\u003c\/a\u003e\u003c\/li\u003e\n\u003cli\u003e\u003ca href=\u0022https:\/\/www.eecs.umich.edu\/courses\/eecs373\/readings\/Debugger.pdf\u0022\u003eDebugging with GDB\u003c\/a\u003e\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003ch2 id=\u0022启动调试\u0022\u003e启动调试\u003c\/h2\u003e\n\u003cp\u003eGDB需要一个带有调试信息的可执行文件进行调试，因此编译过程中出现的错误无法使用GDB进行排除。通常对于C或者C\u002b\u002b程序来说，在编译时加上\u003ccode\u003e-g\u003c\/code\u003e参数可以保留调试信息，否则不能使用GDB进行调试。使用cmake时，可以在\u003ccode\u003eCMakeLists.txt\u003c\/code\u003e文件中添加以下指令以支持GDB调试。\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-cmake\u0022 data-lang=\u0022cmake\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eSET(\u003cspan style=\u0022color:#e6db74\u0022\u003eCMAKE_BUILD_TYPE\u003c\/span\u003e \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Debug\u0026#34;\u003c\/span\u003e)\u003cspan style=\u0022color:#960050;background-color:#1e0010\u0022\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eSET(\u003cspan style=\u0022color:#e6db74\u0022\u003eCMAKE_CXX_FLAGS_DEBUG\u003c\/span\u003e \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb\u0026#34;\u003c\/span\u003e)\u003cspan style=\u0022color:#960050;background-color:#1e0010\u0022\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eSET(\u003cspan style=\u0022color:#e6db74\u0022\u003eCMAKE_CXX_FLAGS_RELEASE\u003c\/span\u003e \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;$ENV{CXXFLAGS} -O3 -Wall\u0026#34;\u003c\/span\u003e)\u003cspan style=\u0022color:#960050;background-color:#1e0010\u0022\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e如果程序不是自己编译的，那么如何判断文件中是否带有调试信息呢，这篇\u003ca href=\u0022https:\/\/www.yanbinghu.com\/2019\/04\/20\/41283.html\u0022\u003e博客\u003c\/a\u003e中给出了几种调试的方法。\u003c\/p\u003e\n\u003col\u003e\n\u003cli\u003e使用gdb\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e$ gdb main\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eReading symbols from main...\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e如果提示no debugging symbols found, 那么不可以使用gdb调试该可执行文件。\n2. readelf\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e# main是可执行文件名称\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e$ readelf -S main | grep debug\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003col start=\u00223\u0022\u003e\n\u003cli\u003efile查看strip状况\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e$ file main\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e如果输出内容为xxx stripped, 那么说明该文件的调试信息已经被去除，不能使用gdb调试。但是not stripped的情况不能说明该文件可以被调试。\u003c\/p\u003e\n\u003ch2 id=\u0022启动调试-1\u0022\u003e启动调试\u003c\/h2\u003e\n\u003ch3 id=\u0022无参数程序\u0022\u003e无参数程序\u003c\/h3\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e$ gdb main\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e(\u003c\/span\u003egdb\u003cspan style=\u0022color:#f92672\u0022\u003e)\u003c\/span\u003e run\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e输入run命令即可运行程序。\u003c\/p\u003e\n\u003ch3 id=\u0022有参数程序\u0022\u003e有参数程序\u003c\/h3\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e$ gdb main\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e# world对应参数\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e(\u003c\/span\u003egdb\u003cspan style=\u0022color:#f92672\u0022\u003e)\u003c\/span\u003e run world\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e# 使用set args\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e(\u003c\/span\u003egdb\u003cspan style=\u0022color:#f92672\u0022\u003e)\u003c\/span\u003e set args world\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e(\u003c\/span\u003egdb\u003cspan style=\u0022color:#f92672\u0022\u003e)\u003c\/span\u003e run\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003ch2 id=\u0022结束调试\u0022\u003e结束调试\u003c\/h2\u003e\n\u003cp\u003e使用\u003ccode\u003equit\u003c\/code\u003e指令。\u003c\/p\u003e",
+  "description": "\u003ch2 id=\u0022前言\u0022\u003e前言\u003c\/h2\u003e\n\u003cp\u003e使用linux进行systemc的开发时经常出现core dump的文件，对于较大的项目vscode无法很快地进行debug，clion对makefile的支持不是很好，此时想到使用gdb进行调试并学习了一些基本的操作。以下的内容主要参考这篇博客和gdb debug的参考文档。\u003c\/p\u003e\n\u003cp\u003e参考资料：\u003c\/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003ca href=\u0022https:\/\/www.yanbinghu.com\/2019\/04\/20\/41283.html\u0022\u003ehttps:\/\/www.yanbinghu.com\/2019\/04\/20\/41283.html\u003c\/a\u003e\u003c\/li\u003e\n\u003cli\u003e\u003ca href=\u0022https:\/\/www.eecs.umich.edu\/courses\/eecs373\/readings\/Debugger.pdf\u0022\u003eDebugging with GDB\u003c\/a\u003e\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003ch2 id=\u0022启动调试\u0022\u003e启动调试\u003c\/h2\u003e\n\u003cp\u003eGDB需要一个带有调试信息的可执行文件进行调试，因此编译过程中出现的错误无法使用GDB进行排除。通常对于C或者C\u002b\u002b程序来说，在编译时加上\u003ccode\u003e-g\u003c\/code\u003e参数可以保留调试信息，否则不能使用GDB进行调试。使用cmake时，可以在\u003ccode\u003eCMakeLists.txt\u003c\/code\u003e文件中添加以下指令以支持GDB调试。\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-cmake\u0022 data-lang=\u0022cmake\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eSET(\u003cspan style=\u0022color:#e6db74\u0022\u003eCMAKE_BUILD_TYPE\u003c\/span\u003e \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Debug\u0026#34;\u003c\/span\u003e)\u003cspan style=\u0022color:#960050;background-color:#1e0010\u0022\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eSET(\u003cspan style=\u0022color:#e6db74\u0022\u003eCMAKE_CXX_FLAGS_DEBUG\u003c\/span\u003e \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb\u0026#34;\u003c\/span\u003e)\u003cspan style=\u0022color:#960050;background-color:#1e0010\u0022\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eSET(\u003cspan style=\u0022color:#e6db74\u0022\u003eCMAKE_CXX_FLAGS_RELEASE\u003c\/span\u003e \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;$ENV{CXXFLAGS} -O3 -Wall\u0026#34;\u003c\/span\u003e)\u003cspan style=\u0022color:#960050;background-color:#1e0010\u0022\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e如果程序不是自己编译的，那么如何判断文件中是否带有调试信息呢，这篇\u003ca href=\u0022https:\/\/www.yanbinghu.com\/2019\/04\/20\/41283.html\u0022\u003e博客\u003c\/a\u003e中给出了几种调试的方法。\u003c\/p\u003e\n\u003col\u003e\n\u003cli\u003e使用gdb\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e$ gdb main\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eReading symbols from main...\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e如果提示no debugging symbols found, 那么不可以使用gdb调试该可执行文件。\n2. readelf\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e# main是可执行文件名称\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e$ readelf -S main | grep debug\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003col start=\u00223\u0022\u003e\n\u003cli\u003efile查看strip状况\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e$ file main\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e如果输出内容为xxx stripped, 那么说明该文件的调试信息已经被去除，不能使用gdb调试。但是not stripped的情况不能说明该文件可以被调试。\u003c\/p\u003e\n\u003ch2 id=\u0022启动调试-1\u0022\u003e启动调试\u003c\/h2\u003e\n\u003ch3 id=\u0022无参数程序\u0022\u003e无参数程序\u003c\/h3\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e$ gdb main\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e(\u003c\/span\u003egdb\u003cspan style=\u0022color:#f92672\u0022\u003e)\u003c\/span\u003e run\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e输入run命令即可运行程序。\u003c\/p\u003e",
   "url": "https:\/\/lishengxie.github.io\/post\/gdb-study\/",
   
   "datePublished": "2023-04-30T08:40:25\u002b08:00",
@@ -162,7 +144,7 @@ $ gdb main
 
 
 
-<link rel="stylesheet" href="/css/style.444aa50704e4c1bf29dab952f95176e6eb7656beb818e5c84b386bf5e78f3225.css" integrity="">
+<link rel="stylesheet" href="/css/style.88502f31cafe1951e4c79187c358a993ad3d9dc0d6a5d48e71530b8ea4115d2f.css" integrity="">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
@@ -194,8 +176,6 @@ $ gdb main
         
         <span class="site-title">Lishengxie</span>
       </a>
-      
-        <p class="site-tagline">同步备份自 https://www.lishengxie.top</p>
       
     </div>
     <button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">
@@ -563,8 +543,17 @@ $ gdb main
   <div class="container">
     
     
-    <div class="copyright">
-      Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/yogirk/explore" target="_blank" rel="noopener">Explore Theme</a>.
+    <div class="footer-info" style="text-align:center;">
+      <div style="white-space:nowrap;">
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">皖ICP备2023003716号-1</a>
+        <span style="margin:0 6px;">|</span>
+        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34012202341113" target="_blank" rel="noopener"><img src="/uploads/2023/04/beian.png" alt="公安备案" style="vertical-align:middle;margin-right:3px;display:inline;">皖公网安备34012202341113</a>
+        <span style="margin:0 6px;">|</span>
+        违法和不良信息举报邮箱：<a href="mailto:1141751053@qq.com">1141751053@qq.com</a>
+      </div>
+      <div style="white-space:nowrap;">
+        Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/yogirk/explore" target="_blank" rel="noopener">Explore Theme</a>.
+      </div>
     </div>
   </div>
 </footer>
