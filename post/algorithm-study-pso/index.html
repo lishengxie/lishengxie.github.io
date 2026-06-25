@@ -1,167 +1,589 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>启发式优化算法学习-PSO - Github Pages - Lishengxie</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>启发式优化算法学习-PSO &middot; Lishengxie</title>
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="lishengxie" /><meta name="description" content="粒子群算法(PSO) 参考教程：https://cloud.tencent.com/developer/article/1424756 粒子群算" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="description" content="A personal blog powered by Hugo.">
+<meta name="author" content="Lishengxie">
+<link rel="canonical" href="http://localhost:1313/post/algorithm-study-pso/">
 
 
 
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+
+
+<meta property="og:title" content="启发式优化算法学习-PSO">
+<meta property="og:description" content="粒子群算法(PSO)
+参考教程：https://cloud.tencent.com/developer/article/1424756
+粒子群算法是一种利用群体智能建立的一个简化模型，基于群体中个体对信息的共享使整个群体的运动趋向最优解。粒子群算法使用一群粒子，粒子拥有位置和速度两种属性，根据自身已经找到的最优解和参考整个共享于整个集群中找到的最优解去改变自己的飞行速度和位置。
+粒子速度和位置
+粒子群算法使用一定数量的粒子，粒子\(i\)在\(N\)维空间中的位置和速度表示为\(x_i=(x_1,x_2,\cdots,x_N)\) 和 \(v_i=(v_1,v_2,\cdots,v_N)\)。每个粒子都有一个目标函数决定的适应值(fitness value)，并且知道自己到目前为止发现的最好位置(pbest)和现在的位置\(x_i\)。这个可以看作是粒子自己的飞行经验。除此之外，每个粒子还知道到目前为止整个群体中所有粒子发现的最好位置(gbest)(gbest是pbest中的最好值)，这个可以看作是粒子同伴的经验。粒子就是通过自己的经验和同伴中最好的经验来决定下一步的运动。
+粒子速度和位置更新公式
+粒子群算法会给每个粒子一个初始的随机解，并通过迭代寻找最优解，迭代规则如下图所示：
+
+迭代公式中的第一部分和第二部分分别反映了粒子对自身经验和群体经验的学习。基于上述公式还可以对当前的速度引入更新权重
+
+PSO算法运行流程
+1）初始化一群微粒(群体规模为N)，包括随机位置和速度；
+2）评价每个微粒的适应度；
+3）对每个微粒，将其适应值与其经过的最好位置pbest作比较，如果较好，则将其作为当前的最好位置pbest；
+4）对每个微粒，将其适应值与其经过的最好位置gbest作比较，如果较好，则将其作为当前的最好位置gbest；
+5）根据公式(2)、(3)调整微粒速度和位置；
+6）未达到结束条件则转第2）步。
+迭代终止条件根据具体问题一般选为最大迭代次数Gk或(和)微粒群迄今为止搜索到的最优位置满足预定最小适应阈值。
+PSO算法求解映射问题
+映射问题本质上可以看作一个序列的排序问题，使用PSO算法求解映射问题时，粒子位置对应一个序列的排序。这里\(pbest-x_i^{t-1}\)对应将\(x_i^{t-1}\)转换成pbest所需要的交换序列，这里的迭代公式的含义变为对于原来的解序列\(x_i^{t-1}\)，
+
+先按照\(c_2\)的概率使用\(pbest-x_i^{t-1}\)的交换序列对\(x_i^{t-1}\)进行交换获得\((x_i^{t-1})^{&rsquo;}\)，
+再按照\(c_3\)的概率使用\(gbest-(x_i^{t-1})^{&rsquo;}\)的交换序列对\((x_i^{t-1})^{&rsquo;}\)进行交换获得\(x_i^{t}\).
+
+PSO求解映射代码
+# -*- coding: utf-8 -*-
+# Lishengxie
+# 2023-02-19
+# Implementation of a PSO algorithm for crossbar mapping/placing
+
+import numpy as np
+import copy
+import sys
+
+class PsoPlacer:
+    &#34;&#34;&#34;
+        PSO algorithm
+        -------------
+        Class used to find the mapping from computing cores to routers on NoC which minizes the communication cost
+    &#34;&#34;&#34;
+    def __init__(self, dim_x, dim_y, spike_table, num_particle=50, s1=1.0, s2=0.04, s3=0.02):
+        &#34;&#34;&#34;
+            Initialization of PsoPlacer.
+            Args:
+                dim_x: int, the `x` dimension on NoC 
+                dim_y: int, the `y` dimension on NoC 
+                spike_table: 2D-array, the number of spikes between core `i` and core `j`
+                num_particle: int, number of particles in the PSO algorithm
+        &#34;&#34;&#34;
+        self.dim_x = dim_x
+        self.dim_y = dim_y
+        self.dim_size = dim_x * dim_y
+        self.num_particle = num_particle
+        self.s1 = s1
+        self.s2 = s2
+        self.s3 = s3
+        self.init_particle(spike_table)
+
+    def init_particle(self, spike_table):
+        &#34;&#34;&#34;
+            Init spike table, particles, local and global best solution
+            Args:
+                spike_table: 2D-array, the number of spikes between core `i` and core `j`
+        &#34;&#34;&#34;
+        # init the spike table, adding `0`s if the dimension of `spike_table` not equal to `dim_size`
+        self.spike_table = np.zeros((self.dim_size, self.dim_size))
+        h, w = spike_table.shape
+        for i in range(h):
+            for j in range(w):
+                self.spike_table[i,j] = spike_table[i,j]
+
+        # init particle vectors with number of `num_particle`, each vector is a mappinng solution
+        self.solution = np.zeros((self.num_particle, self.dim_size), dtype=np.int32)
+        for i in range(self.num_particle):
+            self.solution[i] = np.arange(self.dim_size)
+            np.random.shuffle(self.solution[i])
+
+        # init hop distance table
+        self.hop_xy()
+
+        # init the local/global best solution and their cost
+        self.local_best_solution = copy.deepcopy(self.solution)
+        self.local_best_cost = np.zeros((self.num_particle,))
+        self.global_best_solution = np.arange(self.dim_size)
+        self.global_best_cost = sys.maxsize
+        for i in range(self.num_particle):
+            self.local_best_cost[i] = self.fitnessFuntcion(self.local_best_solution[i])
+            if self.local_best_cost[i] &lt; self.global_best_cost:
+                self.global_best_solution = self.local_best_solution[i]
+                self.global_best_cost = self.local_best_cost[i]
+        print(&#34;Init, gloabal best cost:{}&#34;.format(self.global_best_cost))
+
+
+    def hop_xy(self):
+        &#34;&#34;&#34;
+            The hop distance between router `x` and `y` in the 2D-Mesh NoC using XY routing
+        &#34;&#34;&#34;
+        self.hop_dist = np.zeros((self.dim_size, self.dim_size))
+        for i in range(self.dim_size):
+            for j in range(self.dim_size):
+                self.hop_dist[i,j] = abs(i % self.dim_x - j % self.dim_x) \
+                                &#43; abs(i // self.dim_x - j // self.dim_x)
+        
+    def fitnessFuntcion(self, solution):
+        &#34;&#34;&#34;
+            Compute the communication cost for each mapping solution
+            Args:
+                solution: List, a possible mapping solution
+        &#34;&#34;&#34;
+        cost = 0
+        for i in range(self.dim_size):
+            for j in range(self.dim_size):
+                cost &#43;=  self.spike_table[i,j] * self.hop_dist[solution[i], solution[j]]
+        return cost
+    
+    def compute_swap_sequence(self, src_seq, dst_seq, seq_len):
+        # TODO: Optimize this algorithm.
+        &#34;&#34;&#34;
+            Find the swap sequence from source sequecne to destination sequence.
+            Args:
+                src_seq: List, the source sequence
+                dst_seq: List, the destination sequence
+                seq_len: int, the length of source and destination sequence
+            Return:
+                swap_sequence: the index of each point for `src_seq` in `dst_seq`
+        &#34;&#34;&#34;
+        swap_seq = np.zeros((seq_len,))
+        for i in range(seq_len):
+            swap_seq[i] = np.where(dst_seq == src_seq[i])[0]
+        return swap_seq
+
+    def applySwap(self, swap_seq, src_seq, seq_len):
+        &#34;&#34;&#34;
+            Apply swap sequence to the source sequence
+            Args:
+                src_seq: List, the source sequence
+                swap_sequence: the index of each point for `src_seq` in `dst_seq`
+                seq_len: int, the length of source and destination sequence
+            Return:
+                dst_seq: List, the destination sequence
+        &#34;&#34;&#34;
+        dst_seq = np.zeros((seq_len,))
+        for i in range(seq_len):
+            dst_seq[swap_seq[i]] = src_seq[i]
+        return dst_seq
+
+    def place(self, num_iter=10):
+        &#34;&#34;&#34;
+            Funciton to execute pso algorithm.
+            Args:
+                num_iter: int, max number of iterations to execute pso update
+            Return:
+                global best solution after `num_iter` iterations
+        &#34;&#34;&#34;
+        for iter in range(num_iter):
+            for i in range(self.num_particle):
+                tmp_solution = copy.deepcopy(self.solution[i])
+                if np.random.random() &lt;= self.s2:
+                    # print(&#34;local&#34;)
+                    swap_seq_local = self.compute_swap_sequence(tmp_solution, self.local_best_solution[i], self.dim_size)
+                    self.solution[i] = self.applySwap(self.solution[i], swap_seq_local, self.dim_size)
+                if np.random.random() &lt;= self.s3:
+                    # print(&#34;global&#34;)
+                    swap_seq_global = self.compute_swap_sequence(tmp_solution, self.global_best_solution, self.dim_size)
+                    self.solution[i] = self.applySwap(self.solution[i], swap_seq_global, self.dim_size)
+
+                if np.random.random() &lt;= 0.0001:
+                    np.random.shuffle(self.solution[i])
+
+                cost = self.fitnessFuntcion(self.solution[i])
+                if cost &lt; self.local_best_cost[i]:
+                    self.local_best_cost[i] = cost
+                    self.local_best_solution[i] = copy.deepcopy(self.solution[i])
+
+                if self.local_best_cost[i] &lt; self.global_best_cost:
+                    self.global_best_cost = self.local_best_cost[i]
+                    self.global_best_solution = copy.deepcopy(self.local_best_solution[i])
+            print(&#34;Iteration:{}, global best cost:{}&#34;.format(iter, self.global_best_cost))
+        return self.global_best_solution
+">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/post/algorithm-study-pso/">
 
 
 
-<meta name="generator" content="Hugo 0.109.0 with theme even" />
+<meta property="article:section" content="post">
 
 
-<link rel="canonical" href="https://lishengxie.github.io/post/algorithm-study-pso/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta property="article:published_time" content="2023-04-30 08:42:37 &#43;0800 CST">
+
+
+<meta property="article:modified_time" content="2023-04-30 08:42:37 &#43;0800 CST">
 
 
 
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="启发式优化算法学习-PSO">
+<meta name="twitter:description" content="粒子群算法(PSO)
+参考教程：https://cloud.tencent.com/developer/article/1424756
+粒子群算法是一种利用群体智能建立的一个简化模型，基于群体中个体对信息的共享使整个群体的运动趋向最优解。粒子群算法使用一群粒子，粒子拥有位置和速度两种属性，根据自身已经找到的最优解和参考整个共享于整个集群中找到的最优解去改变自己的飞行速度和位置。
+粒子速度和位置
+粒子群算法使用一定数量的粒子，粒子\(i\)在\(N\)维空间中的位置和速度表示为\(x_i=(x_1,x_2,\cdots,x_N)\) 和 \(v_i=(v_1,v_2,\cdots,v_N)\)。每个粒子都有一个目标函数决定的适应值(fitness value)，并且知道自己到目前为止发现的最好位置(pbest)和现在的位置\(x_i\)。这个可以看作是粒子自己的飞行经验。除此之外，每个粒子还知道到目前为止整个群体中所有粒子发现的最好位置(gbest)(gbest是pbest中的最好值)，这个可以看作是粒子同伴的经验。粒子就是通过自己的经验和同伴中最好的经验来决定下一步的运动。
+粒子速度和位置更新公式
+粒子群算法会给每个粒子一个初始的随机解，并通过迭代寻找最优解，迭代规则如下图所示：
+
+迭代公式中的第一部分和第二部分分别反映了粒子对自身经验和群体经验的学习。基于上述公式还可以对当前的速度引入更新权重
+
+PSO算法运行流程
+1）初始化一群微粒(群体规模为N)，包括随机位置和速度；
+2）评价每个微粒的适应度；
+3）对每个微粒，将其适应值与其经过的最好位置pbest作比较，如果较好，则将其作为当前的最好位置pbest；
+4）对每个微粒，将其适应值与其经过的最好位置gbest作比较，如果较好，则将其作为当前的最好位置gbest；
+5）根据公式(2)、(3)调整微粒速度和位置；
+6）未达到结束条件则转第2）步。
+迭代终止条件根据具体问题一般选为最大迭代次数Gk或(和)微粒群迄今为止搜索到的最优位置满足预定最小适应阈值。
+PSO算法求解映射问题
+映射问题本质上可以看作一个序列的排序问题，使用PSO算法求解映射问题时，粒子位置对应一个序列的排序。这里\(pbest-x_i^{t-1}\)对应将\(x_i^{t-1}\)转换成pbest所需要的交换序列，这里的迭代公式的含义变为对于原来的解序列\(x_i^{t-1}\)，
+
+先按照\(c_2\)的概率使用\(pbest-x_i^{t-1}\)的交换序列对\(x_i^{t-1}\)进行交换获得\((x_i^{t-1})^{&rsquo;}\)，
+再按照\(c_3\)的概率使用\(gbest-(x_i^{t-1})^{&rsquo;}\)的交换序列对\((x_i^{t-1})^{&rsquo;}\)进行交换获得\(x_i^{t}\).
+
+PSO求解映射代码
+# -*- coding: utf-8 -*-
+# Lishengxie
+# 2023-02-19
+# Implementation of a PSO algorithm for crossbar mapping/placing
+
+import numpy as np
+import copy
+import sys
+
+class PsoPlacer:
+    &#34;&#34;&#34;
+        PSO algorithm
+        -------------
+        Class used to find the mapping from computing cores to routers on NoC which minizes the communication cost
+    &#34;&#34;&#34;
+    def __init__(self, dim_x, dim_y, spike_table, num_particle=50, s1=1.0, s2=0.04, s3=0.02):
+        &#34;&#34;&#34;
+            Initialization of PsoPlacer.
+            Args:
+                dim_x: int, the `x` dimension on NoC 
+                dim_y: int, the `y` dimension on NoC 
+                spike_table: 2D-array, the number of spikes between core `i` and core `j`
+                num_particle: int, number of particles in the PSO algorithm
+        &#34;&#34;&#34;
+        self.dim_x = dim_x
+        self.dim_y = dim_y
+        self.dim_size = dim_x * dim_y
+        self.num_particle = num_particle
+        self.s1 = s1
+        self.s2 = s2
+        self.s3 = s3
+        self.init_particle(spike_table)
+
+    def init_particle(self, spike_table):
+        &#34;&#34;&#34;
+            Init spike table, particles, local and global best solution
+            Args:
+                spike_table: 2D-array, the number of spikes between core `i` and core `j`
+        &#34;&#34;&#34;
+        # init the spike table, adding `0`s if the dimension of `spike_table` not equal to `dim_size`
+        self.spike_table = np.zeros((self.dim_size, self.dim_size))
+        h, w = spike_table.shape
+        for i in range(h):
+            for j in range(w):
+                self.spike_table[i,j] = spike_table[i,j]
+
+        # init particle vectors with number of `num_particle`, each vector is a mappinng solution
+        self.solution = np.zeros((self.num_particle, self.dim_size), dtype=np.int32)
+        for i in range(self.num_particle):
+            self.solution[i] = np.arange(self.dim_size)
+            np.random.shuffle(self.solution[i])
+
+        # init hop distance table
+        self.hop_xy()
+
+        # init the local/global best solution and their cost
+        self.local_best_solution = copy.deepcopy(self.solution)
+        self.local_best_cost = np.zeros((self.num_particle,))
+        self.global_best_solution = np.arange(self.dim_size)
+        self.global_best_cost = sys.maxsize
+        for i in range(self.num_particle):
+            self.local_best_cost[i] = self.fitnessFuntcion(self.local_best_solution[i])
+            if self.local_best_cost[i] &lt; self.global_best_cost:
+                self.global_best_solution = self.local_best_solution[i]
+                self.global_best_cost = self.local_best_cost[i]
+        print(&#34;Init, gloabal best cost:{}&#34;.format(self.global_best_cost))
 
 
-<meta property="og:title" content="启发式优化算法学习-PSO" />
-<meta property="og:description" content="粒子群算法(PSO) 参考教程：https://cloud.tencent.com/developer/article/1424756 粒子群算" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://lishengxie.github.io/post/algorithm-study-pso/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-04-30T08:42:37+08:00" />
-<meta property="article:modified_time" content="2023-04-30T08:42:37+08:00" />
-<meta itemprop="name" content="启发式优化算法学习-PSO">
-<meta itemprop="description" content="粒子群算法(PSO) 参考教程：https://cloud.tencent.com/developer/article/1424756 粒子群算"><meta itemprop="datePublished" content="2023-04-30T08:42:37+08:00" />
-<meta itemprop="dateModified" content="2023-04-30T08:42:37+08:00" />
-<meta itemprop="wordCount" content="1919">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="启发式优化算法学习-PSO"/>
-<meta name="twitter:description" content="粒子群算法(PSO) 参考教程：https://cloud.tencent.com/developer/article/1424756 粒子群算"/>
+    def hop_xy(self):
+        &#34;&#34;&#34;
+            The hop distance between router `x` and `y` in the 2D-Mesh NoC using XY routing
+        &#34;&#34;&#34;
+        self.hop_dist = np.zeros((self.dim_size, self.dim_size))
+        for i in range(self.dim_size):
+            for j in range(self.dim_size):
+                self.hop_dist[i,j] = abs(i % self.dim_x - j % self.dim_x) \
+                                &#43; abs(i // self.dim_x - j // self.dim_x)
+        
+    def fitnessFuntcion(self, solution):
+        &#34;&#34;&#34;
+            Compute the communication cost for each mapping solution
+            Args:
+                solution: List, a possible mapping solution
+        &#34;&#34;&#34;
+        cost = 0
+        for i in range(self.dim_size):
+            for j in range(self.dim_size):
+                cost &#43;=  self.spike_table[i,j] * self.hop_dist[solution[i], solution[j]]
+        return cost
+    
+    def compute_swap_sequence(self, src_seq, dst_seq, seq_len):
+        # TODO: Optimize this algorithm.
+        &#34;&#34;&#34;
+            Find the swap sequence from source sequecne to destination sequence.
+            Args:
+                src_seq: List, the source sequence
+                dst_seq: List, the destination sequence
+                seq_len: int, the length of source and destination sequence
+            Return:
+                swap_sequence: the index of each point for `src_seq` in `dst_seq`
+        &#34;&#34;&#34;
+        swap_seq = np.zeros((seq_len,))
+        for i in range(seq_len):
+            swap_seq[i] = np.where(dst_seq == src_seq[i])[0]
+        return swap_seq
 
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
+    def applySwap(self, swap_seq, src_seq, seq_len):
+        &#34;&#34;&#34;
+            Apply swap sequence to the source sequence
+            Args:
+                src_seq: List, the source sequence
+                swap_sequence: the index of each point for `src_seq` in `dst_seq`
+                seq_len: int, the length of source and destination sequence
+            Return:
+                dst_seq: List, the destination sequence
+        &#34;&#34;&#34;
+        dst_seq = np.zeros((seq_len,))
+        for i in range(seq_len):
+            dst_seq[swap_seq[i]] = src_seq[i]
+        return dst_seq
 
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
+    def place(self, num_iter=10):
+        &#34;&#34;&#34;
+            Funciton to execute pso algorithm.
+            Args:
+                num_iter: int, max number of iterations to execute pso update
+            Return:
+                global best solution after `num_iter` iterations
+        &#34;&#34;&#34;
+        for iter in range(num_iter):
+            for i in range(self.num_particle):
+                tmp_solution = copy.deepcopy(self.solution[i])
+                if np.random.random() &lt;= self.s2:
+                    # print(&#34;local&#34;)
+                    swap_seq_local = self.compute_swap_sequence(tmp_solution, self.local_best_solution[i], self.dim_size)
+                    self.solution[i] = self.applySwap(self.solution[i], swap_seq_local, self.dim_size)
+                if np.random.random() &lt;= self.s3:
+                    # print(&#34;global&#34;)
+                    swap_seq_global = self.compute_swap_sequence(tmp_solution, self.global_best_solution, self.dim_size)
+                    self.solution[i] = self.applySwap(self.solution[i], swap_seq_global, self.dim_size)
+
+                if np.random.random() &lt;= 0.0001:
+                    np.random.shuffle(self.solution[i])
+
+                cost = self.fitnessFuntcion(self.solution[i])
+                if cost &lt; self.local_best_cost[i]:
+                    self.local_best_cost[i] = cost
+                    self.local_best_solution[i] = copy.deepcopy(self.solution[i])
+
+                if self.local_best_cost[i] &lt; self.global_best_cost:
+                    self.global_best_cost = self.local_best_cost[i]
+                    self.global_best_solution = copy.deepcopy(self.local_best_solution[i])
+            print(&#34;Iteration:{}, global best cost:{}&#34;.format(iter, self.global_best_cost))
+        return self.global_best_solution
+">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "启发式优化算法学习-PSO",
+  "name": "启发式优化算法学习-PSO",
+  "description": "\u003ch2 id=\u0022粒子群算法pso\u0022\u003e粒子群算法(PSO)\u003c\/h2\u003e\n\u003cp\u003e参考教程：\u003ca href=\u0022https:\/\/cloud.tencent.com\/developer\/article\/1424756\u0022\u003ehttps:\/\/cloud.tencent.com\/developer\/article\/1424756\u003c\/a\u003e\u003c\/p\u003e\n\u003cp\u003e粒子群算法是一种利用群体智能建立的一个简化模型，基于群体中个体对信息的共享使整个群体的运动趋向最优解。粒子群算法使用一群粒子，粒子拥有位置和速度两种属性，根据自身已经找到的最优解和参考整个共享于整个集群中找到的最优解去改变自己的飞行速度和位置。\u003c\/p\u003e\n\u003ch3 id=\u0022粒子速度和位置\u0022\u003e粒子速度和位置\u003c\/h3\u003e\n\u003cp\u003e粒子群算法使用一定数量的粒子，粒子\\(i\\)在\\(N\\)维空间中的位置和速度表示为\\(x_i=(x_1,x_2,\\cdots,x_N)\\) 和 \\(v_i=(v_1,v_2,\\cdots,v_N)\\)。每个粒子都有一个目标函数决定的适应值(fitness value)，并且知道自己到目前为止发现的最好位置(pbest)和现在的位置\\(x_i\\)。这个可以看作是粒子自己的飞行经验。除此之外，每个粒子还知道到目前为止整个群体中所有粒子发现的最好位置(gbest)(gbest是pbest中的最好值)，这个可以看作是粒子同伴的经验。粒子就是通过自己的经验和同伴中最好的经验来决定下一步的运动。\u003c\/p\u003e\n\u003ch3 id=\u0022粒子速度和位置更新公式\u0022\u003e粒子速度和位置更新公式\u003c\/h3\u003e\n\u003cp\u003e粒子群算法会给每个粒子一个初始的随机解，并通过迭代寻找最优解，迭代规则如下图所示：\n\u003ca href=\u0022\/uploads\/2023\/02\/19.png\u0022\u003e\u003cimg src=\u0022\/uploads\/2023\/02\/19.png\u0022 alt=\u0022PSO更新规则\u0022\u003e\u003c\/a\u003e\n迭代公式中的第一部分和第二部分分别反映了粒子对自身经验和群体经验的学习。基于上述公式还可以对当前的速度引入更新权重\n\u003ca href=\u0022\/uploads\/2023\/02\/20.png\u0022\u003e\u003cimg src=\u0022\/uploads\/2023\/02\/20.png\u0022 alt=\u0022PSO权重迭代\u0022\u003e\u003c\/a\u003e\u003c\/p\u003e\n\u003ch3 id=\u0022pso算法运行流程\u0022\u003ePSO算法运行流程\u003c\/h3\u003e\n\u003cp\u003e1）初始化一群微粒(群体规模为N)，包括随机位置和速度；\n2）评价每个微粒的适应度；\n3）对每个微粒，将其适应值与其经过的最好位置pbest作比较，如果较好，则将其作为当前的最好位置pbest；\n4）对每个微粒，将其适应值与其经过的最好位置gbest作比较，如果较好，则将其作为当前的最好位置gbest；\n5）根据公式(2)、(3)调整微粒速度和位置；\n6）未达到结束条件则转第2）步。\n迭代终止条件根据具体问题一般选为最大迭代次数Gk或(和)微粒群迄今为止搜索到的最优位置满足预定最小适应阈值。\u003c\/p\u003e\n\u003ch3 id=\u0022pso算法求解映射问题\u0022\u003ePSO算法求解映射问题\u003c\/h3\u003e\n\u003cp\u003e映射问题本质上可以看作一个序列的排序问题，使用PSO算法求解映射问题时，粒子位置对应一个序列的排序。这里\\(pbest-x_i^{t-1}\\)对应将\\(x_i^{t-1}\\)转换成pbest所需要的交换序列，这里的迭代公式的含义变为对于原来的解序列\\(x_i^{t-1}\\)，\u003c\/p\u003e\n\u003cul\u003e\n\u003cli\u003e先按照\\(c_2\\)的概率使用\\(pbest-x_i^{t-1}\\)的交换序列对\\(x_i^{t-1}\\)进行交换获得\\((x_i^{t-1})^{\u0026rsquo;}\\)，\u003c\/li\u003e\n\u003cli\u003e再按照\\(c_3\\)的概率使用\\(gbest-(x_i^{t-1})^{\u0026rsquo;}\\)的交换序列对\\((x_i^{t-1})^{\u0026rsquo;}\\)进行交换获得\\(x_i^{t}\\).\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003ch3 id=\u0022pso求解映射代码\u0022\u003ePSO求解映射代码\u003c\/h3\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-python\u0022 data-lang=\u0022python\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e# -*- coding: utf-8 -*-\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e# Lishengxie\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e# 2023-02-19\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e# Implementation of a PSO algorithm for crossbar mapping\/placing\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#f92672\u0022\u003eimport\u003c\/span\u003e numpy \u003cspan style=\u0022color:#66d9ef\u0022\u003eas\u003c\/span\u003e np\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#f92672\u0022\u003eimport\u003c\/span\u003e copy\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#f92672\u0022\u003eimport\u003c\/span\u003e sys\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eclass\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ePsoPlacer\u003c\/span\u003e:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u0026#34;\u0026#34;\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e        PSO algorithm\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e        -------------\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e        Class used to find the mapping from computing cores to routers on NoC which minizes the communication cost\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e    \u0026#34;\u0026#34;\u0026#34;\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003edef\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003e__init__\u003c\/span\u003e(self, dim_x, dim_y, spike_table, num_particle\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e50\u003c\/span\u003e, s1\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e1.0\u003c\/span\u003e, s2\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e0.04\u003c\/span\u003e, s3\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e0.02\u003c\/span\u003e):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u0026#34;\u0026#34;\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Initialization of PsoPlacer.\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Args:\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                dim_x: int, the \u0060x\u0060 dimension on NoC \n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                dim_y: int, the \u0060y\u0060 dimension on NoC \n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                spike_table: 2D-array, the number of spikes between core \u0060i\u0060 and core \u0060j\u0060\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                num_particle: int, number of particles in the PSO algorithm\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e        \u0026#34;\u0026#34;\u0026#34;\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_x \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e dim_x\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_y \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e dim_y\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e dim_x \u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e dim_y\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003enum_particle \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e num_particle\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003es1 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e s1\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003es2 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e s2\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003es3 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e s3\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003einit_particle(spike_table)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003edef\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003einit_particle\u003c\/span\u003e(self, spike_table):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u0026#34;\u0026#34;\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Init spike table, particles, local and global best solution\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Args:\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                spike_table: 2D-array, the number of spikes between core \u0060i\u0060 and core \u0060j\u0060\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e        \u0026#34;\u0026#34;\u0026#34;\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#75715e\u0022\u003e# init the spike table, adding \u00600\u0060s if the dimension of \u0060spike_table\u0060 not equal to \u0060dim_size\u0060\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003espike_table \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e np\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ezeros((self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size, self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size))\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        h, w \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e spike_table\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eshape\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e i \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e range(h):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e j \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e range(w):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003espike_table[i,j] \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e spike_table[i,j]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#75715e\u0022\u003e# init particle vectors with number of \u0060num_particle\u0060, each vector is a mappinng solution\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esolution \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e np\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ezeros((self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003enum_particle, self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size), dtype\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003enp\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eint32)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e i \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e range(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003enum_particle):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esolution[i] \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e np\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003earange(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            np\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003erandom\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eshuffle(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esolution[i])\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#75715e\u0022\u003e# init hop distance table\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ehop_xy()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#75715e\u0022\u003e# init the local\/global best solution and their cost\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003elocal_best_solution \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e copy\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edeepcopy(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esolution)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003elocal_best_cost \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e np\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ezeros((self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003enum_particle,))\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eglobal_best_solution \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e np\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003earange(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eglobal_best_cost \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e sys\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003emaxsize\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e i \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e range(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003enum_particle):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003elocal_best_cost[i] \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003efitnessFuntcion(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003elocal_best_solution[i])\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003elocal_best_cost[i] \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eglobal_best_cost:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eglobal_best_solution \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003elocal_best_solution[i]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eglobal_best_cost \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003elocal_best_cost[i]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        print(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Init, gloabal best cost:\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e{}\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eformat(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eglobal_best_cost))\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003edef\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ehop_xy\u003c\/span\u003e(self):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u0026#34;\u0026#34;\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            The hop distance between router \u0060x\u0060 and \u0060y\u0060 in the 2D-Mesh NoC using XY routing\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e        \u0026#34;\u0026#34;\u0026#34;\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ehop_dist \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e np\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ezeros((self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size, self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size))\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e i \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e range(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e j \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e range(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ehop_dist[i,j] \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e abs(i \u003cspan style=\u0022color:#f92672\u0022\u003e%\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_x \u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003e j \u003cspan style=\u0022color:#f92672\u0022\u003e%\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_x) \\\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                                \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u003c\/span\u003e abs(i \u003cspan style=\u0022color:#f92672\u0022\u003e\/\/\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_x \u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003e j \u003cspan style=\u0022color:#f92672\u0022\u003e\/\/\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_x)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003edef\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003efitnessFuntcion\u003c\/span\u003e(self, solution):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u0026#34;\u0026#34;\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Compute the communication cost for each mapping solution\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Args:\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                solution: List, a possible mapping solution\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e        \u0026#34;\u0026#34;\u0026#34;\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        cost \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e i \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e range(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e j \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e range(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                cost \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b=\u003c\/span\u003e  self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003espike_table[i,j] \u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ehop_dist[solution[i], solution[j]]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e cost\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003edef\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ecompute_swap_sequence\u003c\/span\u003e(self, src_seq, dst_seq, seq_len):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#75715e\u0022\u003e# TODO: Optimize this algorithm.\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u0026#34;\u0026#34;\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Find the swap sequence from source sequecne to destination sequence.\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Args:\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                src_seq: List, the source sequence\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                dst_seq: List, the destination sequence\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                seq_len: int, the length of source and destination sequence\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Return:\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                swap_sequence: the index of each point for \u0060src_seq\u0060 in \u0060dst_seq\u0060\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e        \u0026#34;\u0026#34;\u0026#34;\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        swap_seq \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e np\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ezeros((seq_len,))\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e i \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e range(seq_len):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            swap_seq[i] \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e np\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ewhere(dst_seq \u003cspan style=\u0022color:#f92672\u0022\u003e==\u003c\/span\u003e src_seq[i])[\u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e swap_seq\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003edef\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eapplySwap\u003c\/span\u003e(self, swap_seq, src_seq, seq_len):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u0026#34;\u0026#34;\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Apply swap sequence to the source sequence\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Args:\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                src_seq: List, the source sequence\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                swap_sequence: the index of each point for \u0060src_seq\u0060 in \u0060dst_seq\u0060\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                seq_len: int, the length of source and destination sequence\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Return:\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                dst_seq: List, the destination sequence\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e        \u0026#34;\u0026#34;\u0026#34;\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        dst_seq \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e np\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ezeros((seq_len,))\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e i \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e range(seq_len):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            dst_seq[swap_seq[i]] \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e src_seq[i]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e dst_seq\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003edef\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eplace\u003c\/span\u003e(self, num_iter\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e10\u003c\/span\u003e):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u0026#34;\u0026#34;\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Funciton to execute pso algorithm.\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Args:\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                num_iter: int, max number of iterations to execute pso update\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e            Return:\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e                global best solution after \u0060num_iter\u0060 iterations\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e        \u0026#34;\u0026#34;\u0026#34;\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e iter \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e range(num_iter):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e i \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e range(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003enum_particle):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                tmp_solution \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e copy\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edeepcopy(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esolution[i])\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e np\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003erandom\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003erandom() \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;=\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003es2:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                    \u003cspan style=\u0022color:#75715e\u0022\u003e# print(\u0026#34;local\u0026#34;)\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                    swap_seq_local \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ecompute_swap_sequence(tmp_solution, self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003elocal_best_solution[i], self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                    self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esolution[i] \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eapplySwap(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esolution[i], swap_seq_local, self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e np\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003erandom\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003erandom() \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;=\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003es3:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                    \u003cspan style=\u0022color:#75715e\u0022\u003e# print(\u0026#34;global\u0026#34;)\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                    swap_seq_global \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ecompute_swap_sequence(tmp_solution, self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eglobal_best_solution, self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                    self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esolution[i] \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eapplySwap(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esolution[i], swap_seq_global, self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edim_size)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e np\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003erandom\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003erandom() \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e0.0001\u003c\/span\u003e:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                    np\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003erandom\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eshuffle(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esolution[i])\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                cost \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003efitnessFuntcion(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esolution[i])\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e cost \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003elocal_best_cost[i]:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                    self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003elocal_best_cost[i] \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e cost\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                    self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003elocal_best_solution[i] \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e copy\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edeepcopy(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esolution[i])\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003elocal_best_cost[i] \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eglobal_best_cost:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                    self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eglobal_best_cost \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003elocal_best_cost[i]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                    self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eglobal_best_solution \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e copy\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edeepcopy(self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003elocal_best_solution[i])\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            print(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Iteration:\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e{}\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e, global best cost:\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e{}\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eformat(iter, self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eglobal_best_cost))\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e self\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eglobal_best_solution\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e",
+  "url": "http:\/\/localhost:1313\/post\/algorithm-study-pso\/",
+  
+  "datePublished": "2023-04-30T08:42:37\u002b08:00",
+  "dateModified": "2023-04-30T08:42:37\u002b08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Lishengxie"
+  },
+  
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http:\/\/localhost:1313\/post\/algorithm-study-pso\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Lishengxie",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http:\/\/localhost:1313\/apple-touch-icon.png"
+    }
+  }
+}
+</script>
+
+
+
+
+
+<link rel="preload" href="/fonts/google-sans-flex-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/google-sans-flex-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/google-sans-code-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+
+
+
+
+<link rel="stylesheet" href="/css/style.444aa50704e4c1bf29dab952f95176e6eb7656beb818e5c84b386bf5e78f3225.css" integrity="sha256-REqlBwTkwb8p2rlS&#43;VF25ut2Vr64GOXISzhr9eePMiU=">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+
+<style>
+  .post-list-item { overflow: hidden; }
+  .post-excerpt { word-break: break-word; }
+</style>
+
+
+<script>
+  (function() {
+    try {
+      var theme = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+
 </head>
 <body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">Blog</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/about/">
-        <li class="mobile-menu-item">About</li>
+  
+<header class="site-header is-sticky">
+  <div class="container header-inner">
+    <div class="site-identity">
+      <a href="/" class="site-brand">
+        
+        <span class="site-title">Lishengxie</span>
       </a>
-  </ul>
+      
+        <p class="site-tagline">同步备份自 https://www.lishengxie.top</p>
+      
+    </div>
+    <button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">
+      <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <nav id="site-nav" class="site-nav">
+      <div class="main-nav">
+        <ul>
+          
+          
+          <li>
+            <a href="/post/" class="">Posts</a>
+          </li>
+          
+          <li>
+            <a href="/pages/about/" class="">About</a>
+          </li>
+          
+          <li>
+            <a href="/pages/contact/" class="">Contact</a>
+          </li>
+          
+        </ul>
+      </div>
+      <div class="nav-utils">
+        <a href="http://localhost:1313/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+        </a>
+        
+        <a href="/search" class="nav-search" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" aria-pressed="false">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+  <main class="site-main">
+    
+
+<div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 
 
+<div class="container">
+  <div class="layout-grid layout-grid--sidebar-left">
+    <article class="post-single main-content main-content--sidebar-left">
+      <header class="post-header">
+        <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item"><a href="/post/">Posts</a></li><li class="breadcrumb-item" aria-current="page">启发式优化算法学习-PSO</li>
+  </ol>
 </nav>
+        <h1 class="post-title">启发式优化算法学习-PSO</h1>
+        <div class="post-meta">
+          
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <time datetime="2023-04-30T08:42:37&#43;08:00">Apr 30, 2023</time>
+            </span>
+          
 
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">Blog</a>
-</div>
+          
+            <span class="post-categories">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
 
+              
+                
+                <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">算法学习</a>
+              
+            </span>
+          
 
+          
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              Lishengxie
+            </span>
+          
+        </div>
+      </header>
 
+      
 
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">启发式优化算法学习-PSO</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2023-04-30 </span>
-        <div class="post-category">
-            <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/"> 算法学习 </a>
-            </div>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#粒子群算法pso">粒子群算法(PSO)</a>
-          <ul>
-            <li><a href="#粒子速度和位置">粒子速度和位置</a></li>
-            <li><a href="#粒子速度和位置更新公式">粒子速度和位置更新公式</a></li>
-            <li><a href="#pso算法运行流程">PSO算法运行流程</a></li>
-            <li><a href="#pso算法求解映射问题">PSO算法求解映射问题</a></li>
-            <li><a href="#pso求解映射代码">PSO求解映射代码</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      <h2 id="粒子群算法pso">粒子群算法(PSO)</h2>
+      <div class="post-content">
+        <h2 id="粒子群算法pso">粒子群算法(PSO)</h2>
 <p>参考教程：<a href="https://cloud.tencent.com/developer/article/1424756">https://cloud.tencent.com/developer/article/1424756</a></p>
 <p>粒子群算法是一种利用群体智能建立的一个简化模型，基于群体中个体对信息的共享使整个群体的运动趋向最优解。粒子群算法使用一群粒子，粒子拥有位置和速度两种属性，根据自身已经找到的最优解和参考整个共享于整个集群中找到的最优解去改变自己的飞行速度和位置。</p>
 <h3 id="粒子速度和位置">粒子速度和位置</h3>
@@ -186,428 +608,383 @@
 <li>再按照\(c_3\)的概率使用\(gbest-(x_i^{t-1})^{&rsquo;}\)的交换序列对\((x_i^{t-1})^{&rsquo;}\)进行交换获得\(x_i^{t}\).</li>
 </ul>
 <h3 id="pso求解映射代码">PSO求解映射代码</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">  1
-</span><span class="lnt">  2
-</span><span class="lnt">  3
-</span><span class="lnt">  4
-</span><span class="lnt">  5
-</span><span class="lnt">  6
-</span><span class="lnt">  7
-</span><span class="lnt">  8
-</span><span class="lnt">  9
-</span><span class="lnt"> 10
-</span><span class="lnt"> 11
-</span><span class="lnt"> 12
-</span><span class="lnt"> 13
-</span><span class="lnt"> 14
-</span><span class="lnt"> 15
-</span><span class="lnt"> 16
-</span><span class="lnt"> 17
-</span><span class="lnt"> 18
-</span><span class="lnt"> 19
-</span><span class="lnt"> 20
-</span><span class="lnt"> 21
-</span><span class="lnt"> 22
-</span><span class="lnt"> 23
-</span><span class="lnt"> 24
-</span><span class="lnt"> 25
-</span><span class="lnt"> 26
-</span><span class="lnt"> 27
-</span><span class="lnt"> 28
-</span><span class="lnt"> 29
-</span><span class="lnt"> 30
-</span><span class="lnt"> 31
-</span><span class="lnt"> 32
-</span><span class="lnt"> 33
-</span><span class="lnt"> 34
-</span><span class="lnt"> 35
-</span><span class="lnt"> 36
-</span><span class="lnt"> 37
-</span><span class="lnt"> 38
-</span><span class="lnt"> 39
-</span><span class="lnt"> 40
-</span><span class="lnt"> 41
-</span><span class="lnt"> 42
-</span><span class="lnt"> 43
-</span><span class="lnt"> 44
-</span><span class="lnt"> 45
-</span><span class="lnt"> 46
-</span><span class="lnt"> 47
-</span><span class="lnt"> 48
-</span><span class="lnt"> 49
-</span><span class="lnt"> 50
-</span><span class="lnt"> 51
-</span><span class="lnt"> 52
-</span><span class="lnt"> 53
-</span><span class="lnt"> 54
-</span><span class="lnt"> 55
-</span><span class="lnt"> 56
-</span><span class="lnt"> 57
-</span><span class="lnt"> 58
-</span><span class="lnt"> 59
-</span><span class="lnt"> 60
-</span><span class="lnt"> 61
-</span><span class="lnt"> 62
-</span><span class="lnt"> 63
-</span><span class="lnt"> 64
-</span><span class="lnt"> 65
-</span><span class="lnt"> 66
-</span><span class="lnt"> 67
-</span><span class="lnt"> 68
-</span><span class="lnt"> 69
-</span><span class="lnt"> 70
-</span><span class="lnt"> 71
-</span><span class="lnt"> 72
-</span><span class="lnt"> 73
-</span><span class="lnt"> 74
-</span><span class="lnt"> 75
-</span><span class="lnt"> 76
-</span><span class="lnt"> 77
-</span><span class="lnt"> 78
-</span><span class="lnt"> 79
-</span><span class="lnt"> 80
-</span><span class="lnt"> 81
-</span><span class="lnt"> 82
-</span><span class="lnt"> 83
-</span><span class="lnt"> 84
-</span><span class="lnt"> 85
-</span><span class="lnt"> 86
-</span><span class="lnt"> 87
-</span><span class="lnt"> 88
-</span><span class="lnt"> 89
-</span><span class="lnt"> 90
-</span><span class="lnt"> 91
-</span><span class="lnt"> 92
-</span><span class="lnt"> 93
-</span><span class="lnt"> 94
-</span><span class="lnt"> 95
-</span><span class="lnt"> 96
-</span><span class="lnt"> 97
-</span><span class="lnt"> 98
-</span><span class="lnt"> 99
-</span><span class="lnt">100
-</span><span class="lnt">101
-</span><span class="lnt">102
-</span><span class="lnt">103
-</span><span class="lnt">104
-</span><span class="lnt">105
-</span><span class="lnt">106
-</span><span class="lnt">107
-</span><span class="lnt">108
-</span><span class="lnt">109
-</span><span class="lnt">110
-</span><span class="lnt">111
-</span><span class="lnt">112
-</span><span class="lnt">113
-</span><span class="lnt">114
-</span><span class="lnt">115
-</span><span class="lnt">116
-</span><span class="lnt">117
-</span><span class="lnt">118
-</span><span class="lnt">119
-</span><span class="lnt">120
-</span><span class="lnt">121
-</span><span class="lnt">122
-</span><span class="lnt">123
-</span><span class="lnt">124
-</span><span class="lnt">125
-</span><span class="lnt">126
-</span><span class="lnt">127
-</span><span class="lnt">128
-</span><span class="lnt">129
-</span><span class="lnt">130
-</span><span class="lnt">131
-</span><span class="lnt">132
-</span><span class="lnt">133
-</span><span class="lnt">134
-</span><span class="lnt">135
-</span><span class="lnt">136
-</span><span class="lnt">137
-</span><span class="lnt">138
-</span><span class="lnt">139
-</span><span class="lnt">140
-</span><span class="lnt">141
-</span><span class="lnt">142
-</span><span class="lnt">143
-</span><span class="lnt">144
-</span><span class="lnt">145
-</span><span class="lnt">146
-</span><span class="lnt">147
-</span><span class="lnt">148
-</span><span class="lnt">149
-</span><span class="lnt">150
-</span><span class="lnt">151
-</span><span class="lnt">152
-</span><span class="lnt">153
-</span><span class="lnt">154
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># -*- coding: utf-8 -*-</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Lishengxie</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 2023-02-19</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Implementation of a PSO algorithm for crossbar mapping/placing</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">copy</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">PsoPlacer</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">        PSO algorithm
-</span></span></span><span class="line"><span class="cl"><span class="s2">        -------------
-</span></span></span><span class="line"><span class="cl"><span class="s2">        Class used to find the mapping from computing cores to routers on NoC which minizes the communication cost
-</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim_x</span><span class="p">,</span> <span class="n">dim_y</span><span class="p">,</span> <span class="n">spike_table</span><span class="p">,</span> <span class="n">num_particle</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">s1</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">s2</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span> <span class="n">s3</span><span class="o">=</span><span class="mf">0.02</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Initialization of PsoPlacer.
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Args:
-</span></span></span><span class="line"><span class="cl"><span class="s2">                dim_x: int, the `x` dimension on NoC 
-</span></span></span><span class="line"><span class="cl"><span class="s2">                dim_y: int, the `y` dimension on NoC 
-</span></span></span><span class="line"><span class="cl"><span class="s2">                spike_table: 2D-array, the number of spikes between core `i` and core `j`
-</span></span></span><span class="line"><span class="cl"><span class="s2">                num_particle: int, number of particles in the PSO algorithm
-</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span> <span class="o">=</span> <span class="n">dim_x</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">dim_y</span> <span class="o">=</span> <span class="n">dim_y</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span> <span class="o">=</span> <span class="n">dim_x</span> <span class="o">*</span> <span class="n">dim_y</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">num_particle</span> <span class="o">=</span> <span class="n">num_particle</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">s1</span> <span class="o">=</span> <span class="n">s1</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">s2</span> <span class="o">=</span> <span class="n">s2</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">s3</span> <span class="o">=</span> <span class="n">s3</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">init_particle</span><span class="p">(</span><span class="n">spike_table</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">init_particle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spike_table</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Init spike table, particles, local and global best solution
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Args:
-</span></span></span><span class="line"><span class="cl"><span class="s2">                spike_table: 2D-array, the number of spikes between core `i` and core `j`
-</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="c1"># init the spike table, adding `0`s if the dimension of `spike_table` not equal to `dim_size`</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">spike_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">spike_table</span><span class="o">.</span><span class="n">shape</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">                <span class="bp">self</span><span class="o">.</span><span class="n">spike_table</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">spike_table</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1"># init particle vectors with number of `num_particle`, each vector is a mappinng solution</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">solution</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">num_particle</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_particle</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1"># init hop distance table</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">hop_xy</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1"># init the local/global best solution and their cost</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">local_best_solution</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">local_best_cost</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">num_particle</span><span class="p">,))</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">global_best_solution</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">global_best_cost</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_particle</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">local_best_cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitnessFuntcion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">local_best_solution</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_best_cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_best_cost</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">                <span class="bp">self</span><span class="o">.</span><span class="n">global_best_solution</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_best_solution</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">                <span class="bp">self</span><span class="o">.</span><span class="n">global_best_cost</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_best_cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Init, gloabal best cost:</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">global_best_cost</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">hop_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">            The hop distance between router `x` and `y` in the 2D-Mesh NoC using XY routing
-</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">hop_dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">                <span class="bp">self</span><span class="o">.</span><span class="n">hop_dist</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span> <span class="o">-</span> <span class="n">j</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span><span class="p">)</span> \
-</span></span><span class="line"><span class="cl">                                <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">i</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span> <span class="o">-</span> <span class="n">j</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        
-</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">fitnessFuntcion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Compute the communication cost for each mapping solution
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Args:
-</span></span></span><span class="line"><span class="cl"><span class="s2">                solution: List, a possible mapping solution
-</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">                <span class="n">cost</span> <span class="o">+=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">spike_table</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop_dist</span><span class="p">[</span><span class="n">solution</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">solution</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">cost</span>
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">compute_swap_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src_seq</span><span class="p">,</span> <span class="n">dst_seq</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="c1"># TODO: Optimize this algorithm.</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Find the swap sequence from source sequecne to destination sequence.
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Args:
-</span></span></span><span class="line"><span class="cl"><span class="s2">                src_seq: List, the source sequence
-</span></span></span><span class="line"><span class="cl"><span class="s2">                dst_seq: List, the destination sequence
-</span></span></span><span class="line"><span class="cl"><span class="s2">                seq_len: int, the length of source and destination sequence
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Return:
-</span></span></span><span class="line"><span class="cl"><span class="s2">                swap_sequence: the index of each point for `src_seq` in `dst_seq`
-</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">swap_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">seq_len</span><span class="p">,))</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">seq_len</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">            <span class="n">swap_seq</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dst_seq</span> <span class="o">==</span> <span class="n">src_seq</span><span class="p">[</span><span class="n">i</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">swap_seq</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">applySwap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">swap_seq</span><span class="p">,</span> <span class="n">src_seq</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Apply swap sequence to the source sequence
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Args:
-</span></span></span><span class="line"><span class="cl"><span class="s2">                src_seq: List, the source sequence
-</span></span></span><span class="line"><span class="cl"><span class="s2">                swap_sequence: the index of each point for `src_seq` in `dst_seq`
-</span></span></span><span class="line"><span class="cl"><span class="s2">                seq_len: int, the length of source and destination sequence
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Return:
-</span></span></span><span class="line"><span class="cl"><span class="s2">                dst_seq: List, the destination sequence
-</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">dst_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">seq_len</span><span class="p">,))</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">seq_len</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">            <span class="n">dst_seq</span><span class="p">[</span><span class="n">swap_seq</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">src_seq</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">dst_seq</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">place</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Funciton to execute pso algorithm.
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Args:
-</span></span></span><span class="line"><span class="cl"><span class="s2">                num_iter: int, max number of iterations to execute pso update
-</span></span></span><span class="line"><span class="cl"><span class="s2">            Return:
-</span></span></span><span class="line"><span class="cl"><span class="s2">                global best solution after `num_iter` iterations
-</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iter</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_particle</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">                <span class="n">tmp_solution</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s2</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">                    <span class="c1"># print(&#34;local&#34;)</span>
-</span></span><span class="line"><span class="cl">                    <span class="n">swap_seq_local</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_swap_sequence</span><span class="p">(</span><span class="n">tmp_solution</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_best_solution</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                    <span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">applySwap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">swap_seq_local</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s3</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">                    <span class="c1"># print(&#34;global&#34;)</span>
-</span></span><span class="line"><span class="cl">                    <span class="n">swap_seq_global</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_swap_sequence</span><span class="p">(</span><span class="n">tmp_solution</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_best_solution</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                    <span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">applySwap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">swap_seq_global</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_size</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mf">0.0001</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">                    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">                <span class="n">cost</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitnessFuntcion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">cost</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_best_cost</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-</span></span><span class="line"><span class="cl">                    <span class="bp">self</span><span class="o">.</span><span class="n">local_best_cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost</span>
-</span></span><span class="line"><span class="cl">                    <span class="bp">self</span><span class="o">.</span><span class="n">local_best_solution</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_best_cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_best_cost</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">                    <span class="bp">self</span><span class="o">.</span><span class="n">global_best_cost</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_best_cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">                    <span class="bp">self</span><span class="o">.</span><span class="n">global_best_solution</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">local_best_solution</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Iteration:</span><span class="si">{}</span><span class="s2">, global best cost:</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">iter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_best_cost</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_best_solution</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div>
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">lishengxie</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2023-04-30
-        
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      
-      <nav class="post-nav">
-        <a class="prev" href="/post/algorithm-study-sa/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">启发式优化算法学习-模拟退火</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/gdb-study/">
-            <span class="next-text nav-default">Gdb调试学习</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  
-    <script src="https://utteranc.es/client.js"
-    repo="lishengxie/lishengxie.github.io"
-    issue-term="title"
-    theme="github-light"
-    crossorigin="anonymous"
-    async>
-    </script>
-  
-
-  
-
-  
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Lishengxie</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2023-02-19</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Implementation of a PSO algorithm for crossbar mapping/placing</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> copy
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> sys
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PsoPlacer</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        PSO algorithm
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        -------------
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Class used to find the mapping from computing cores to routers on NoC which minizes the communication cost
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, dim_x, dim_y, spike_table, num_particle<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, s1<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>, s2<span style="color:#f92672">=</span><span style="color:#ae81ff">0.04</span>, s3<span style="color:#f92672">=</span><span style="color:#ae81ff">0.02</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Initialization of PsoPlacer.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                dim_x: int, the `x` dimension on NoC 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                dim_y: int, the `y` dimension on NoC 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                spike_table: 2D-array, the number of spikes between core `i` and core `j`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                num_particle: int, number of particles in the PSO algorithm
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dim_x <span style="color:#f92672">=</span> dim_x
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dim_y <span style="color:#f92672">=</span> dim_y
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dim_size <span style="color:#f92672">=</span> dim_x <span style="color:#f92672">*</span> dim_y
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>num_particle <span style="color:#f92672">=</span> num_particle
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>s1 <span style="color:#f92672">=</span> s1
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>s2 <span style="color:#f92672">=</span> s2
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>s3 <span style="color:#f92672">=</span> s3
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>init_particle(spike_table)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">init_particle</span>(self, spike_table):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Init spike table, particles, local and global best solution
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                spike_table: 2D-array, the number of spikes between core `i` and core `j`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># init the spike table, adding `0`s if the dimension of `spike_table` not equal to `dim_size`</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>spike_table <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((self<span style="color:#f92672">.</span>dim_size, self<span style="color:#f92672">.</span>dim_size))
+</span></span><span style="display:flex;"><span>        h, w <span style="color:#f92672">=</span> spike_table<span style="color:#f92672">.</span>shape
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(h):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(w):
+</span></span><span style="display:flex;"><span>                self<span style="color:#f92672">.</span>spike_table[i,j] <span style="color:#f92672">=</span> spike_table[i,j]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># init particle vectors with number of `num_particle`, each vector is a mappinng solution</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>solution <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((self<span style="color:#f92672">.</span>num_particle, self<span style="color:#f92672">.</span>dim_size), dtype<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>int32)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>num_particle):
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>solution[i] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(self<span style="color:#f92672">.</span>dim_size)
+</span></span><span style="display:flex;"><span>            np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>shuffle(self<span style="color:#f92672">.</span>solution[i])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># init hop distance table</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>hop_xy()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># init the local/global best solution and their cost</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>local_best_solution <span style="color:#f92672">=</span> copy<span style="color:#f92672">.</span>deepcopy(self<span style="color:#f92672">.</span>solution)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>local_best_cost <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((self<span style="color:#f92672">.</span>num_particle,))
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>global_best_solution <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(self<span style="color:#f92672">.</span>dim_size)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>global_best_cost <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>maxsize
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>num_particle):
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>local_best_cost[i] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fitnessFuntcion(self<span style="color:#f92672">.</span>local_best_solution[i])
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>local_best_cost[i] <span style="color:#f92672">&lt;</span> self<span style="color:#f92672">.</span>global_best_cost:
+</span></span><span style="display:flex;"><span>                self<span style="color:#f92672">.</span>global_best_solution <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>local_best_solution[i]
+</span></span><span style="display:flex;"><span>                self<span style="color:#f92672">.</span>global_best_cost <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>local_best_cost[i]
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Init, gloabal best cost:</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(self<span style="color:#f92672">.</span>global_best_cost))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hop_xy</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            The hop distance between router `x` and `y` in the 2D-Mesh NoC using XY routing
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>hop_dist <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((self<span style="color:#f92672">.</span>dim_size, self<span style="color:#f92672">.</span>dim_size))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>dim_size):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>dim_size):
+</span></span><span style="display:flex;"><span>                self<span style="color:#f92672">.</span>hop_dist[i,j] <span style="color:#f92672">=</span> abs(i <span style="color:#f92672">%</span> self<span style="color:#f92672">.</span>dim_x <span style="color:#f92672">-</span> j <span style="color:#f92672">%</span> self<span style="color:#f92672">.</span>dim_x) \
+</span></span><span style="display:flex;"><span>                                <span style="color:#f92672">+</span> abs(i <span style="color:#f92672">//</span> self<span style="color:#f92672">.</span>dim_x <span style="color:#f92672">-</span> j <span style="color:#f92672">//</span> self<span style="color:#f92672">.</span>dim_x)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fitnessFuntcion</span>(self, solution):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Compute the communication cost for each mapping solution
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                solution: List, a possible mapping solution
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        cost <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>dim_size):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>dim_size):
+</span></span><span style="display:flex;"><span>                cost <span style="color:#f92672">+=</span>  self<span style="color:#f92672">.</span>spike_table[i,j] <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>hop_dist[solution[i], solution[j]]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> cost
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">compute_swap_sequence</span>(self, src_seq, dst_seq, seq_len):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># TODO: Optimize this algorithm.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Find the swap sequence from source sequecne to destination sequence.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                src_seq: List, the source sequence
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                dst_seq: List, the destination sequence
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                seq_len: int, the length of source and destination sequence
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Return:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                swap_sequence: the index of each point for `src_seq` in `dst_seq`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        swap_seq <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((seq_len,))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(seq_len):
+</span></span><span style="display:flex;"><span>            swap_seq[i] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>where(dst_seq <span style="color:#f92672">==</span> src_seq[i])[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> swap_seq
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">applySwap</span>(self, swap_seq, src_seq, seq_len):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Apply swap sequence to the source sequence
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                src_seq: List, the source sequence
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                swap_sequence: the index of each point for `src_seq` in `dst_seq`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                seq_len: int, the length of source and destination sequence
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Return:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                dst_seq: List, the destination sequence
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        dst_seq <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((seq_len,))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(seq_len):
+</span></span><span style="display:flex;"><span>            dst_seq[swap_seq[i]] <span style="color:#f92672">=</span> src_seq[i]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> dst_seq
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">place</span>(self, num_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Funciton to execute pso algorithm.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                num_iter: int, max number of iterations to execute pso update
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Return:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                global best solution after `num_iter` iterations
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> iter <span style="color:#f92672">in</span> range(num_iter):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>num_particle):
+</span></span><span style="display:flex;"><span>                tmp_solution <span style="color:#f92672">=</span> copy<span style="color:#f92672">.</span>deepcopy(self<span style="color:#f92672">.</span>solution[i])
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>random() <span style="color:#f92672">&lt;=</span> self<span style="color:#f92672">.</span>s2:
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e"># print(&#34;local&#34;)</span>
+</span></span><span style="display:flex;"><span>                    swap_seq_local <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>compute_swap_sequence(tmp_solution, self<span style="color:#f92672">.</span>local_best_solution[i], self<span style="color:#f92672">.</span>dim_size)
+</span></span><span style="display:flex;"><span>                    self<span style="color:#f92672">.</span>solution[i] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>applySwap(self<span style="color:#f92672">.</span>solution[i], swap_seq_local, self<span style="color:#f92672">.</span>dim_size)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>random() <span style="color:#f92672">&lt;=</span> self<span style="color:#f92672">.</span>s3:
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e"># print(&#34;global&#34;)</span>
+</span></span><span style="display:flex;"><span>                    swap_seq_global <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>compute_swap_sequence(tmp_solution, self<span style="color:#f92672">.</span>global_best_solution, self<span style="color:#f92672">.</span>dim_size)
+</span></span><span style="display:flex;"><span>                    self<span style="color:#f92672">.</span>solution[i] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>applySwap(self<span style="color:#f92672">.</span>solution[i], swap_seq_global, self<span style="color:#f92672">.</span>dim_size)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>random() <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0.0001</span>:
+</span></span><span style="display:flex;"><span>                    np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>shuffle(self<span style="color:#f92672">.</span>solution[i])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                cost <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fitnessFuntcion(self<span style="color:#f92672">.</span>solution[i])
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> cost <span style="color:#f92672">&lt;</span> self<span style="color:#f92672">.</span>local_best_cost[i]:
+</span></span><span style="display:flex;"><span>                    self<span style="color:#f92672">.</span>local_best_cost[i] <span style="color:#f92672">=</span> cost
+</span></span><span style="display:flex;"><span>                    self<span style="color:#f92672">.</span>local_best_solution[i] <span style="color:#f92672">=</span> copy<span style="color:#f92672">.</span>deepcopy(self<span style="color:#f92672">.</span>solution[i])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>local_best_cost[i] <span style="color:#f92672">&lt;</span> self<span style="color:#f92672">.</span>global_best_cost:
+</span></span><span style="display:flex;"><span>                    self<span style="color:#f92672">.</span>global_best_cost <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>local_best_cost[i]
+</span></span><span style="display:flex;"><span>                    self<span style="color:#f92672">.</span>global_best_solution <span style="color:#f92672">=</span> copy<span style="color:#f92672">.</span>deepcopy(self<span style="color:#f92672">.</span>local_best_solution[i])
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#34;Iteration:</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">, global best cost:</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(iter, self<span style="color:#f92672">.</span>global_best_cost))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>global_best_solution
+</span></span></code></pre></div>
       </div>
-    </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="1141751053@qq.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://github.com/lishengxie" class="iconfont icon-github" title="github"></a>
-  <a href="https://lishengxie.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+      <footer>
+        
+      </footer>
+    </article>
+
+    
+    
+      
+
+
+
+
+<aside class="sidebar">
+  
+  
+    <aside class="toc">
+  <h2 class="toc-title">Table of Contents</h2>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#粒子群算法pso">粒子群算法(PSO)</a>
+      <ul>
+        <li><a href="#粒子速度和位置">粒子速度和位置</a></li>
+        <li><a href="#粒子速度和位置更新公式">粒子速度和位置更新公式</a></li>
+        <li><a href="#pso算法运行流程">PSO算法运行流程</a></li>
+        <li><a href="#pso算法求解映射问题">PSO算法求解映射问题</a></li>
+        <li><a href="#pso求解映射代码">PSO求解映射代码</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</aside>
+  
+
+  
+  
+    
+    
+      <div class="widget-area">
+        
+          
+<div class="widget widget-recent">
+  <h3 class="widget-title">Recent Posts</h3>
+  <ul>
+    
+    
+    <li>
+      <a href="/post/lets-encrypt-ssl/">Lets Encrypt Ssl</a>
+      <time datetime="2025-09-14T21:58:04&#43;08:00">Sep 14, 2025</time>
+    </li>
+    
+    <li>
+      <a href="/post/redis-listpack-ziplist/">Redis ziplist、quicklist 和 listpack</a>
+      <time datetime="2025-03-03T22:44:38&#43;08:00">Mar 3, 2025</time>
+    </li>
+    
+    <li>
+      <a href="/post/nginx-prohibit-ip-request/">Nginx禁止使用IP直接访问服务器上相应端口</a>
+      <time datetime="2024-05-11T21:48:52&#43;08:00">May 11, 2024</time>
+    </li>
+    
+    <li>
+      <a href="/post/leetcode-kmp/">LeetCode刷题 - KMP算法</a>
+      <time datetime="2024-02-04T18:48:10&#43;08:00">Feb 4, 2024</time>
+    </li>
+    
+    <li>
+      <a href="/post/transfer-server/">Transfer Server</a>
+      <time datetime="2023-12-23T23:17:56&#43;08:00">Dec 23, 2023</time>
+    </li>
+    
+  </ul>
+</div>
+        
+          
+<div class="widget widget-categories">
+  <h3 class="widget-title">Categories</h3>
+  
+  <ul>
+    
+    
+    <li><a href="/categories/linux/">Linux</a><span class="widget-count">7</span></li>
+    
+    <li><a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">算法学习</a><span class="widget-count">7</span></li>
+    
+    <li><a href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a><span class="widget-count">6</span></li>
+    
+    <li><a href="/categories/c&#43;&#43;/">C&#43;&#43;</a><span class="widget-count">4</span></li>
+    
+    <li><a href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a><span class="widget-count">3</span></li>
+    
+    <li><a href="/categories/go%E5%AD%A6%E4%B9%A0/">Go学习</a><span class="widget-count">2</span></li>
+    
+    <li><a href="/categories/redis/">Redis</a><span class="widget-count">1</span></li>
+    
+    <li><a href="/categories/systemc/">SystemC</a><span class="widget-count">1</span></li>
+    
+    <li><a href="/categories/verilog/">Verilog</a><span class="widget-count">1</span></li>
+    
+  </ul>
+  
 </div>
 
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
+        
+          
+<div class="widget widget-tags">
+  <h3 class="widget-title">Tags</h3>
+  
+</div>
+
+        
+      </div>
+    
+  
+</aside>
+
+    
+  </div>
+
+  
+    
+<nav class="post-nav">
+  
+  <a href="/post/gdb-study/" class="nav-prev">
+    <span class="nav-arrow">&larr;</span>
+    <span class="nav-title">Gdb调试学习</span>
+  </a>
+  
+  
+  <a href="/post/algorithm-study-sa/" class="nav-next">
+    <span class="nav-title">启发式优化算法学习-模拟退火</span>
+    <span class="nav-arrow">&rarr;</span>
+  </a>
+  
+</nav>
+
 
   
 
-  <span class="copyright-year">
-    &copy; 
-    2023 - 
-    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
-  </span>
+  
+    
+
+
+<section class="related-posts">
+  <h3 class="related-title">Related Posts</h3>
+  <ul class="related-list">
+    
+    <li class="related-item">
+      <a href="/post/differential-array/" class="related-link">
+        <span class="related-item-title">算法学习-差分数组</span>
+        <time class="related-item-date" datetime="2023-12-23">Dec 23, 2023</time>
+      </a>
+    </li>
+    
+    <li class="related-item">
+      <a href="/post/traverse-binary-tree/" class="related-link">
+        <span class="related-item-title">LeetCode刷题-二叉树遍历迭代法</span>
+        <time class="related-item-date" datetime="2023-10-17">Oct 17, 2023</time>
+      </a>
+    </li>
+    
+    <li class="related-item">
+      <a href="/post/leetcode-moving-window-maximum/" class="related-link">
+        <span class="related-item-title">LeetCode刷题 - 滑动窗口最大值</span>
+        <time class="related-item-date" datetime="2023-10-17">Oct 17, 2023</time>
+      </a>
+    </li>
+    
+    <li class="related-item">
+      <a href="/post/algorithm-study-multiopt/" class="related-link">
+        <span class="related-item-title">多目标优化问题及两种常用解法</span>
+        <time class="related-item-date" datetime="2023-04-30">Apr 30, 2023</time>
+      </a>
+    </li>
+    
+  </ul>
+</section>
+
+
+  
+
+  <script src="https://utteranc.es/client.js"
+  repo="lishengxie/lishengxie.github.io"
+  issue-term="title"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+
 </div>
 
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
+  </main>
+  
+<footer class="site-footer">
+  <div class="container">
+    
+    
+    <div class="copyright">
+      Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/yogirk/explore" target="_blank" rel="noopener">Explore Theme</a>.
     </div>
   </div>
+</footer>
+
   
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+  <script src="/js/minimal.min.6a9ca11052c7f4a8a7596e64d3b60b3b1040bc4e6c825054f99533c3126a84a6.js" integrity="sha256-apyhEFLH9KinWW5k07YLOxBAvE5sglBU&#43;ZUzwxJqhKY=" crossorigin="anonymous" defer></script>
+  
+  
 
-
-
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-  <script type="text/javascript">
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        }
-    };
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      
+      document.querySelectorAll('.katex-inline').forEach(function (el) {
+        katex.render(el.textContent, el, { throwOnError: false });
+      });
+      
+      document.querySelectorAll('.katex-display').forEach(function (el) {
+        katex.render(el.textContent, el, { displayMode: true, throwOnError: false });
+      });
+    });
   </script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
-
-
-
-
-
-
-
-
 </body>
 </html>

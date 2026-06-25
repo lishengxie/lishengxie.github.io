@@ -1,405 +1,456 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Gin框架学习 - Github Pages - Lishengxie</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Gin框架学习 &middot; Lishengxie</title>
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="lishengxie" /><meta name="description" content="概述 Gin框架地址：https://github.com/gin-gonic/gin 参考文档： https://www.kancloud.cn/shuangdeyu/gin_book https://github.com/piexlmax/1010class Gin服务入门 1 2 3 4 5 6 7 8 9 10 11 12 13 package" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="description" content="A personal blog powered by Hugo.">
+<meta name="author" content="Lishengxie">
+<link rel="canonical" href="http://localhost:1313/post/go-study/">
 
 
 
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+
+
+<meta property="og:title" content="Gin框架学习">
+<meta property="og:description" content="概述
+Gin框架地址：https://github.com/gin-gonic/gin
+参考文档：
+https://www.kancloud.cn/shuangdeyu/gin_book
+https://github.com/piexlmax/1010class
+Gin服务入门
+package main
+
+import &#34;github.com/gin-gonic/gin&#34;
+
+func main() {
+	r := gin.Default()
+	r.GET(&#34;/ping&#34;, func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			&#34;message&#34;: &#34;pong&#34;,
+		})
+	})
+	r.Run() // listen and serve on 0.0.0.0:8080
+}
+Gin获取Get/Post参数
+获取Get参数
+func main() {
+	router := gin.Default()
+
+	// 匹配的url格式:  /welcome?firstname=Jane&amp;lastname=Doe
+	router.GET(&#34;/welcome&#34;, func(c *gin.Context) {
+		firstname := c.DefaultQuery(&#34;firstname&#34;, &#34;Guest&#34;) // DefaultQuery可以在参数值不存在时使用传入的默认值
+		lastname := c.Query(&#34;lastname&#34;) // 是 c.Request.URL.Query().Get(&#34;lastname&#34;) 的简写
+
+		c.String(http.StatusOK, &#34;Hello %s %s&#34;, firstname, lastname)
+	})
+	router.Run(&#34;:8080&#34;)
+}
+获取Post参数
+func main() {
+	router := gin.Default()
+
+	router.POST(&#34;/form_post&#34;, func(c *gin.Context) {
+		message := c.PostForm(&#34;message&#34;)
+		nick := c.DefaultPostForm(&#34;nick&#34;, &#34;anonymous&#34;) // 此方法可以设置默认值
+
+		c.JSON(200, gin.H{
+			&#34;status&#34;:  &#34;posted&#34;,
+			&#34;message&#34;: message,
+			&#34;nick&#34;:    nick,
+		})
+	})
+	router.Run(&#34;:8080&#34;)
+}
+Get和Post参数混合使用
+	router := gin.Default()
+
+	router.POST(&#34;/post&#34;, func(c *gin.Context) {
+
+		id := c.Query(&#34;id&#34;)
+		page := c.DefaultQuery(&#34;page&#34;, &#34;0&#34;)
+		name := c.PostForm(&#34;name&#34;)
+		message := c.PostForm(&#34;message&#34;)
+
+		fmt.Printf(&#34;id: %s; page: %s; name: %s; message: %s&#34;, id, page, name, message)
+	})
+	router.Run(&#34;:8080&#34;)
+}
+
+请求示例：">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/post/go-study/">
 
 
 
-<meta name="generator" content="Hugo 0.109.0 with theme even" />
+<meta property="article:section" content="post">
 
 
-<link rel="canonical" href="https://lishengxie.github.io/post/go-study/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta property="article:published_time" content="2023-04-30 08:26:45 &#43;0800 CST">
+
+
+<meta property="article:modified_time" content="2023-04-30 08:26:45 &#43;0800 CST">
 
 
 
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gin框架学习">
+<meta name="twitter:description" content="概述
+Gin框架地址：https://github.com/gin-gonic/gin
+参考文档：
+https://www.kancloud.cn/shuangdeyu/gin_book
+https://github.com/piexlmax/1010class
+Gin服务入门
+package main
+
+import &#34;github.com/gin-gonic/gin&#34;
+
+func main() {
+	r := gin.Default()
+	r.GET(&#34;/ping&#34;, func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			&#34;message&#34;: &#34;pong&#34;,
+		})
+	})
+	r.Run() // listen and serve on 0.0.0.0:8080
+}
+Gin获取Get/Post参数
+获取Get参数
+func main() {
+	router := gin.Default()
+
+	// 匹配的url格式:  /welcome?firstname=Jane&amp;lastname=Doe
+	router.GET(&#34;/welcome&#34;, func(c *gin.Context) {
+		firstname := c.DefaultQuery(&#34;firstname&#34;, &#34;Guest&#34;) // DefaultQuery可以在参数值不存在时使用传入的默认值
+		lastname := c.Query(&#34;lastname&#34;) // 是 c.Request.URL.Query().Get(&#34;lastname&#34;) 的简写
+
+		c.String(http.StatusOK, &#34;Hello %s %s&#34;, firstname, lastname)
+	})
+	router.Run(&#34;:8080&#34;)
+}
+获取Post参数
+func main() {
+	router := gin.Default()
+
+	router.POST(&#34;/form_post&#34;, func(c *gin.Context) {
+		message := c.PostForm(&#34;message&#34;)
+		nick := c.DefaultPostForm(&#34;nick&#34;, &#34;anonymous&#34;) // 此方法可以设置默认值
+
+		c.JSON(200, gin.H{
+			&#34;status&#34;:  &#34;posted&#34;,
+			&#34;message&#34;: message,
+			&#34;nick&#34;:    nick,
+		})
+	})
+	router.Run(&#34;:8080&#34;)
+}
+Get和Post参数混合使用
+	router := gin.Default()
+
+	router.POST(&#34;/post&#34;, func(c *gin.Context) {
+
+		id := c.Query(&#34;id&#34;)
+		page := c.DefaultQuery(&#34;page&#34;, &#34;0&#34;)
+		name := c.PostForm(&#34;name&#34;)
+		message := c.PostForm(&#34;message&#34;)
+
+		fmt.Printf(&#34;id: %s; page: %s; name: %s; message: %s&#34;, id, page, name, message)
+	})
+	router.Run(&#34;:8080&#34;)
+}
+
+请求示例：">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Gin框架学习",
+  "name": "Gin框架学习",
+  "description": "\u003ch2 id=\u0022概述\u0022\u003e概述\u003c\/h2\u003e\n\u003cp\u003e\u003cstrong\u003eGin框架地址\u003c\/strong\u003e：https:\/\/github.com\/gin-gonic\/gin\u003c\/p\u003e\n\u003cp\u003e\u003cstrong\u003e参考文档\u003c\/strong\u003e：\n\u003ca href=\u0022https:\/\/www.kancloud.cn\/shuangdeyu\/gin_book\u0022\u003ehttps:\/\/www.kancloud.cn\/shuangdeyu\/gin_book\u003c\/a\u003e\n\u003ca href=\u0022https:\/\/github.com\/piexlmax\/1010class\u0022\u003ehttps:\/\/github.com\/piexlmax\/1010class\u003c\/a\u003e\u003c\/p\u003e\n\u003ch2 id=\u0022gin服务入门\u0022\u003eGin服务入门\u003c\/h2\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-go\u0022 data-lang=\u0022go\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#f92672\u0022\u003epackage\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003emain\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#f92672\u0022\u003eimport\u003c\/span\u003e \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;github.com\/gin-gonic\/gin\u0026#34;\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003efunc\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003emain\u003c\/span\u003e() {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#a6e22e\u0022\u003er\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003egin\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eDefault\u003c\/span\u003e()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#a6e22e\u0022\u003er\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eGET\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\/ping\u0026#34;\u003c\/span\u003e, \u003cspan style=\u0022color:#66d9ef\u0022\u003efunc\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e\u003cspan style=\u0022color:#a6e22e\u0022\u003egin\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eContext\u003c\/span\u003e) {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eJSON\u003c\/span\u003e(\u003cspan style=\u0022color:#ae81ff\u0022\u003e200\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003egin\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eH\u003c\/span\u003e{\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\t\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;message\u0026#34;\u003c\/span\u003e: \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;pong\u0026#34;\u003c\/span\u003e,\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t})\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t})\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#a6e22e\u0022\u003er\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eRun\u003c\/span\u003e() \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ listen and serve on 0.0.0.0:8080\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003ch2 id=\u0022gin获取getpost参数\u0022\u003eGin获取Get\/Post参数\u003c\/h2\u003e\n\u003ch3 id=\u0022获取get参数\u0022\u003e获取Get参数\u003c\/h3\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-go\u0022 data-lang=\u0022go\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003efunc\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003emain\u003c\/span\u003e() {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#a6e22e\u0022\u003erouter\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003egin\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eDefault\u003c\/span\u003e()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ 匹配的url格式:  \/welcome?firstname=Jane\u0026amp;lastname=Doe\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#a6e22e\u0022\u003erouter\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eGET\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\/welcome\u0026#34;\u003c\/span\u003e, \u003cspan style=\u0022color:#66d9ef\u0022\u003efunc\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e\u003cspan style=\u0022color:#a6e22e\u0022\u003egin\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eContext\u003c\/span\u003e) {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#a6e22e\u0022\u003efirstname\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eDefaultQuery\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;firstname\u0026#34;\u003c\/span\u003e, \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Guest\u0026#34;\u003c\/span\u003e) \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ DefaultQuery可以在参数值不存在时使用传入的默认值\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#a6e22e\u0022\u003elastname\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eQuery\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;lastname\u0026#34;\u003c\/span\u003e) \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ 是 c.Request.URL.Query().Get(\u0026#34;lastname\u0026#34;) 的简写\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eString\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003ehttp\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eStatusOK\u003c\/span\u003e, \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Hello %s %s\u0026#34;\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003efirstname\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003elastname\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t})\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#a6e22e\u0022\u003erouter\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eRun\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;:8080\u0026#34;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003ch3 id=\u0022获取post参数\u0022\u003e获取Post参数\u003c\/h3\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-go\u0022 data-lang=\u0022go\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003efunc\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003emain\u003c\/span\u003e() {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#a6e22e\u0022\u003erouter\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003egin\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eDefault\u003c\/span\u003e()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#a6e22e\u0022\u003erouter\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePOST\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\/form_post\u0026#34;\u003c\/span\u003e, \u003cspan style=\u0022color:#66d9ef\u0022\u003efunc\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e\u003cspan style=\u0022color:#a6e22e\u0022\u003egin\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eContext\u003c\/span\u003e) {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#a6e22e\u0022\u003emessage\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePostForm\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;message\u0026#34;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#a6e22e\u0022\u003enick\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eDefaultPostForm\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;nick\u0026#34;\u003c\/span\u003e, \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;anonymous\u0026#34;\u003c\/span\u003e) \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ 此方法可以设置默认值\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eJSON\u003c\/span\u003e(\u003cspan style=\u0022color:#ae81ff\u0022\u003e200\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003egin\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eH\u003c\/span\u003e{\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\t\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;status\u0026#34;\u003c\/span\u003e:  \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;posted\u0026#34;\u003c\/span\u003e,\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\t\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;message\u0026#34;\u003c\/span\u003e: \u003cspan style=\u0022color:#a6e22e\u0022\u003emessage\u003c\/span\u003e,\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\t\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;nick\u0026#34;\u003c\/span\u003e:    \u003cspan style=\u0022color:#a6e22e\u0022\u003enick\u003c\/span\u003e,\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t})\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t})\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#a6e22e\u0022\u003erouter\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eRun\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;:8080\u0026#34;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003ch3 id=\u0022get和post参数混合使用\u0022\u003eGet和Post参数混合使用\u003c\/h3\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-go\u0022 data-lang=\u0022go\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#a6e22e\u0022\u003erouter\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003egin\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eDefault\u003c\/span\u003e()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#a6e22e\u0022\u003erouter\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePOST\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\/post\u0026#34;\u003c\/span\u003e, \u003cspan style=\u0022color:#66d9ef\u0022\u003efunc\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e\u003cspan style=\u0022color:#a6e22e\u0022\u003egin\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eContext\u003c\/span\u003e) {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#a6e22e\u0022\u003eid\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eQuery\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;id\u0026#34;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#a6e22e\u0022\u003epage\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eDefaultQuery\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;page\u0026#34;\u003c\/span\u003e, \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;0\u0026#34;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#a6e22e\u0022\u003ename\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePostForm\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;name\u0026#34;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#a6e22e\u0022\u003emessage\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ec\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePostForm\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;message\u0026#34;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#a6e22e\u0022\u003efmt\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePrintf\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;id: %s; page: %s; name: %s; message: %s\u0026#34;\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003eid\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003epage\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003ename\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003emessage\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t})\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#a6e22e\u0022\u003erouter\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eRun\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;:8080\u0026#34;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cblockquote\u003e\n\u003cp\u003e请求示例：\u003c\/p\u003e",
+  "url": "http:\/\/localhost:1313\/post\/go-study\/",
+  
+  "datePublished": "2023-04-30T08:26:45\u002b08:00",
+  "dateModified": "2023-04-30T08:26:45\u002b08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Lishengxie"
+  },
+  
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http:\/\/localhost:1313\/post\/go-study\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Lishengxie",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http:\/\/localhost:1313\/apple-touch-icon.png"
+    }
+  }
+}
+</script>
 
 
-<meta property="og:title" content="Gin框架学习" />
-<meta property="og:description" content="概述 Gin框架地址：https://github.com/gin-gonic/gin 参考文档： https://www.kancloud.cn/shuangdeyu/gin_book https://github.com/piexlmax/1010class Gin服务入门 1 2 3 4 5 6 7 8 9 10 11 12 13 package" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://lishengxie.github.io/post/go-study/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-04-30T08:26:45+08:00" />
-<meta property="article:modified_time" content="2023-04-30T08:26:45+08:00" />
-<meta itemprop="name" content="Gin框架学习">
-<meta itemprop="description" content="概述 Gin框架地址：https://github.com/gin-gonic/gin 参考文档： https://www.kancloud.cn/shuangdeyu/gin_book https://github.com/piexlmax/1010class Gin服务入门 1 2 3 4 5 6 7 8 9 10 11 12 13 package"><meta itemprop="datePublished" content="2023-04-30T08:26:45+08:00" />
-<meta itemprop="dateModified" content="2023-04-30T08:26:45+08:00" />
-<meta itemprop="wordCount" content="2521">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Gin框架学习"/>
-<meta name="twitter:description" content="概述 Gin框架地址：https://github.com/gin-gonic/gin 参考文档： https://www.kancloud.cn/shuangdeyu/gin_book https://github.com/piexlmax/1010class Gin服务入门 1 2 3 4 5 6 7 8 9 10 11 12 13 package"/>
 
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
 
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
+
+<link rel="preload" href="/fonts/google-sans-flex-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/google-sans-flex-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/google-sans-code-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+
+
+
+
+<link rel="stylesheet" href="/css/style.444aa50704e4c1bf29dab952f95176e6eb7656beb818e5c84b386bf5e78f3225.css" integrity="sha256-REqlBwTkwb8p2rlS&#43;VF25ut2Vr64GOXISzhr9eePMiU=">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+
+<style>
+  .post-list-item { overflow: hidden; }
+  .post-excerpt { word-break: break-word; }
+</style>
+
+
+<script>
+  (function() {
+    try {
+      var theme = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+
 </head>
 <body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">Blog</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/about/">
-        <li class="mobile-menu-item">About</li>
+  
+<header class="site-header is-sticky">
+  <div class="container header-inner">
+    <div class="site-identity">
+      <a href="/" class="site-brand">
+        
+        <span class="site-title">Lishengxie</span>
       </a>
-  </ul>
+      
+        <p class="site-tagline">同步备份自 https://www.lishengxie.top</p>
+      
+    </div>
+    <button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">
+      <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <nav id="site-nav" class="site-nav">
+      <div class="main-nav">
+        <ul>
+          
+          
+          <li>
+            <a href="/post/" class="">Posts</a>
+          </li>
+          
+          <li>
+            <a href="/pages/about/" class="">About</a>
+          </li>
+          
+          <li>
+            <a href="/pages/contact/" class="">Contact</a>
+          </li>
+          
+        </ul>
+      </div>
+      <div class="nav-utils">
+        <a href="http://localhost:1313/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+        </a>
+        
+        <a href="/search" class="nav-search" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" aria-pressed="false">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+  <main class="site-main">
+    
+
+<div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 
 
+<div class="container">
+  <div class="layout-grid layout-grid--sidebar-left">
+    <article class="post-single main-content main-content--sidebar-left">
+      <header class="post-header">
+        <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item"><a href="/post/">Posts</a></li><li class="breadcrumb-item" aria-current="page">Gin框架学习</li>
+  </ol>
 </nav>
+        <h1 class="post-title">Gin框架学习</h1>
+        <div class="post-meta">
+          
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <time datetime="2023-04-30T08:26:45&#43;08:00">Apr 30, 2023</time>
+            </span>
+          
 
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">Blog</a>
-</div>
+          
+            <span class="post-categories">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
 
+              
+                
+                <a href="/categories/go%E5%AD%A6%E4%B9%A0/">go学习</a>
+              
+            </span>
+          
 
+          
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              Lishengxie
+            </span>
+          
+        </div>
+      </header>
 
+      
 
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">Gin框架学习</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2023-04-30 </span>
-        <div class="post-category">
-            <a href="/categories/go%E5%AD%A6%E4%B9%A0/"> go学习 </a>
-            </div>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#概述">概述</a></li>
-        <li><a href="#gin服务入门">Gin服务入门</a></li>
-        <li><a href="#gin获取getpost参数">Gin获取Get/Post参数</a>
-          <ul>
-            <li><a href="#获取get参数">获取Get参数</a></li>
-            <li><a href="#获取post参数">获取Post参数</a></li>
-            <li><a href="#get和post参数混合使用">Get和Post参数混合使用</a></li>
-          </ul>
-        </li>
-        <li><a href="#bind绑定参数参数验证">Bind绑定参数&amp;参数验证</a></li>
-        <li><a href="#gin文件上传和返回">Gin文件上传和返回</a>
-          <ul>
-            <li><a href="#文件读取">文件读取</a></li>
-          </ul>
-        </li>
-        <li><a href="#路由分组和中间件">路由分组和中间件</a>
-          <ul>
-            <li><a href="#路由分组">路由分组</a></li>
-            <li><a href="#中间件">中间件</a></li>
-          </ul>
-        </li>
-        <li><a href="#gin日志">Gin日志</a></li>
-        <li><a href="#gin数据库使用">Gin数据库使用</a>
-          <ul>
-            <li><a href="#链接和使用mysql数据库">链接和使用MySQL数据库</a></li>
-            <li><a href="#orm进行数据库操作">ORM进行数据库操作</a></li>
-            <li><a href="#gorm链接数据库">GORM链接数据库</a></li>
-          </ul>
-        </li>
-        <li><a href="#加载静态资源html渲染">加载静态资源&amp;HTML渲染</a>
-          <ul>
-            <li><a href="#设置静态文件路径">设置静态文件路径</a></li>
-            <li><a href="#html渲染httpswwwkancloudcnshuangdeyugin_book949436"><a href="https://www.kancloud.cn/shuangdeyu/gin_book/949436">HTML渲染</a></a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      <h2 id="概述">概述</h2>
+      <div class="post-content">
+        <h2 id="概述">概述</h2>
 <p><strong>Gin框架地址</strong>：https://github.com/gin-gonic/gin</p>
 <p><strong>参考文档</strong>：
 <a href="https://www.kancloud.cn/shuangdeyu/gin_book">https://www.kancloud.cn/shuangdeyu/gin_book</a>
 <a href="https://github.com/piexlmax/1010class">https://github.com/piexlmax/1010class</a></p>
 <h2 id="gin服务入门">Gin服务入门</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/ping&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">c</span><span class="p">.</span><span class="nf">JSON</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="s">&#34;message&#34;</span><span class="p">:</span> <span class="s">&#34;pong&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">		<span class="p">})</span>
-</span></span><span class="line"><span class="cl">	<span class="p">})</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">Run</span><span class="p">()</span> <span class="c1">// listen and serve on 0.0.0.0:8080
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="gin获取getpost参数">Gin获取Get/Post参数</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;github.com/gin-gonic/gin&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Default</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/ping&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Context</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#ae81ff">200</span>, <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">H</span>{
+</span></span><span style="display:flex;"><span>			<span style="color:#e6db74">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;pong&#34;</span>,
+</span></span><span style="display:flex;"><span>		})
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Run</span>() <span style="color:#75715e">// listen and serve on 0.0.0.0:8080</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="gin获取getpost参数">Gin获取Get/Post参数</h2>
 <h3 id="获取get参数">获取Get参数</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">// 匹配的url格式:  /welcome?firstname=Jane&amp;lastname=Doe
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">router</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/welcome&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">firstname</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">DefaultQuery</span><span class="p">(</span><span class="s">&#34;firstname&#34;</span><span class="p">,</span> <span class="s">&#34;Guest&#34;</span><span class="p">)</span> <span class="c1">// DefaultQuery可以在参数值不存在时使用传入的默认值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">lastname</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">Query</span><span class="p">(</span><span class="s">&#34;lastname&#34;</span><span class="p">)</span> <span class="c1">// 是 c.Request.URL.Query().Get(&#34;lastname&#34;) 的简写
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">		<span class="nx">c</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="s">&#34;Hello %s %s&#34;</span><span class="p">,</span> <span class="nx">firstname</span><span class="p">,</span> <span class="nx">lastname</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">})</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="获取post参数">获取Post参数</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span><span class="p">.</span><span class="nf">POST</span><span class="p">(</span><span class="s">&#34;/form_post&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">message</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">PostForm</span><span class="p">(</span><span class="s">&#34;message&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">nick</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">DefaultPostForm</span><span class="p">(</span><span class="s">&#34;nick&#34;</span><span class="p">,</span> <span class="s">&#34;anonymous&#34;</span><span class="p">)</span> <span class="c1">// 此方法可以设置默认值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">		<span class="nx">c</span><span class="p">.</span><span class="nf">JSON</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="s">&#34;status&#34;</span><span class="p">:</span>  <span class="s">&#34;posted&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">			<span class="s">&#34;message&#34;</span><span class="p">:</span> <span class="nx">message</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">			<span class="s">&#34;nick&#34;</span><span class="p">:</span>    <span class="nx">nick</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">		<span class="p">})</span>
-</span></span><span class="line"><span class="cl">	<span class="p">})</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="get和post参数混合使用">Get和Post参数混合使用</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="nx">router</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span><span class="p">.</span><span class="nf">POST</span><span class="p">(</span><span class="s">&#34;/post&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="nx">id</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">Query</span><span class="p">(</span><span class="s">&#34;id&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">page</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">DefaultQuery</span><span class="p">(</span><span class="s">&#34;page&#34;</span><span class="p">,</span> <span class="s">&#34;0&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">name</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">PostForm</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">message</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">PostForm</span><span class="p">(</span><span class="s">&#34;message&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;id: %s; page: %s; name: %s; message: %s&#34;</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">page</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">message</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">})</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Default</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 匹配的url格式:  /welcome?firstname=Jane&amp;lastname=Doe</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/welcome&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Context</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">firstname</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">DefaultQuery</span>(<span style="color:#e6db74">&#34;firstname&#34;</span>, <span style="color:#e6db74">&#34;Guest&#34;</span>) <span style="color:#75715e">// DefaultQuery可以在参数值不存在时使用传入的默认值</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">lastname</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Query</span>(<span style="color:#e6db74">&#34;lastname&#34;</span>) <span style="color:#75715e">// 是 c.Request.URL.Query().Get(&#34;lastname&#34;) 的简写</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">String</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#e6db74">&#34;Hello %s %s&#34;</span>, <span style="color:#a6e22e">firstname</span>, <span style="color:#a6e22e">lastname</span>)
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="获取post参数">获取Post参数</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Default</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/form_post&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Context</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">message</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">PostForm</span>(<span style="color:#e6db74">&#34;message&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">nick</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">DefaultPostForm</span>(<span style="color:#e6db74">&#34;nick&#34;</span>, <span style="color:#e6db74">&#34;anonymous&#34;</span>) <span style="color:#75715e">// 此方法可以设置默认值</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#ae81ff">200</span>, <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">H</span>{
+</span></span><span style="display:flex;"><span>			<span style="color:#e6db74">&#34;status&#34;</span>:  <span style="color:#e6db74">&#34;posted&#34;</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#e6db74">&#34;message&#34;</span>: <span style="color:#a6e22e">message</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#e6db74">&#34;nick&#34;</span>:    <span style="color:#a6e22e">nick</span>,
+</span></span><span style="display:flex;"><span>		})
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="get和post参数混合使用">Get和Post参数混合使用</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Default</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/post&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Context</span>) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">id</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Query</span>(<span style="color:#e6db74">&#34;id&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">page</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">DefaultQuery</span>(<span style="color:#e6db74">&#34;page&#34;</span>, <span style="color:#e6db74">&#34;0&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">PostForm</span>(<span style="color:#e6db74">&#34;name&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">message</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">PostForm</span>(<span style="color:#e6db74">&#34;message&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;id: %s; page: %s; name: %s; message: %s&#34;</span>, <span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">page</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">message</span>)
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
 <p>请求示例：</p>
 </blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">POST /post?id=1234&amp;page=1 HTTP/1.1
-</span></span><span class="line"><span class="cl">Content-Type: application/x-www-form-urlencoded
-</span></span><span class="line"><span class="cl">name=manu&amp;message=this_is_great
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="bind绑定参数参数验证">Bind绑定参数&amp;参数验证</h2>
+<pre tabindex="0"><code>POST /post?id=1234&amp;page=1 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+name=manu&amp;message=this_is_great
+</code></pre><h2 id="bind绑定参数参数验证">Bind绑定参数&amp;参数验证</h2>
 <p>为了将请求主体绑定到结构体中，需要使用模型绑定，Gin当前支持JSON、XML、YAML和标准表单值(foo=bar&amp;boo=baz)的绑定。可以使用<code>Must Bind</code>和<code>Should Bind</code>两种绑定方式，推荐使用<code>Should Bind</code>方式</p>
 <ul>
 <li>Methods: <code>ShouldBind, ShouldBindJSON, ShouldBindXML, ShouldBindQuery, ShouldBindYAML</code>, 后几种基于<code>ShouldBind</code>实现相应的行为，可以指定绑定的数据格式，发生错误时会将错误返回供后续处理。下面给出了绑定json格式的示例</li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 绑定为json
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Login</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">User</span>     <span class="kt">string</span> <span class="s">`form:&#34;user&#34; json:&#34;user&#34; xml:&#34;user&#34;  binding:&#34;required&#34;`</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">Password</span> <span class="kt">string</span> <span class="s">`form:&#34;password&#34; json:&#34;password&#34; xml:&#34;password&#34; binding:&#34;required&#34;`</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">// Example for binding JSON ({&#34;user&#34;: &#34;manu&#34;, &#34;password&#34;: &#34;123&#34;})
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">router</span><span class="p">.</span><span class="nf">POST</span><span class="p">(</span><span class="s">&#34;/loginJSON&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">var</span> <span class="nx">json</span> <span class="nx">Login</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">ShouldBindJSON</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">json</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">c</span><span class="p">.</span><span class="nf">JSON</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusBadRequest</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span><span class="s">&#34;error&#34;</span><span class="p">:</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">()})</span>
-</span></span><span class="line"><span class="cl">			<span class="k">return</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">json</span><span class="p">.</span><span class="nx">User</span> <span class="o">!=</span> <span class="s">&#34;manu&#34;</span> <span class="o">||</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Password</span> <span class="o">!=</span> <span class="s">&#34;123&#34;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">c</span><span class="p">.</span><span class="nf">JSON</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusUnauthorized</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span><span class="s">&#34;status&#34;</span><span class="p">:</span> <span class="s">&#34;unauthorized&#34;</span><span class="p">})</span>
-</span></span><span class="line"><span class="cl">			<span class="k">return</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span> 
-</span></span><span class="line"><span class="cl">		<span class="nx">c</span><span class="p">.</span><span class="nf">JSON</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span><span class="s">&#34;status&#34;</span><span class="p">:</span> <span class="s">&#34;you are logged in&#34;</span><span class="p">})</span>
-</span></span><span class="line"><span class="cl">	<span class="p">})</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>绑定<code>form,uri,xml</code>格式时可以在结构体后的的修饰符中使用相应的字段。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// 绑定为json</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Login</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">User</span>     <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`form:&#34;user&#34; json:&#34;user&#34; xml:&#34;user&#34;  binding:&#34;required&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Password</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`form:&#34;password&#34; json:&#34;password&#34; xml:&#34;password&#34; binding:&#34;required&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Default</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Example for binding JSON ({&#34;user&#34;: &#34;manu&#34;, &#34;password&#34;: &#34;123&#34;})</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/loginJSON&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Context</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">json</span> <span style="color:#a6e22e">Login</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">ShouldBindJSON</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">json</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusBadRequest</span>, <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">H</span>{<span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>()})
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">User</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;manu&#34;</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Password</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;123&#34;</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusUnauthorized</span>, <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">H</span>{<span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;unauthorized&#34;</span>})
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>		} 
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">H</span>{<span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;you are logged in&#34;</span>})
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>绑定<code>form,uri,xml</code>格式时可以在结构体后的的修饰符中使用相应的字段。</p>
 <ul>
 <li>参数验证一个字段用binding:&ldquo;required&quot;修饰，在绑定时如果该字段的值为空，那么将返回一个错误。可以在binding后使用自定义的验证函数，可以参考文档中提供的自定义验证的<a href="https://www.kancloud.cn/shuangdeyu/gin_book/949427">示例</a>，需要注意文档中使用的验证器版本是v8，实际使用时版本不一致需要做出更改，可以参考<a href="https://www.bilibili.com/video/BV1gt4y1173C/?spm_id_from=333.788&amp;vd_source=50010082e3984400a11f9dee3a7e0a09">视频教程</a>。</li>
 </ul>
@@ -410,232 +461,107 @@
 上传文件的示例代码如下所示：</p>
 </blockquote>
 <h4 id="单文件上传">单文件上传</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// 给表单限制上传大小 (默认 32 MiB)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// router.MaxMultipartMemory = 8 &lt;&lt; 20  // 8 MiB
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">router</span><span class="p">.</span><span class="nf">POST</span><span class="p">(</span><span class="s">&#34;/upload&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// 单文件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">file</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">FormFile</span><span class="p">(</span><span class="s">&#34;file&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">Filename</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// 上传文件到指定的路径
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">c</span><span class="p">.</span><span class="nf">SaveUploadedFile</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="s">&#34;./saved.txt&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">c</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;&#39;%s&#39; uploaded!&#34;</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">Filename</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">	<span class="p">})</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>使用<code>FormFile</code>接收单文件，使用Postman测试文件上传时，需要先设置Header中<code>Content-Type</code>为<code>multipart/form-data</code>，随后在Body中选择上传<code>form-data</code>类型的键值对，在具体的值中选择文件，同时需要注意Posterman上传文件时<a href="https://www.cnblogs.com/huiy/p/11744183.html">工作路径的设置</a>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Default</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 给表单限制上传大小 (默认 32 MiB)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// router.MaxMultipartMemory = 8 &lt;&lt; 20  // 8 MiB</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/upload&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Context</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 单文件</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">FormFile</span>(<span style="color:#e6db74">&#34;file&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Filename</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 上传文件到指定的路径</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SaveUploadedFile</span>(<span style="color:#a6e22e">file</span>, <span style="color:#e6db74">&#34;./saved.txt&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">String</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;&#39;%s&#39; uploaded!&#34;</span>, <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Filename</span>))
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>使用<code>FormFile</code>接收单文件，使用Postman测试文件上传时，需要先设置Header中<code>Content-Type</code>为<code>multipart/form-data</code>，随后在Body中选择上传<code>form-data</code>类型的键值对，在具体的值中选择文件，同时需要注意Posterman上传文件时<a href="https://www.cnblogs.com/huiy/p/11744183.html">工作路径的设置</a>。</p>
 <h4 id="多文件上传">多文件上传</h4>
 <p>主要区别在于先获取文件列表，再依次对每个文件进行处理。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// 给表单限制上传大小 (默认 32 MiB)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// router.MaxMultipartMemory = 8 &lt;&lt; 20  // 8 MiB
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">router</span><span class="p">.</span><span class="nf">POST</span><span class="p">(</span><span class="s">&#34;/upload&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// 多文件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">form</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">MultipartForm</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">files</span> <span class="o">:=</span> <span class="nx">form</span><span class="p">.</span><span class="nx">File</span><span class="p">[</span><span class="s">&#34;file&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">files</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">Filename</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">			<span class="c1">// 上传文件到指定的路径
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">// c.SaveUploadedFile(file, dst)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">c</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%d files uploaded!&#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">files</span><span class="p">)))</span>
-</span></span><span class="line"><span class="cl">	<span class="p">})</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="文件返回">文件返回</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Header添加文件相关信息，不加也可以跑？
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">c</span><span class="p">.</span><span class="nx">Writer</span><span class="p">.</span><span class="nf">Header</span><span class="p">().</span><span class="nf">Add</span><span class="p">(</span><span class="s">&#34;Content-Disposition&#34;</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;attachment; filename=%s&#34;</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">Filename</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// 在服务器文件路径下启动相应的服务
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">c</span><span class="p">.</span><span class="nf">File</span><span class="p">(</span><span class="nx">dst</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="路由分组和中间件">路由分组和中间件</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Default</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 给表单限制上传大小 (默认 32 MiB)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// router.MaxMultipartMemory = 8 &lt;&lt; 20  // 8 MiB</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/upload&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Context</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 多文件</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">form</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">MultipartForm</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">files</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">File</span>[<span style="color:#e6db74">&#34;file&#34;</span>]
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">file</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">files</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Filename</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// 上传文件到指定的路径</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// c.SaveUploadedFile(file, dst)</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">String</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d files uploaded!&#34;</span>, len(<span style="color:#a6e22e">files</span>)))
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="文件返回">文件返回</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Header添加文件相关信息，不加也可以跑？</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Writer</span>.<span style="color:#a6e22e">Header</span>().<span style="color:#a6e22e">Add</span>(<span style="color:#e6db74">&#34;Content-Disposition&#34;</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;attachment; filename=%s&#34;</span>, <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Filename</span>))
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 在服务器文件路径下启动相应的服务</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">File</span>(<span style="color:#a6e22e">dst</span>)
+</span></span></code></pre></div><h2 id="路由分组和中间件">路由分组和中间件</h2>
 <h3 id="路由分组">路由分组</h3>
 <p>对<code>router</code>创建<code>Group</code>就是分组，同一分组中会拥有同一前缀和同一中间件，分组可以使得路由结构更加清晰，更加方便管理路由。路由分组实例如下所示：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// Simple group: v1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">v1</span> <span class="o">:=</span> <span class="nx">router</span><span class="p">.</span><span class="nf">Group</span><span class="p">(</span><span class="s">&#34;/v1&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">v1</span><span class="p">.</span><span class="nf">POST</span><span class="p">(</span><span class="s">&#34;/login&#34;</span><span class="p">,</span> <span class="nx">loginEndpoint</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">v1</span><span class="p">.</span><span class="nf">POST</span><span class="p">(</span><span class="s">&#34;/submit&#34;</span><span class="p">,</span> <span class="nx">submitEndpoint</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">v1</span><span class="p">.</span><span class="nf">POST</span><span class="p">(</span><span class="s">&#34;/read&#34;</span><span class="p">,</span> <span class="nx">readEndpoint</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="中间件">中间件</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Default</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Simple group: v1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">v1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">Group</span>(<span style="color:#e6db74">&#34;/v1&#34;</span>)
+</span></span><span style="display:flex;"><span>	{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/login&#34;</span>, <span style="color:#a6e22e">loginEndpoint</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/submit&#34;</span>, <span style="color:#a6e22e">submitEndpoint</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/read&#34;</span>, <span style="color:#a6e22e">readEndpoint</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="中间件">中间件</h3>
 <p>在请求到达路由的方法的前和后进行的一系列操作，在路由(路由组)上进行<code>Use</code>操作，后面传入中间件函数即可。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// HandlerFunc defines the handler used by gin middleware as return value.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">HandlerFunc</span> <span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">Context</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><code>HandlerFunc</code>是一个函数类型,接收一个<code>Context</code>参数。用于编写程序处理函数并返回<code>HandleFunc</code>类型，作为中间件的定义。<code>gin.Default()</code>中默认已经使用了<code>Recovery</code>和<code>Logger</code>两个中间件，无中间件启动服务可以使用<code>gin.New()</code>方法。下面给出了Gin自定义中间件使用的实例</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Logger</span><span class="p">()</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">t</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// Set example variable
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">c</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;example&#34;</span><span class="p">,</span> <span class="s">&#34;12345&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		
-</span></span><span class="line"><span class="cl">		<span class="c1">// before request
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">c</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// after request
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		
-</span></span><span class="line"><span class="cl">		<span class="nx">latency</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Since</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">latency</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// access the status we are sending
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">status</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Writer</span><span class="p">.</span><span class="nf">Status</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">status</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">New</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">Use</span><span class="p">(</span><span class="nf">Logger</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/test&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">example</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">MustGet</span><span class="p">(</span><span class="s">&#34;example&#34;</span><span class="p">).(</span><span class="kt">string</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// it would print: &#34;12345&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">example</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">})</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// Listen and serve on 0.0.0.0:8080
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">r</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>中间件中<code>context.Next</code>函数可以将中间件代码的执行顺序一分为二，<code>Next</code>函数调用之前的代码在请求处理之前之前，当程序执行到<code>context.Next</code>时，会中断向下执行，转而先去执行具体的业务逻辑，执行完业务逻辑处理函数之后，程序会再次回到<code>context.Next</code>处，继续执行中间件中后续的代码。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// HandlerFunc defines the handler used by gin middleware as return value.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">HandlerFunc</span> <span style="color:#66d9ef">func</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">Context</span>)
+</span></span></code></pre></div><p><code>HandlerFunc</code>是一个函数类型,接收一个<code>Context</code>参数。用于编写程序处理函数并返回<code>HandleFunc</code>类型，作为中间件的定义。<code>gin.Default()</code>中默认已经使用了<code>Recovery</code>和<code>Logger</code>两个中间件，无中间件启动服务可以使用<code>gin.New()</code>方法。下面给出了Gin自定义中间件使用的实例</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Logger</span>() <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">HandlerFunc</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Context</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">t</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// Set example variable</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;example&#34;</span>, <span style="color:#e6db74">&#34;12345&#34;</span>)
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// before request</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Next</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// after request</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">latency</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">t</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">latency</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// access the status we are sending</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">status</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Writer</span>.<span style="color:#a6e22e">Status</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">status</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">Logger</span>())
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/test&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Context</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">example</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">MustGet</span>(<span style="color:#e6db74">&#34;example&#34;</span>).(<span style="color:#66d9ef">string</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// it would print: &#34;12345&#34;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">example</span>)
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Listen and serve on 0.0.0.0:8080</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>中间件中<code>context.Next</code>函数可以将中间件代码的执行顺序一分为二，<code>Next</code>函数调用之前的代码在请求处理之前之前，当程序执行到<code>context.Next</code>时，会中断向下执行，转而先去执行具体的业务逻辑，执行完业务逻辑处理函数之后，程序会再次回到<code>context.Next</code>处，继续执行中间件中后续的代码。</p>
 <p>使用<code>Use</code>方法调用自定义的中间件，可以在路由或路由组后调用，需要注意的是，调用多个中间件时可以在一个<code>Use</code>方法中依次写入，也可以连续使用多个<code>Use</code>方法。多个中间件的代码执行顺序可以参考<a href="https://juejin.cn/post/6844904025767280648">洋葱中间件模型</a>。</p>
 <h2 id="gin日志">Gin日志</h2>
 <p>可以参考<a href="https://www.kancloud.cn/shuangdeyu/gin_book">文档</a>相关章节。日志可以用来记录参数信息，猜测用户行为，尝试复现bug并修复，推荐使用第三方的日志工具<code>go-logging,logrus</code>等，对于大量的日志，可以使用<code>go-file-rotatelogs, file-rotatelogs</code>对日志自行按照时间进行切割等。</p>
 <p>记录用户的输入输出信息常使用中间件实现。</p>
 <h2 id="gin数据库使用">Gin数据库使用</h2>
 <h3 id="链接和使用mysql数据库">链接和使用MySQL数据库</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nx">_</span> <span class="s">&#34;github.com/go-sql-driver/mysql&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">connStr</span> <span class="o">:=</span> <span class="s">&#34;root:password@tcp(127.0.0.1:3306)/ginsql&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">db</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sql</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;mysql&#34;</span><span class="p">,</span> <span class="nx">connStr</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>       <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="orm进行数据库操作">ORM进行数据库操作</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#a6e22e">_</span> <span style="color:#e6db74">&#34;github.com/go-sql-driver/mysql&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">connStr</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;root:password@tcp(127.0.0.1:3306)/ginsql&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;mysql&#34;</span>, <span style="color:#a6e22e">connStr</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {       <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="orm进行数据库操作">ORM进行数据库操作</h3>
 <p>ORM是一种数据库辅助工具，可以在go结构体和数据库之间产生映射，基于结构体即可完成增删改查操作。可用的ORM框架有GORM，<a href="https://github.com/gohouse/gorose">gorose</a>和xorm等。</p>
 <h3 id="gorm链接数据库">GORM链接数据库</h3>
 <p>GORM参考文档如下：
@@ -648,197 +574,265 @@
 <li>导入mysql驱动器</li>
 <li>使用<code>Open</code>方法链接得到数据库对象，以MySQL为例</li>
 </ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">dsn</span> <span class="o">:=</span> <span class="s">&#34;user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&amp;parseTime=True&amp;loc=Local&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">db</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">gorm</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">mysql</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">dsn</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">Config</span><span class="p">{})</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// 最后关闭数据库链接
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">defer</span> <span class="nx">db</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="加载静态资源html渲染">加载静态资源&amp;HTML渲染</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">dsn</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&amp;parseTime=True&amp;loc=Local&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">mysql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">dsn</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Config</span>{})
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 最后关闭数据库链接</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Close</span>()
+</span></span></code></pre></div><h2 id="加载静态资源html渲染">加载静态资源&amp;HTML渲染</h2>
 <h3 id="设置静态文件路径">设置静态文件路径</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span><span class="p">.</span><span class="nf">Static</span><span class="p">(</span><span class="s">&#34;/assets&#34;</span><span class="p">,</span> <span class="s">&#34;./assets&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span><span class="p">.</span><span class="nf">StaticFS</span><span class="p">(</span><span class="s">&#34;/more_static&#34;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nf">Dir</span><span class="p">(</span><span class="s">&#34;my_file_system&#34;</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span><span class="p">.</span><span class="nf">StaticFile</span><span class="p">(</span><span class="s">&#34;/favicon.ico&#34;</span><span class="p">,</span> <span class="s">&#34;./resources/favicon.ico&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// Listen and serve on 0.0.0.0:8080
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">router</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="html渲染httpswwwkancloudcnshuangdeyugin_book949436"><a href="https://www.kancloud.cn/shuangdeyu/gin_book/949436">HTML渲染</a></h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span><span class="p">.</span><span class="nf">LoadHTMLGlob</span><span class="p">(</span><span class="s">&#34;templates/*&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//router.LoadHTMLFiles(&#34;templates/template1.html&#34;, &#34;templates/template2.html&#34;)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">router</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/index&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">c</span><span class="p">.</span><span class="nf">HTML</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="s">&#34;index.tmpl&#34;</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="s">&#34;title&#34;</span><span class="p">:</span> <span class="s">&#34;Main website&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">		<span class="p">})</span>
-</span></span><span class="line"><span class="cl">	<span class="p">})</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">router</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">		{{ .title }}
-</span></span><span class="line"><span class="cl">	<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div>
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">lishengxie</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2023-04-30
-        
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      
-      <nav class="post-nav">
-        <a class="prev" href="/post/verilog-note/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Verilog Note</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/go-gin-chat/">
-            <span class="next-text nav-default">Go Gin Chat</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  
-    <script src="https://utteranc.es/client.js"
-    repo="lishengxie/lishengxie.github.io"
-    issue-term="title"
-    theme="github-light"
-    crossorigin="anonymous"
-    async>
-    </script>
-  
-
-  
-
-  
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Default</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">Static</span>(<span style="color:#e6db74">&#34;/assets&#34;</span>, <span style="color:#e6db74">&#34;./assets&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">StaticFS</span>(<span style="color:#e6db74">&#34;/more_static&#34;</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Dir</span>(<span style="color:#e6db74">&#34;my_file_system&#34;</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">StaticFile</span>(<span style="color:#e6db74">&#34;/favicon.ico&#34;</span>, <span style="color:#e6db74">&#34;./resources/favicon.ico&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Listen and serve on 0.0.0.0:8080</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="html渲染"><a href="https://www.kancloud.cn/shuangdeyu/gin_book/949436">HTML渲染</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Default</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">LoadHTMLGlob</span>(<span style="color:#e6db74">&#34;templates/*&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//router.LoadHTMLFiles(&#34;templates/template1.html&#34;, &#34;templates/template2.html&#34;)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/index&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Context</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">HTML</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#e6db74">&#34;index.tmpl&#34;</span>, <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">H</span>{
+</span></span><span style="display:flex;"><span>			<span style="color:#e6db74">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Main website&#34;</span>,
+</span></span><span style="display:flex;"><span>		})
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>		{{ .title }}
+</span></span><span style="display:flex;"><span>	&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div>
       </div>
-    </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="1141751053@qq.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://github.com/lishengxie" class="iconfont icon-github" title="github"></a>
-  <a href="https://lishengxie.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+      <footer>
+        
+      </footer>
+    </article>
+
+    
+    
+      
+
+
+
+
+<aside class="sidebar">
+  
+  
+    <aside class="toc">
+  <h2 class="toc-title">Table of Contents</h2>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#gin服务入门">Gin服务入门</a></li>
+    <li><a href="#gin获取getpost参数">Gin获取Get/Post参数</a>
+      <ul>
+        <li><a href="#获取get参数">获取Get参数</a></li>
+        <li><a href="#获取post参数">获取Post参数</a></li>
+        <li><a href="#get和post参数混合使用">Get和Post参数混合使用</a></li>
+      </ul>
+    </li>
+    <li><a href="#bind绑定参数参数验证">Bind绑定参数&amp;参数验证</a></li>
+    <li><a href="#gin文件上传和返回">Gin文件上传和返回</a>
+      <ul>
+        <li><a href="#文件读取">文件读取</a></li>
+      </ul>
+    </li>
+    <li><a href="#路由分组和中间件">路由分组和中间件</a>
+      <ul>
+        <li><a href="#路由分组">路由分组</a></li>
+        <li><a href="#中间件">中间件</a></li>
+      </ul>
+    </li>
+    <li><a href="#gin日志">Gin日志</a></li>
+    <li><a href="#gin数据库使用">Gin数据库使用</a>
+      <ul>
+        <li><a href="#链接和使用mysql数据库">链接和使用MySQL数据库</a></li>
+        <li><a href="#orm进行数据库操作">ORM进行数据库操作</a></li>
+        <li><a href="#gorm链接数据库">GORM链接数据库</a></li>
+      </ul>
+    </li>
+    <li><a href="#加载静态资源html渲染">加载静态资源&amp;HTML渲染</a>
+      <ul>
+        <li><a href="#设置静态文件路径">设置静态文件路径</a></li>
+        <li><a href="#html渲染">HTML渲染</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</aside>
+  
+
+  
+  
+    
+    
+      <div class="widget-area">
+        
+          
+<div class="widget widget-recent">
+  <h3 class="widget-title">Recent Posts</h3>
+  <ul>
+    
+    
+    <li>
+      <a href="/post/lets-encrypt-ssl/">Lets Encrypt Ssl</a>
+      <time datetime="2025-09-14T21:58:04&#43;08:00">Sep 14, 2025</time>
+    </li>
+    
+    <li>
+      <a href="/post/redis-listpack-ziplist/">Redis ziplist、quicklist 和 listpack</a>
+      <time datetime="2025-03-03T22:44:38&#43;08:00">Mar 3, 2025</time>
+    </li>
+    
+    <li>
+      <a href="/post/nginx-prohibit-ip-request/">Nginx禁止使用IP直接访问服务器上相应端口</a>
+      <time datetime="2024-05-11T21:48:52&#43;08:00">May 11, 2024</time>
+    </li>
+    
+    <li>
+      <a href="/post/leetcode-kmp/">LeetCode刷题 - KMP算法</a>
+      <time datetime="2024-02-04T18:48:10&#43;08:00">Feb 4, 2024</time>
+    </li>
+    
+    <li>
+      <a href="/post/transfer-server/">Transfer Server</a>
+      <time datetime="2023-12-23T23:17:56&#43;08:00">Dec 23, 2023</time>
+    </li>
+    
+  </ul>
+</div>
+        
+          
+<div class="widget widget-categories">
+  <h3 class="widget-title">Categories</h3>
+  
+  <ul>
+    
+    
+    <li><a href="/categories/linux/">Linux</a><span class="widget-count">7</span></li>
+    
+    <li><a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">算法学习</a><span class="widget-count">7</span></li>
+    
+    <li><a href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a><span class="widget-count">6</span></li>
+    
+    <li><a href="/categories/c&#43;&#43;/">C&#43;&#43;</a><span class="widget-count">4</span></li>
+    
+    <li><a href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a><span class="widget-count">3</span></li>
+    
+    <li><a href="/categories/go%E5%AD%A6%E4%B9%A0/">Go学习</a><span class="widget-count">2</span></li>
+    
+    <li><a href="/categories/redis/">Redis</a><span class="widget-count">1</span></li>
+    
+    <li><a href="/categories/systemc/">SystemC</a><span class="widget-count">1</span></li>
+    
+    <li><a href="/categories/verilog/">Verilog</a><span class="widget-count">1</span></li>
+    
+  </ul>
+  
 </div>
 
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
+        
+          
+<div class="widget widget-tags">
+  <h3 class="widget-title">Tags</h3>
+  
+</div>
+
+        
+      </div>
+    
+  
+</aside>
+
+    
+  </div>
+
+  
+    
+<nav class="post-nav">
+  
+  <a href="/post/go-gin-chat/" class="nav-prev">
+    <span class="nav-arrow">&larr;</span>
+    <span class="nav-title">Go Gin Chat</span>
+  </a>
+  
+  
+  <a href="/post/verilog-note/" class="nav-next">
+    <span class="nav-title">Verilog Note</span>
+    <span class="nav-arrow">&rarr;</span>
+  </a>
+  
+</nav>
+
 
   
 
-  <span class="copyright-year">
-    &copy; 
-    2023 - 
-    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
-  </span>
+  
+    
+
+
+<section class="related-posts">
+  <h3 class="related-title">Related Posts</h3>
+  <ul class="related-list">
+    
+    <li class="related-item">
+      <a href="/post/go-gin-chat/" class="related-link">
+        <span class="related-item-title">Go Gin Chat</span>
+        <time class="related-item-date" datetime="2023-04-30">Apr 30, 2023</time>
+      </a>
+    </li>
+    
+  </ul>
+</section>
+
+
+  
+
+  <script src="https://utteranc.es/client.js"
+  repo="lishengxie/lishengxie.github.io"
+  issue-term="title"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+
 </div>
 
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
+  </main>
+  
+<footer class="site-footer">
+  <div class="container">
+    
+    
+    <div class="copyright">
+      Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/yogirk/explore" target="_blank" rel="noopener">Explore Theme</a>.
     </div>
   </div>
+</footer>
+
   
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+  <script src="/js/minimal.min.6a9ca11052c7f4a8a7596e64d3b60b3b1040bc4e6c825054f99533c3126a84a6.js" integrity="sha256-apyhEFLH9KinWW5k07YLOxBAvE5sglBU&#43;ZUzwxJqhKY=" crossorigin="anonymous" defer></script>
+  
+  
 
-
-
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-  <script type="text/javascript">
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        }
-    };
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      
+      document.querySelectorAll('.katex-inline').forEach(function (el) {
+        katex.render(el.textContent, el, { throwOnError: false });
+      });
+      
+      document.querySelectorAll('.katex-display').forEach(function (el) {
+        katex.render(el.textContent, el, { displayMode: true, throwOnError: false });
+      });
+    });
   </script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
-
-
-
-
-
-
-
-
 </body>
 </html>

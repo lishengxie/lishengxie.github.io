@@ -1,172 +1,395 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>算法学习-差分数组 - Github Pages - Lishengxie</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>算法学习-差分数组 &middot; Lishengxie</title>
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="lishengxie" /><meta name="description" content="差分数组 参考教程：https://wansuanfa.com/index.php/589 leetcode题目：1109. 航班预订统计 问题描述" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="description" content="A personal blog powered by Hugo.">
+<meta name="author" content="Lishengxie">
+<link rel="canonical" href="http://localhost:1313/post/differential-array/">
 
 
 
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+
+
+<meta property="og:title" content="算法学习-差分数组">
+<meta property="og:description" content="差分数组
+
+参考教程：https://wansuanfa.com/index.php/589
+leetcode题目：1109. 航班预订统计
+
+问题描述
+给定一个数组，需要频繁地对某个区间内的元素做加减操作，并获取最后的操作结果。常规做法是每次都遍历整个区间然后修改区间内的元素，但是元素的访问需要时间、频繁访问元素会减慢程序的运行时间。因此，可以使用差分数组来进行优化。
+一维差分数组定义
+一维差分数组 d[n] 定义为原始数组 nums 相邻元素之间的差，即d[i]=nums[i]-nums[i-1]，其中d[0]=nums[0]。这样原数组就是差分数组的前缀和
+
+
+nums[i] = \sum_{k=0}^i d[k].
+由此，我们可以改进原来的区间操作，如对区间[a,b]内每个元素加3，那么只需要在区间的两端进行操作即可，即
+
+
+d[a] &#43;= 3, d[b&#43;1] -= 3
+证明
+假设nums1是修改后的数组，d1是修改后的差分数组，其中d1[a]=d[a]&#43;3, d1[b&#43;1]=d[b&#43;1]-3.
+
+hugo里面换行公式需要\\\\四个反斜杠
+
+
+对于0\leq i \lt a, nums1[i] = \sum_{k=0}^i d1[k] = \sum_{k=0}^i d[k] = nums[i].
+对于a\leq i \leq b,
+
+
+\begin{aligned}
+nums1[i] & = \sum_{k=0}^i d1[k] \\\\ 
+& = \sum_{k=0}^{a-1}d[k] &#43; \sum_{k=a&#43;1}^{b}d[k] &#43; d[a] &#43; 3 \\\\ 
+& = \sum_{k=0}^i d[k] &#43; 3 \\\\ 
+& = nums[i]&#43;3
+\end{aligned}
+
+对于i \gt b,
+
+
+\begin{align}
+nums1[i] &= \sum_{k=0}^i d1[k]\\\\ 
+&= \sum_{k=0}^{a-1}d[k] &#43; \sum_{k=a&#43;1}^{b}d[k] &#43; \sum_{k=b&#43;1}^{i}d[k] &#43; d[a] &#43; 3 &#43; d[b] - 3\\\\  &= \sum_{k=0}^i d[k] &#43; 3 - 3\\\\ 
+&= nums[i].
+\end{align}
+
+由此，可以证明只修改差分数组的两端即可以修改原数组的整个区间。
+
+代码
+class Solution {
+public:
+    vector&lt;int&gt; diff;
+    vector&lt;int&gt; nums;
+
+    void diffNums() {
+        diff[0] = nums[0];
+        for(int i = 1; i &lt; nums.size(); &#43;&#43;i) {
+            diff[i] = nums[i] - nums[i-1];
+        }
+    }
+
+    void increment(int a, int b, int val) {
+        diff[a] &#43;= val;
+        if (b &#43; 1 &lt; diff.size())
+            diff[b &#43; 1] -= val;
+    }
+
+    void result() {
+        nums[0] = diff[0];
+        for (int i = 1; i &lt; diff.size(); i&#43;&#43;)
+            nums[i] = diff[i] &#43; nums[i - 1];
+    }
+
+    vector&lt;int&gt; corpFlightBookings(vector&lt;vector&lt;int&gt;&gt;&amp; bookings, int n) {
+        nums.resize(n, 0);
+        diff.resize(n, 0);
+        diffNums();
+        for (int i = 0; i &lt; bookings.size(); &#43;&#43;i) {
+            increment(bookings[i][0]-1, bookings[i][1]-1, bookings[i][2]);
+        }
+        result();
+        return nums;
+    }
+};
+拓展 - 二维差分数组
+二维差分数组可以在一维差分数组的基础上进行拓展，视为一个平面，定义如下
+">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/post/differential-array/">
 
 
 
-<meta name="generator" content="Hugo 0.109.0 with theme even" />
+<meta property="article:section" content="post">
 
 
-<link rel="canonical" href="https://lishengxie.github.io/post/differential-array/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta property="article:published_time" content="2023-12-23 23:05:16 &#43;0800 CST">
+
+
+<meta property="article:modified_time" content="2023-12-23 23:05:16 &#43;0800 CST">
 
 
 
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="算法学习-差分数组">
+<meta name="twitter:description" content="差分数组
+
+参考教程：https://wansuanfa.com/index.php/589
+leetcode题目：1109. 航班预订统计
+
+问题描述
+给定一个数组，需要频繁地对某个区间内的元素做加减操作，并获取最后的操作结果。常规做法是每次都遍历整个区间然后修改区间内的元素，但是元素的访问需要时间、频繁访问元素会减慢程序的运行时间。因此，可以使用差分数组来进行优化。
+一维差分数组定义
+一维差分数组 d[n] 定义为原始数组 nums 相邻元素之间的差，即d[i]=nums[i]-nums[i-1]，其中d[0]=nums[0]。这样原数组就是差分数组的前缀和
 
 
-<meta property="og:title" content="算法学习-差分数组" />
-<meta property="og:description" content="差分数组 参考教程：https://wansuanfa.com/index.php/589 leetcode题目：1109. 航班预订统计 问题描述" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://lishengxie.github.io/post/differential-array/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-12-23T23:05:16+08:00" />
-<meta property="article:modified_time" content="2023-12-23T23:05:16+08:00" />
-<meta itemprop="name" content="算法学习-差分数组">
-<meta itemprop="description" content="差分数组 参考教程：https://wansuanfa.com/index.php/589 leetcode题目：1109. 航班预订统计 问题描述"><meta itemprop="datePublished" content="2023-12-23T23:05:16+08:00" />
-<meta itemprop="dateModified" content="2023-12-23T23:05:16+08:00" />
-<meta itemprop="wordCount" content="1580">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="算法学习-差分数组"/>
-<meta name="twitter:description" content="差分数组 参考教程：https://wansuanfa.com/index.php/589 leetcode题目：1109. 航班预订统计 问题描述"/>
+nums[i] = \sum_{k=0}^i d[k].
+由此，我们可以改进原来的区间操作，如对区间[a,b]内每个元素加3，那么只需要在区间的两端进行操作即可，即
 
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
 
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
+d[a] &#43;= 3, d[b&#43;1] -= 3
+证明
+假设nums1是修改后的数组，d1是修改后的差分数组，其中d1[a]=d[a]&#43;3, d1[b&#43;1]=d[b&#43;1]-3.
+
+hugo里面换行公式需要\\\\四个反斜杠
+
+
+对于0\leq i \lt a, nums1[i] = \sum_{k=0}^i d1[k] = \sum_{k=0}^i d[k] = nums[i].
+对于a\leq i \leq b,
+
+
+\begin{aligned}
+nums1[i] & = \sum_{k=0}^i d1[k] \\\\ 
+& = \sum_{k=0}^{a-1}d[k] &#43; \sum_{k=a&#43;1}^{b}d[k] &#43; d[a] &#43; 3 \\\\ 
+& = \sum_{k=0}^i d[k] &#43; 3 \\\\ 
+& = nums[i]&#43;3
+\end{aligned}
+
+对于i \gt b,
+
+
+\begin{align}
+nums1[i] &= \sum_{k=0}^i d1[k]\\\\ 
+&= \sum_{k=0}^{a-1}d[k] &#43; \sum_{k=a&#43;1}^{b}d[k] &#43; \sum_{k=b&#43;1}^{i}d[k] &#43; d[a] &#43; 3 &#43; d[b] - 3\\\\  &= \sum_{k=0}^i d[k] &#43; 3 - 3\\\\ 
+&= nums[i].
+\end{align}
+
+由此，可以证明只修改差分数组的两端即可以修改原数组的整个区间。
+
+代码
+class Solution {
+public:
+    vector&lt;int&gt; diff;
+    vector&lt;int&gt; nums;
+
+    void diffNums() {
+        diff[0] = nums[0];
+        for(int i = 1; i &lt; nums.size(); &#43;&#43;i) {
+            diff[i] = nums[i] - nums[i-1];
+        }
+    }
+
+    void increment(int a, int b, int val) {
+        diff[a] &#43;= val;
+        if (b &#43; 1 &lt; diff.size())
+            diff[b &#43; 1] -= val;
+    }
+
+    void result() {
+        nums[0] = diff[0];
+        for (int i = 1; i &lt; diff.size(); i&#43;&#43;)
+            nums[i] = diff[i] &#43; nums[i - 1];
+    }
+
+    vector&lt;int&gt; corpFlightBookings(vector&lt;vector&lt;int&gt;&gt;&amp; bookings, int n) {
+        nums.resize(n, 0);
+        diff.resize(n, 0);
+        diffNums();
+        for (int i = 0; i &lt; bookings.size(); &#43;&#43;i) {
+            increment(bookings[i][0]-1, bookings[i][1]-1, bookings[i][2]);
+        }
+        result();
+        return nums;
+    }
+};
+拓展 - 二维差分数组
+二维差分数组可以在一维差分数组的基础上进行拓展，视为一个平面，定义如下
+">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "算法学习-差分数组",
+  "name": "算法学习-差分数组",
+  "description": "\u003ch2 id=\u0022差分数组\u0022\u003e差分数组\u003c\/h2\u003e\n\u003cul\u003e\n\u003cli\u003e参考教程：\u003ca href=\u0022https:\/\/wansuanfa.com\/index.php\/589\u0022\u003ehttps:\/\/wansuanfa.com\/index.php\/589\u003c\/a\u003e\u003c\/li\u003e\n\u003cli\u003eleetcode题目：\u003ca href=\u0022https:\/\/leetcode.cn\/problems\/corporate-flight-bookings\/\u0022\u003e1109. 航班预订统计\u003c\/a\u003e\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003ch2 id=\u0022问题描述\u0022\u003e问题描述\u003c\/h2\u003e\n\u003cp\u003e给定一个数组，需要频繁地对某个区间内的元素做加减操作，并获取最后的操作结果。常规做法是每次都遍历整个区间然后修改区间内的元素，但是元素的访问需要时间、频繁访问元素会减慢程序的运行时间。因此，可以使用差分数组来进行优化。\u003c\/p\u003e\n\u003ch2 id=\u0022一维差分数组定义\u0022\u003e一维差分数组定义\u003c\/h2\u003e\n\u003cp\u003e一维差分数组\u003cspan class=\u0022katex-inline\u0022\u003e d[n] \u003c\/span\u003e定义为原始数组\u003cspan class=\u0022katex-inline\u0022\u003e nums \u003c\/span\u003e相邻元素之间的差，即\u003cspan class=\u0022katex-inline\u0022\u003ed[i]=nums[i]-nums[i-1]\u003c\/span\u003e，其中\u003cspan class=\u0022katex-inline\u0022\u003ed[0]=nums[0]\u003c\/span\u003e。这样原数组就是差分数组的前缀和\n\u003c\/p\u003e\n\u003cdiv class=\u0022katex-display\u0022\u003e\nnums[i] = \\sum_{k=0}^i d[k].\n\u003c\/div\u003e\u003cp\u003e由此，我们可以改进原来的区间操作，如对区间\u003cspan class=\u0022katex-inline\u0022\u003e[a,b]\u003c\/span\u003e内每个元素加3，那么只需要在区间的两端进行操作即可，即\n\u003c\/p\u003e\n\u003cdiv class=\u0022katex-display\u0022\u003e\nd[a] \u002b= 3, d[b\u002b1] -= 3\n\u003c\/div\u003e\u003ch3 id=\u0022证明\u0022\u003e证明\u003c\/h3\u003e\n\u003cp\u003e假设\u003cspan class=\u0022katex-inline\u0022\u003enums1\u003c\/span\u003e是修改后的数组，\u003cspan class=\u0022katex-inline\u0022\u003ed1\u003c\/span\u003e是修改后的差分数组，其中\u003cspan class=\u0022katex-inline\u0022\u003ed1[a]=d[a]\u002b3, d1[b\u002b1]=d[b\u002b1]-3\u003c\/span\u003e.\u003c\/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003ehugo里面换行公式需要\u003ccode\u003e\\\\\\\\\u003c\/code\u003e四个反斜杠\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003cul\u003e\n\u003cli\u003e对于\u003cspan class=\u0022katex-inline\u0022\u003e0\\leq i \\lt a\u003c\/span\u003e, \u003cspan class=\u0022katex-inline\u0022\u003enums1[i] = \\sum_{k=0}^i d1[k] = \\sum_{k=0}^i d[k] = nums[i]\u003c\/span\u003e.\u003c\/li\u003e\n\u003cli\u003e对于\u003cspan class=\u0022katex-inline\u0022\u003ea\\leq i \\leq b\u003c\/span\u003e,\n\n\u003cdiv class=\u0022katex-display\u0022\u003e\n\\begin{aligned}\nnums1[i] \u0026 = \\sum_{k=0}^i d1[k] \\\\\\\\ \n\u0026 = \\sum_{k=0}^{a-1}d[k] \u002b \\sum_{k=a\u002b1}^{b}d[k] \u002b d[a] \u002b 3 \\\\\\\\ \n\u0026 = \\sum_{k=0}^i d[k] \u002b 3 \\\\\\\\ \n\u0026 = nums[i]\u002b3\n\\end{aligned}\n\u003c\/div\u003e\u003c\/li\u003e\n\u003cli\u003e对于\u003cspan class=\u0022katex-inline\u0022\u003ei \\gt b\u003c\/span\u003e,\n\n\u003cdiv class=\u0022katex-display\u0022\u003e\n\\begin{align}\nnums1[i] \u0026= \\sum_{k=0}^i d1[k]\\\\\\\\ \n\u0026= \\sum_{k=0}^{a-1}d[k] \u002b \\sum_{k=a\u002b1}^{b}d[k] \u002b \\sum_{k=b\u002b1}^{i}d[k] \u002b d[a] \u002b 3 \u002b d[b] - 3\\\\\\\\  \u0026= \\sum_{k=0}^i d[k] \u002b 3 - 3\\\\\\\\ \n\u0026= nums[i].\n\\end{align}\n\u003c\/div\u003e\n由此，可以证明只修改差分数组的两端即可以修改原数组的整个区间。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003ch3 id=\u0022代码\u0022\u003e代码\u003c\/h3\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-C\u002b\u002b\u0022 data-lang=\u0022C\u002b\u002b\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eclass\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eSolution\u003c\/span\u003e {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003epublic\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e:\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    vector\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026gt;\u003c\/span\u003e diff;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    vector\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026gt;\u003c\/span\u003e nums;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003evoid\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ediffNums\u003c\/span\u003e() {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        diff[\u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e] \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e nums[\u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e];\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e(\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e i \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e; i \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003e nums.size(); \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u002b\u003c\/span\u003ei) {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            diff[i] \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e nums[i] \u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003e nums[i\u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e];\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003evoid\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eincrement\u003c\/span\u003e(\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e a, \u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e b, \u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e val) {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        diff[a] \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b=\u003c\/span\u003e val;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e (b \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003e diff.size())\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            diff[b \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e] \u003cspan style=\u0022color:#f92672\u0022\u003e-=\u003c\/span\u003e val;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003evoid\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eresult\u003c\/span\u003e() {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        nums[\u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e] \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e diff[\u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e];\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e (\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e i \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e; i \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003e diff.size(); i\u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u002b\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            nums[i] \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e diff[i] \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u003c\/span\u003e nums[i \u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e];\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    vector\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026gt;\u003c\/span\u003e corpFlightBookings(vector\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003evector\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026gt;\u0026gt;\u0026amp;\u003c\/span\u003e bookings, \u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e n) {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        nums.resize(n, \u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e);\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        diff.resize(n, \u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e);\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        diffNums();\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e (\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e i \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e; i \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003e bookings.size(); \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u002b\u003c\/span\u003ei) {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            increment(bookings[i][\u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e]\u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e, bookings[i][\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e]\u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e, bookings[i][\u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e]);\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        result();\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e nums;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e};\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003ch2 id=\u0022拓展---二维差分数组\u0022\u003e拓展 - 二维差分数组\u003c\/h2\u003e\n\u003cp\u003e二维差分数组可以在一维差分数组的基础上进行拓展，视为一个平面，定义如下\n\u003c\/p\u003e",
+  "url": "http:\/\/localhost:1313\/post\/differential-array\/",
+  
+  "datePublished": "2023-12-23T23:05:16\u002b08:00",
+  "dateModified": "2023-12-23T23:05:16\u002b08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Lishengxie"
+  },
+  
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http:\/\/localhost:1313\/post\/differential-array\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Lishengxie",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http:\/\/localhost:1313\/apple-touch-icon.png"
+    }
+  }
+}
+</script>
+
+
+
+
+
+<link rel="preload" href="/fonts/google-sans-flex-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/google-sans-flex-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/google-sans-code-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+
+
+
+
+<link rel="stylesheet" href="/css/style.444aa50704e4c1bf29dab952f95176e6eb7656beb818e5c84b386bf5e78f3225.css" integrity="sha256-REqlBwTkwb8p2rlS&#43;VF25ut2Vr64GOXISzhr9eePMiU=">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+
+<style>
+  .post-list-item { overflow: hidden; }
+  .post-excerpt { word-break: break-word; }
+</style>
+
+
+<script>
+  (function() {
+    try {
+      var theme = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+
 </head>
 <body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">Blog</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/about/">
-        <li class="mobile-menu-item">About</li>
+  
+<header class="site-header is-sticky">
+  <div class="container header-inner">
+    <div class="site-identity">
+      <a href="/" class="site-brand">
+        
+        <span class="site-title">Lishengxie</span>
       </a>
-  </ul>
+      
+        <p class="site-tagline">同步备份自 https://www.lishengxie.top</p>
+      
+    </div>
+    <button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">
+      <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <nav id="site-nav" class="site-nav">
+      <div class="main-nav">
+        <ul>
+          
+          
+          <li>
+            <a href="/post/" class="">Posts</a>
+          </li>
+          
+          <li>
+            <a href="/pages/about/" class="">About</a>
+          </li>
+          
+          <li>
+            <a href="/pages/contact/" class="">Contact</a>
+          </li>
+          
+        </ul>
+      </div>
+      <div class="nav-utils">
+        <a href="http://localhost:1313/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+        </a>
+        
+        <a href="/search" class="nav-search" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" aria-pressed="false">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+  <main class="site-main">
+    
+
+<div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 
 
+<div class="container">
+  <div class="layout-grid layout-grid--sidebar-left">
+    <article class="post-single main-content main-content--sidebar-left">
+      <header class="post-header">
+        <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item"><a href="/post/">Posts</a></li><li class="breadcrumb-item" aria-current="page">算法学习-差分数组</li>
+  </ol>
 </nav>
+        <h1 class="post-title">算法学习-差分数组</h1>
+        <div class="post-meta">
+          
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <time datetime="2023-12-23T23:05:16&#43;08:00">Dec 23, 2023</time>
+            </span>
+          
 
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">Blog</a>
-</div>
+          
+            <span class="post-categories">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
 
+              
+                
+                <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">算法学习</a>
+              
+            </span>
+          
 
+          
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              Lishengxie
+            </span>
+          
+        </div>
+      </header>
 
+      
 
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">算法学习-差分数组</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2023-12-23 </span>
-        <div class="post-category">
-            <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/"> 算法学习 </a>
-            </div>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#差分数组">差分数组</a></li>
-        <li><a href="#问题描述">问题描述</a></li>
-        <li><a href="#一维差分数组定义">一维差分数组定义</a>
-          <ul>
-            <li><a href="#证明">证明</a></li>
-            <li><a href="#代码">代码</a></li>
-          </ul>
-        </li>
-        <li><a href="#拓展---二维差分数组">拓展 - 二维差分数组</a>
-          <ul>
-            <li><a href="#证明-1">证明</a></li>
-            <li><a href="#代码来自参考链接">代码（来自参考链接）</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      <h2 id="差分数组">差分数组</h2>
+      <div class="post-content">
+        <h2 id="差分数组">差分数组</h2>
 <ul>
 <li>参考教程：<a href="https://wansuanfa.com/index.php/589">https://wansuanfa.com/index.php/589</a></li>
 <li>leetcode题目：<a href="https://leetcode.cn/problems/corporate-flight-bookings/">1109. 航班预订统计</a></li>
@@ -174,361 +397,404 @@
 <h2 id="问题描述">问题描述</h2>
 <p>给定一个数组，需要频繁地对某个区间内的元素做加减操作，并获取最后的操作结果。常规做法是每次都遍历整个区间然后修改区间内的元素，但是元素的访问需要时间、频繁访问元素会减慢程序的运行时间。因此，可以使用差分数组来进行优化。</p>
 <h2 id="一维差分数组定义">一维差分数组定义</h2>
-<p>一维差分数组$ d[n] $定义为原始数组$ nums $相邻元素之间的差，即$d[i]=nums[i]-nums[i-1]$，其中$d[0]=nums[0]$。这样原数组就是差分数组的前缀和
-$$
+<p>一维差分数组<span class="katex-inline"> d[n] </span>定义为原始数组<span class="katex-inline"> nums </span>相邻元素之间的差，即<span class="katex-inline">d[i]=nums[i]-nums[i-1]</span>，其中<span class="katex-inline">d[0]=nums[0]</span>。这样原数组就是差分数组的前缀和
+</p>
+<div class="katex-display">
 nums[i] = \sum_{k=0}^i d[k].
-$$</p>
-<p>由此，我们可以改进原来的区间操作，如对区间$[a,b]$内每个元素加3，那么只需要在区间的两端进行操作即可，即
-$$
+</div><p>由此，我们可以改进原来的区间操作，如对区间<span class="katex-inline">[a,b]</span>内每个元素加3，那么只需要在区间的两端进行操作即可，即
+</p>
+<div class="katex-display">
 d[a] += 3, d[b+1] -= 3
-$$</p>
-<h3 id="证明">证明</h3>
-<p>假设$nums1$是修改后的数组，$d1$是修改后的差分数组，其中$d1[a]=d[a]+3, d1[b+1]=d[b+1]-3$.</p>
+</div><h3 id="证明">证明</h3>
+<p>假设<span class="katex-inline">nums1</span>是修改后的数组，<span class="katex-inline">d1</span>是修改后的差分数组，其中<span class="katex-inline">d1[a]=d[a]+3, d1[b+1]=d[b+1]-3</span>.</p>
 <blockquote>
 <p>hugo里面换行公式需要<code>\\\\</code>四个反斜杠</p>
 </blockquote>
 <ul>
-<li>对于$0\leq i \lt a$, $nums1[i] = \sum_{k=0}^i d1[k] = \sum_{k=0}^i d[k] = nums[i]$.</li>
-<li>对于$a\leq i \leq b$,
-$$
+<li>对于<span class="katex-inline">0\leq i \lt a</span>, <span class="katex-inline">nums1[i] = \sum_{k=0}^i d1[k] = \sum_{k=0}^i d[k] = nums[i]</span>.</li>
+<li>对于<span class="katex-inline">a\leq i \leq b</span>,
+
+<div class="katex-display">
 \begin{aligned}
-nums1[i] &amp; = \sum_{k=0}^i d1[k] \\
-&amp; = \sum_{k=0}^{a-1}d[k] + \sum_{k=a+1}^{b}d[k] + d[a] + 3 \\
-&amp; = \sum_{k=0}^i d[k] + 3 \\
-&amp; = nums[i]+3
+nums1[i] & = \sum_{k=0}^i d1[k] \\\\ 
+& = \sum_{k=0}^{a-1}d[k] + \sum_{k=a+1}^{b}d[k] + d[a] + 3 \\\\ 
+& = \sum_{k=0}^i d[k] + 3 \\\\ 
+& = nums[i]+3
 \end{aligned}
-$$</li>
-<li>对于$i \gt b$,
-$$
+</div></li>
+<li>对于<span class="katex-inline">i \gt b</span>,
+
+<div class="katex-display">
 \begin{align}
-nums1[i] &amp;= \sum_{k=0}^i d1[k]\\
-&amp;= \sum_{k=0}^{a-1}d[k] + \sum_{k=a+1}^{b}d[k] + \sum_{k=b+1}^{i}d[k] + d[a] + 3 + d[b] - 3\\  &amp;= \sum_{k=0}^i d[k] + 3 - 3\\
-&amp;= nums[i].
+nums1[i] &= \sum_{k=0}^i d1[k]\\\\ 
+&= \sum_{k=0}^{a-1}d[k] + \sum_{k=a+1}^{b}d[k] + \sum_{k=b+1}^{i}d[k] + d[a] + 3 + d[b] - 3\\\\  &= \sum_{k=0}^i d[k] + 3 - 3\\\\ 
+&= nums[i].
 \end{align}
-$$
+</div>
 由此，可以证明只修改差分数组的两端即可以修改原数组的整个区间。</li>
 </ul>
 <h3 id="代码">代码</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">diff</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">nums</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">diffNums</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">diff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">diff</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">increment</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">diff</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">+=</span> <span class="n">val</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">diff</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">            <span class="n">diff</span><span class="p">[</span><span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">val</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">result</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">diff</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">diff</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">diff</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">corpFlightBookings</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">bookings</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">nums</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="n">diff</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="n">diffNums</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">bookings</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">increment</span><span class="p">(</span><span class="n">bookings</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">bookings</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">bookings</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">nums</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="拓展---二维差分数组">拓展 - 二维差分数组</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> diff;
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> nums;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">diffNums</span>() {
+</span></span><span style="display:flex;"><span>        diff[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> nums[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> nums.size(); <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>            diff[i] <span style="color:#f92672">=</span> nums[i] <span style="color:#f92672">-</span> nums[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">increment</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b, <span style="color:#66d9ef">int</span> val) {
+</span></span><span style="display:flex;"><span>        diff[a] <span style="color:#f92672">+=</span> val;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (b <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;</span> diff.size())
+</span></span><span style="display:flex;"><span>            diff[b <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">-=</span> val;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">result</span>() {
+</span></span><span style="display:flex;"><span>        nums[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> diff[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> diff.size(); i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>            nums[i] <span style="color:#f92672">=</span> diff[i] <span style="color:#f92672">+</span> nums[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> corpFlightBookings(vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&amp;</span> bookings, <span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>        nums.resize(n, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>        diff.resize(n, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>        diffNums();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> bookings.size(); <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>            increment(bookings[i][<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, bookings[i][<span style="color:#ae81ff">1</span>]<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, bookings[i][<span style="color:#ae81ff">2</span>]);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        result();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> nums;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h2 id="拓展---二维差分数组">拓展 - 二维差分数组</h2>
 <p>二维差分数组可以在一维差分数组的基础上进行拓展，视为一个平面，定义如下
-$$
+</p>
+<div class="katex-display">
 d[i][j] = nums[i][j] - nums[i-1][j] - nums[i][j-1] + nums[i-1][j-1]
-$$
+</div><p>
 那么相应地
-$$
+</p>
+<div class="katex-display">
 nums[i][j] = nums[i-1][j] + nums[i][j-1] - nums[i-1][j-1] + d[i][j]
-$$</p>
-<p>假设以 $(x1,y1)$ 为左上角， $(x2,y2)$ 为右下角构成一个区间$S$，如果对这个区间内的每个元素增加$val$，只需要执行下面四步即可。
-$$
+</div><p>假设以 <span class="katex-inline">(x1,y1)</span> 为左上角， <span class="katex-inline">(x2,y2)</span> 为右下角构成一个区间<span class="katex-inline">S</span>，如果对这个区间内的每个元素增加<span class="katex-inline">val</span>，只需要执行下面四步即可。
+</p>
+<div class="katex-display">
 \begin{align}
-&amp;d[x1][y1] += val \\
-&amp;d[x1][y2+1] -= val \\
-&amp;d[x2+1][y1] -= val \\
-&amp;d[x2+1][y2+1] += val
+&d[x1][y1] += val \\\\
+&d[x1][y2+1] -= val \\\\
+&d[x2+1][y1] -= val \\\\
+&d[x2+1][y2+1] += val
 \end{align}
-$$</p>
-<h3 id="证明-1">证明</h3>
-<p>同样假设$num1$和$d1$是修改后的数组和查分数组，以下分情况进行讨论</p>
+</div><h3 id="证明-1">证明</h3>
+<p>同样假设<span class="katex-inline">num1</span>和<span class="katex-inline">d1</span>是修改后的数组和查分数组，以下分情况进行讨论</p>
 <ul>
-<li>对于$(m,n)$满足$m&lt;x1$或$n&lt;y1$, 容易知道该范围内查分数组未发生变化，求解该范围内的数组不需要用到区间$S$内的差分数组，因此该范围内数组不受影响；</li>
-<li>对于$(m,n)\in S$, 不妨设原数组$num$的元素均为$a$, 那么
-$$
+<li>对于<span class="katex-inline">(m,n)</span>满足<span class="katex-inline">m<x1</span>或<span class="katex-inline">n<y1</span>, 容易知道该范围内查分数组未发生变化，求解该范围内的数组不需要用到区间<span class="katex-inline">S</span>内的差分数组，因此该范围内数组不受影响；</li>
+<li>对于<span class="katex-inline">(m,n)\in S</span>, 不妨设原数组<span class="katex-inline">num</span>的元素均为<span class="katex-inline">a</span>, 那么
+
+<div class="katex-display">
 \begin{align}
-nums1[x1][y1] &amp;= nums1[x1-1][y1] + nums1[x1][y1-1] - nums1[x1-1][y1-1] + d1[x1][y1]\\
-&amp;= nums[x1-1][y1] + nums[x1][y1-1] - nums[x1-1][y1-1] + d[x1][y1] + val\\
-&amp;= nums[x1][y1] + val;
+nums1[x1][y1] &= nums1[x1-1][y1] + nums1[x1][y1-1] - nums1[x1-1][y1-1] + d1[x1][y1]\\\\
+&= nums[x1-1][y1] + nums[x1][y1-1] - nums[x1-1][y1-1] + d[x1][y1] + val\\\\
+&= nums[x1][y1] + val;
 \end{align}
-$$
-对于$S$内的其他点，使用此递推公式同样可以推导出
-$$
+</div>
+对于<span class="katex-inline">S</span>内的其他点，使用此递推公式同样可以推导出
+
+<div class="katex-display">
 nums1[m,n] = nums[m][n]+val
-$$</li>
-<li>对于$(m,n)$满足$x1\leq m \leq x2$且$n\gt y2$, 我们可以知道
-$$
+</div></li>
+<li>对于<span class="katex-inline">(m,n)</span>满足<span class="katex-inline">x1\leq m \leq x2</span>且<span class="katex-inline">n\gt y2</span>, 我们可以知道
+
+<div class="katex-display">
 \begin{align}
-nums1[x1][y2+1] &amp;= nums1[x1-1][y2+1] + nums1[x1][y2] - nums1[x1-1][y2] + d1[x1][y2+1]\\
-&amp;= nums[x1-1][y2+1] + nums[x1][y2] + val - nums[x1-1][y2] + d[x1][y2+1] - val\\
-&amp;= nums[x1][y2+1];
+nums1[x1][y2+1] &= nums1[x1-1][y2+1] + nums1[x1][y2] - nums1[x1-1][y2] + d1[x1][y2+1]\\\\
+&= nums[x1-1][y2+1] + nums[x1][y2] + val - nums[x1-1][y2] + d[x1][y2+1] - val\\\\
+&= nums[x1][y2+1];
 \end{align}
-$$
-对于其他$(m,n)$使用递推公式同样可以发现数组的值没有发生变化。</li>
-<li>对于$(m,n)$满足$m\gt x2$且$y1\leq n \leq y2$, 可以使用类似上一种情况的方式推导发现数组数值未发生变化；</li>
-<li>最后，对于$(m,n)$满足$m\gt x2$且$n\gt y2$，我们考虑
-$$
+</div>
+对于其他<span class="katex-inline">(m,n)</span>使用递推公式同样可以发现数组的值没有发生变化。</li>
+<li>对于<span class="katex-inline">(m,n)</span>满足<span class="katex-inline">m\gt x2</span>且<span class="katex-inline">y1\leq n \leq y2</span>, 可以使用类似上一种情况的方式推导发现数组数值未发生变化；</li>
+<li>最后，对于<span class="katex-inline">(m,n)</span>满足<span class="katex-inline">m\gt x2</span>且<span class="katex-inline">n\gt y2</span>，我们考虑
+
+<div class="katex-display">
 \begin{align}
-nums1[x2+1][y2+1] &amp;= nums1[x2][y2+1] + nums1[x2+1][y2] - nums1[x2][y2] + d1[x2+1][y2+1]\\
-&amp;= nums[x2][y2+1] + nums[x2+1][y2] - nums[x2][y2] - val + d[x2+1][y2+1] + val\\ss
-&amp;= nums[x2+1][y2+1];
+nums1[x2+1][y2+1] &= nums1[x2][y2+1] + nums1[x2+1][y2] - nums1[x2][y2] + d1[x2+1][y2+1]\\\\
+&= nums[x2][y2+1] + nums[x2+1][y2] - nums[x2][y2] - val + d[x2+1][y2+1] + val\\\\ss
+&= nums[x2+1][y2+1];
 \end{align}
-$$
+</div>
 对于该区域其他点可以类推。</li>
 </ul>
 <p>由此，我们得到，差分数组定义以及更新方式满足条件。</p>
 <h3 id="代码来自参考链接">代码（来自参考链接）</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// Java代码，需要注意边界情况
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">private</span> <span class="kt">int</span><span class="o">[][]</span> <span class="n">d</span><span class="o">;</span><span class="c1">// 差分数组。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">private</span> <span class="kt">int</span><span class="o">[][]</span> <span class="n">a</span><span class="o">;</span><span class="c1">// 原数组。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="nf">TwoDiffNums</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">a</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">m</span><span class="o">][</span><span class="n">n</span><span class="o">];</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// 求差分数组。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span>
-</span></span><span class="line"><span class="cl">            <span class="n">add</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">j</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">j</span><span class="o">,</span> <span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]);</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">x1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">x2</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y2</span><span class="o">,</span> <span class="kt">int</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">d</span><span class="o">[</span><span class="n">x1</span><span class="o">][</span><span class="n">y1</span><span class="o">]</span> <span class="o">+=</span> <span class="n">val</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">y2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">d</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">length</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">        <span class="n">d</span><span class="o">[</span><span class="n">x1</span><span class="o">][</span><span class="n">y2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">]</span> <span class="o">-=</span> <span class="n">val</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">x2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">d</span><span class="o">.</span><span class="na">length</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">        <span class="n">d</span><span class="o">[</span><span class="n">x2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">][</span><span class="n">y1</span><span class="o">]</span> <span class="o">-=</span> <span class="n">val</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">x2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">d</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">y2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">d</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">length</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">        <span class="n">d</span><span class="o">[</span><span class="n">x2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">][</span><span class="n">y2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">]</span> <span class="o">+=</span> <span class="n">val</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 返回结果数组。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kt">int</span><span class="o">[][]</span> <span class="nf">result</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">a</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">a</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="n">a</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">:</span> <span class="mi">0</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="o">]</span> <span class="o">:</span> <span class="mi">0</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">x3</span> <span class="o">=</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="n">a</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="o">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="o">]</span> <span class="o">:</span> <span class="mi">0</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">            <span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x3</span> <span class="o">+</span> <span class="n">d</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">];</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div>
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">lishengxie</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2023-12-23
-        
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      
-      <nav class="post-nav">
-        <a class="prev" href="/post/transfer-server/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Transfer Server</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/traverse-binary-tree/">
-            <span class="next-text nav-default">LeetCode刷题-二叉树遍历迭代法</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  
-    <script src="https://utteranc.es/client.js"
-    repo="lishengxie/lishengxie.github.io"
-    issue-term="title"
-    theme="github-light"
-    crossorigin="anonymous"
-    async>
-    </script>
-  
-
-  
-
-  
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Java代码，需要注意边界情况</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[][]</span> d;<span style="color:#75715e">// 差分数组。</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[][]</span> a;<span style="color:#75715e">// 原数组。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#a6e22e">TwoDiffNums</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">[][]</span> a) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> a;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> a.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> a<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>    d <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>m<span style="color:#f92672">][</span>n<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 求差分数组。</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> m; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> 0; j <span style="color:#f92672">&lt;</span> n; j<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>            add(i, j, i, j, a<span style="color:#f92672">[</span>i<span style="color:#f92672">][</span>j<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> x1, <span style="color:#66d9ef">int</span> y1, <span style="color:#66d9ef">int</span> x2, <span style="color:#66d9ef">int</span> y2, <span style="color:#66d9ef">int</span> val) {
+</span></span><span style="display:flex;"><span>    d<span style="color:#f92672">[</span>x1<span style="color:#f92672">][</span>y1<span style="color:#f92672">]</span> <span style="color:#f92672">+=</span> val;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (y2 <span style="color:#f92672">+</span> 1 <span style="color:#f92672">&lt;</span> d<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.<span style="color:#a6e22e">length</span>)
+</span></span><span style="display:flex;"><span>        d<span style="color:#f92672">[</span>x1<span style="color:#f92672">][</span>y2 <span style="color:#f92672">+</span> 1<span style="color:#f92672">]</span> <span style="color:#f92672">-=</span> val;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (x2 <span style="color:#f92672">+</span> 1 <span style="color:#f92672">&lt;</span> d.<span style="color:#a6e22e">length</span>)
+</span></span><span style="display:flex;"><span>        d<span style="color:#f92672">[</span>x2 <span style="color:#f92672">+</span> 1<span style="color:#f92672">][</span>y1<span style="color:#f92672">]</span> <span style="color:#f92672">-=</span> val;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (x2 <span style="color:#f92672">+</span> 1 <span style="color:#f92672">&lt;</span> d.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&amp;&amp;</span> y2 <span style="color:#f92672">+</span> 1 <span style="color:#f92672">&lt;</span> d<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.<span style="color:#a6e22e">length</span>)
+</span></span><span style="display:flex;"><span>        d<span style="color:#f92672">[</span>x2 <span style="color:#f92672">+</span> 1<span style="color:#f92672">][</span>y2 <span style="color:#f92672">+</span> 1<span style="color:#f92672">]</span> <span style="color:#f92672">+=</span> val;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 返回结果数组。</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[][]</span> <span style="color:#a6e22e">result</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> a.<span style="color:#a6e22e">length</span>; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> 0; j <span style="color:#f92672">&lt;</span> a<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.<span style="color:#a6e22e">length</span>; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> x1 <span style="color:#f92672">=</span> i <span style="color:#f92672">&gt;</span> 0 <span style="color:#f92672">?</span> a<span style="color:#f92672">[</span>i <span style="color:#f92672">-</span> 1<span style="color:#f92672">][</span>j<span style="color:#f92672">]</span> : 0;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> x2 <span style="color:#f92672">=</span> j <span style="color:#f92672">&gt;</span> 0 <span style="color:#f92672">?</span> a<span style="color:#f92672">[</span>i<span style="color:#f92672">][</span>j <span style="color:#f92672">-</span> 1<span style="color:#f92672">]</span> : 0;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> x3 <span style="color:#f92672">=</span> i <span style="color:#f92672">&gt;</span> 0 <span style="color:#f92672">&amp;&amp;</span> j <span style="color:#f92672">&gt;</span> 0 <span style="color:#f92672">?</span> a<span style="color:#f92672">[</span>i <span style="color:#f92672">-</span> 1<span style="color:#f92672">][</span>j <span style="color:#f92672">-</span> 1<span style="color:#f92672">]</span> : 0;
+</span></span><span style="display:flex;"><span>            a<span style="color:#f92672">[</span>i<span style="color:#f92672">][</span>j<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> x1 <span style="color:#f92672">+</span> x2 <span style="color:#f92672">-</span> x3 <span style="color:#f92672">+</span> d<span style="color:#f92672">[</span>i<span style="color:#f92672">][</span>j<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
       </div>
-    </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="1141751053@qq.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://github.com/lishengxie" class="iconfont icon-github" title="github"></a>
-  <a href="https://lishengxie.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+      <footer>
+        
+      </footer>
+    </article>
+
+    
+    
+      
+
+
+
+
+<aside class="sidebar">
+  
+  
+    <aside class="toc">
+  <h2 class="toc-title">Table of Contents</h2>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#差分数组">差分数组</a></li>
+    <li><a href="#问题描述">问题描述</a></li>
+    <li><a href="#一维差分数组定义">一维差分数组定义</a>
+      <ul>
+        <li><a href="#证明">证明</a></li>
+        <li><a href="#代码">代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#拓展---二维差分数组">拓展 - 二维差分数组</a>
+      <ul>
+        <li><a href="#证明-1">证明</a></li>
+        <li><a href="#代码来自参考链接">代码（来自参考链接）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</aside>
+  
+
+  
+  
+    
+    
+      <div class="widget-area">
+        
+          
+<div class="widget widget-recent">
+  <h3 class="widget-title">Recent Posts</h3>
+  <ul>
+    
+    
+    <li>
+      <a href="/post/lets-encrypt-ssl/">Lets Encrypt Ssl</a>
+      <time datetime="2025-09-14T21:58:04&#43;08:00">Sep 14, 2025</time>
+    </li>
+    
+    <li>
+      <a href="/post/redis-listpack-ziplist/">Redis ziplist、quicklist 和 listpack</a>
+      <time datetime="2025-03-03T22:44:38&#43;08:00">Mar 3, 2025</time>
+    </li>
+    
+    <li>
+      <a href="/post/nginx-prohibit-ip-request/">Nginx禁止使用IP直接访问服务器上相应端口</a>
+      <time datetime="2024-05-11T21:48:52&#43;08:00">May 11, 2024</time>
+    </li>
+    
+    <li>
+      <a href="/post/leetcode-kmp/">LeetCode刷题 - KMP算法</a>
+      <time datetime="2024-02-04T18:48:10&#43;08:00">Feb 4, 2024</time>
+    </li>
+    
+    <li>
+      <a href="/post/transfer-server/">Transfer Server</a>
+      <time datetime="2023-12-23T23:17:56&#43;08:00">Dec 23, 2023</time>
+    </li>
+    
+  </ul>
+</div>
+        
+          
+<div class="widget widget-categories">
+  <h3 class="widget-title">Categories</h3>
+  
+  <ul>
+    
+    
+    <li><a href="/categories/linux/">Linux</a><span class="widget-count">7</span></li>
+    
+    <li><a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">算法学习</a><span class="widget-count">7</span></li>
+    
+    <li><a href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a><span class="widget-count">6</span></li>
+    
+    <li><a href="/categories/c&#43;&#43;/">C&#43;&#43;</a><span class="widget-count">4</span></li>
+    
+    <li><a href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a><span class="widget-count">3</span></li>
+    
+    <li><a href="/categories/go%E5%AD%A6%E4%B9%A0/">Go学习</a><span class="widget-count">2</span></li>
+    
+    <li><a href="/categories/redis/">Redis</a><span class="widget-count">1</span></li>
+    
+    <li><a href="/categories/systemc/">SystemC</a><span class="widget-count">1</span></li>
+    
+    <li><a href="/categories/verilog/">Verilog</a><span class="widget-count">1</span></li>
+    
+  </ul>
+  
 </div>
 
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
+        
+          
+<div class="widget widget-tags">
+  <h3 class="widget-title">Tags</h3>
+  
+</div>
+
+        
+      </div>
+    
+  
+</aside>
+
+    
+  </div>
+
+  
+    
+<nav class="post-nav">
+  
+  <a href="/post/traverse-binary-tree/" class="nav-prev">
+    <span class="nav-arrow">&larr;</span>
+    <span class="nav-title">LeetCode刷题-二叉树遍历迭代法</span>
+  </a>
+  
+  
+  <a href="/post/transfer-server/" class="nav-next">
+    <span class="nav-title">Transfer Server</span>
+    <span class="nav-arrow">&rarr;</span>
+  </a>
+  
+</nav>
+
 
   
 
-  <span class="copyright-year">
-    &copy; 
-    2023 - 
-    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
-  </span>
+  
+    
+
+
+<section class="related-posts">
+  <h3 class="related-title">Related Posts</h3>
+  <ul class="related-list">
+    
+    <li class="related-item">
+      <a href="/post/traverse-binary-tree/" class="related-link">
+        <span class="related-item-title">LeetCode刷题-二叉树遍历迭代法</span>
+        <time class="related-item-date" datetime="2023-10-17">Oct 17, 2023</time>
+      </a>
+    </li>
+    
+    <li class="related-item">
+      <a href="/post/leetcode-moving-window-maximum/" class="related-link">
+        <span class="related-item-title">LeetCode刷题 - 滑动窗口最大值</span>
+        <time class="related-item-date" datetime="2023-10-17">Oct 17, 2023</time>
+      </a>
+    </li>
+    
+    <li class="related-item">
+      <a href="/post/algorithm-study-multiopt/" class="related-link">
+        <span class="related-item-title">多目标优化问题及两种常用解法</span>
+        <time class="related-item-date" datetime="2023-04-30">Apr 30, 2023</time>
+      </a>
+    </li>
+    
+    <li class="related-item">
+      <a href="/post/algorithm-study-sa/" class="related-link">
+        <span class="related-item-title">启发式优化算法学习-模拟退火</span>
+        <time class="related-item-date" datetime="2023-04-30">Apr 30, 2023</time>
+      </a>
+    </li>
+    
+  </ul>
+</section>
+
+
+  
+
+  <script src="https://utteranc.es/client.js"
+  repo="lishengxie/lishengxie.github.io"
+  issue-term="title"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+
 </div>
 
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
+  </main>
+  
+<footer class="site-footer">
+  <div class="container">
+    
+    
+    <div class="copyright">
+      Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/yogirk/explore" target="_blank" rel="noopener">Explore Theme</a>.
     </div>
   </div>
+</footer>
+
   
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+  <script src="/js/minimal.min.6a9ca11052c7f4a8a7596e64d3b60b3b1040bc4e6c825054f99533c3126a84a6.js" integrity="sha256-apyhEFLH9KinWW5k07YLOxBAvE5sglBU&#43;ZUzwxJqhKY=" crossorigin="anonymous" defer></script>
+  
+  
 
-
-
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-  <script type="text/javascript">
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        }
-    };
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      
+      document.querySelectorAll('.katex-inline').forEach(function (el) {
+        katex.render(el.textContent, el, { throwOnError: false });
+      });
+      
+      document.querySelectorAll('.katex-display').forEach(function (el) {
+        katex.render(el.textContent, el, { displayMode: true, throwOnError: false });
+      });
+    });
   </script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
-
-
-
-
-
-
-
-
 </body>
 </html>

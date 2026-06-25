@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Linux &middot; Lishengxie</title>
+
+<meta name="description" content="A personal blog powered by Hugo.">
+<meta name="author" content="Lishengxie">
+<link rel="canonical" href="http://localhost:1313/categories/linux/">
+
+  <link rel="alternate" type="application/rss+xml" href="http://localhost:1313/categories/linux/index.xml" title="Lishengxie">
+
+
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+
+
+<meta property="og:title" content="Linux">
+<meta property="og:description" content="A personal blog powered by Hugo.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://localhost:1313/categories/linux/">
+
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Linux">
+<meta name="twitter:description" content="A personal blog powered by Hugo.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "headline": "Linux",
+  "name": "Linux",
+  "description": "A personal blog powered by Hugo.",
+  "url": "http:\/\/localhost:1313\/categories\/linux\/",
+  
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http:\/\/localhost:1313\/categories\/linux\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Lishengxie",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http:\/\/localhost:1313\/apple-touch-icon.png"
+    }
+  }
+}
+</script>
+
+  
+    <link rel="prev" href="/categories/linux/">
+    
+  
+
+
+
+
+
+<link rel="preload" href="/fonts/google-sans-flex-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/google-sans-flex-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/google-sans-code-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+
+
+
+
+<link rel="stylesheet" href="/css/style.444aa50704e4c1bf29dab952f95176e6eb7656beb818e5c84b386bf5e78f3225.css" integrity="sha256-REqlBwTkwb8p2rlS&#43;VF25ut2Vr64GOXISzhr9eePMiU=">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+
+<style>
+  .post-list-item { overflow: hidden; }
+  .post-excerpt { word-break: break-word; }
+</style>
+
+
+<script>
+  (function() {
+    try {
+      var theme = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+
+</head>
+<body>
+  
+<header class="site-header is-sticky">
+  <div class="container header-inner">
+    <div class="site-identity">
+      <a href="/" class="site-brand">
+        
+        <span class="site-title">Lishengxie</span>
+      </a>
+      
+        <p class="site-tagline">同步备份自 https://www.lishengxie.top</p>
+      
+    </div>
+    <button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">
+      <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <nav id="site-nav" class="site-nav">
+      <div class="main-nav">
+        <ul>
+          
+          
+          <li>
+            <a href="/post/" class="">Posts</a>
+          </li>
+          
+          <li>
+            <a href="/pages/about/" class="">About</a>
+          </li>
+          
+          <li>
+            <a href="/pages/contact/" class="">Contact</a>
+          </li>
+          
+        </ul>
+      </div>
+      <div class="nav-utils">
+        <a href="http://localhost:1313/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+        </a>
+        
+        <a href="/search" class="nav-search" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" aria-pressed="false">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+  <main class="site-main">
+    
+
+
+
+<div class="container site-main">
+  <header class="page-header">
+    <h1>Linux</h1>
+    
+  </header>
+
+  
+  <form class="list-search" action="/search" method="get">
+    <input type="search" name="q" placeholder="Search..." class="search-input">
+  </form>
+  
+
+  <div class="layout-grid layout-grid--sidebar-left">
+    <div class="main-content main-content--sidebar-left">
+      <div class="post-list">
+        
+        
+        
+          
+            
+<article class="post-list-item">
+  <a class="card-link" href="/post/gdb-study/" aria-hidden="true"></a>
+  <header>
+    <h2 class="post-title"><a href="/post/gdb-study/">Gdb调试学习</a></h2>
+    <div class="post-meta">
+      
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <time datetime="2023-04-30T08:40:25&#43;08:00">Apr 30, 2023</time>
+        </span>
+      
+      
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Lishengxie
+        </span>
+      
+    </div>
+  </header>
+  
+    <div class="post-excerpt">
+      前言 使用linux进行systemc的开发时经常出现core dump的文件，对于较大的项目vscode无法很快地进行debug，clion对makefile的支持不是很好，此时想到使用gdb进行调试并学习了一些基本的操作。以下的内容主要参考这篇博客和gdb debug的参考文档。
+参考资料： …
+    </div>
+  
+  
+  <footer class="card-footer">
+    
+      <div class="compact-post-categories">
+        
+          <a href="/categories/c&#43;&#43;/" class="compact-post-category">C&#43;&#43;</a>
+        
+          <a href="/categories/linux/" class="compact-post-category">linux</a>
+        
+      </div>
+    
+    
+  </footer>
+  
+</article>
+
+          
+        
+          
+            
+<article class="post-list-item">
+  <a class="card-link" href="/post/makefile-study/" aria-hidden="true"></a>
+  <header>
+    <h2 class="post-title"><a href="/post/makefile-study/">Makefile使用学习</a></h2>
+    <div class="post-meta">
+      
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <time datetime="2023-04-30T08:37:37&#43;08:00">Apr 30, 2023</time>
+        </span>
+      
+      
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Lishengxie
+        </span>
+      
+    </div>
+  </header>
+  
+    <div class="post-excerpt">
+      参考教程 原文：https://makefiletutorial.com/ 中文翻译：https://makefiletutorial.vercel.app
+Makefile常用内容 本文主要基于以上教程记录一些平时阅读Makefile可能会用到的信息。
+Makefile基础使用 首先 …
+    </div>
+  
+  
+  <footer class="card-footer">
+    
+      <div class="compact-post-categories">
+        
+          <a href="/categories/c&#43;&#43;/" class="compact-post-category">C&#43;&#43;</a>
+        
+          <a href="/categories/linux/" class="compact-post-category">linux</a>
+        
+      </div>
+    
+    
+  </footer>
+  
+</article>
+
+          
+        
+      </div>
+      
+
+<nav class="pagination" aria-label="Pagination">
+  
+    <a href="/categories/linux/" aria-label="First page" >&laquo;&laquo;</a>
+  
+
+  
+    <a href="/categories/linux/" aria-label="Previous page">&laquo;</a>
+  
+
+  <span class="pagination-pages">
+    
+      <a class="page-number" href="/categories/linux/">1</a>
+    
+    
+      <span class="page-number active" aria-current="page">2</span>
+    
+  </span>
+
+  
+    <span class="disabled">&raquo;</span>
+  
+
+  
+    <a href="/categories/linux/page/2/" aria-label="Last page" class="disabled">&raquo;&raquo;</a>
+  
+</nav>
+
+    </div>
+
+    
+      
+
+
+
+
+<aside class="sidebar">
+  
+  
+
+  
+  
+    
+    
+      <div class="widget-area">
+        
+          
+<div class="widget widget-recent">
+  <h3 class="widget-title">Recent Posts</h3>
+  <ul>
+    
+    
+    <li>
+      <a href="/post/lets-encrypt-ssl/">Lets Encrypt Ssl</a>
+      <time datetime="2025-09-14T21:58:04&#43;08:00">Sep 14, 2025</time>
+    </li>
+    
+    <li>
+      <a href="/post/redis-listpack-ziplist/">Redis ziplist、quicklist 和 listpack</a>
+      <time datetime="2025-03-03T22:44:38&#43;08:00">Mar 3, 2025</time>
+    </li>
+    
+    <li>
+      <a href="/post/nginx-prohibit-ip-request/">Nginx禁止使用IP直接访问服务器上相应端口</a>
+      <time datetime="2024-05-11T21:48:52&#43;08:00">May 11, 2024</time>
+    </li>
+    
+    <li>
+      <a href="/post/leetcode-kmp/">LeetCode刷题 - KMP算法</a>
+      <time datetime="2024-02-04T18:48:10&#43;08:00">Feb 4, 2024</time>
+    </li>
+    
+    <li>
+      <a href="/post/transfer-server/">Transfer Server</a>
+      <time datetime="2023-12-23T23:17:56&#43;08:00">Dec 23, 2023</time>
+    </li>
+    
+  </ul>
+</div>
+        
+          
+<div class="widget widget-categories">
+  <h3 class="widget-title">Categories</h3>
+  
+  <ul>
+    
+    
+    <li><a href="/categories/linux/">Linux</a><span class="widget-count">7</span></li>
+    
+    <li><a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">算法学习</a><span class="widget-count">7</span></li>
+    
+    <li><a href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a><span class="widget-count">6</span></li>
+    
+    <li><a href="/categories/c&#43;&#43;/">C&#43;&#43;</a><span class="widget-count">4</span></li>
+    
+    <li><a href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a><span class="widget-count">3</span></li>
+    
+    <li><a href="/categories/go%E5%AD%A6%E4%B9%A0/">Go学习</a><span class="widget-count">2</span></li>
+    
+    <li><a href="/categories/redis/">Redis</a><span class="widget-count">1</span></li>
+    
+    <li><a href="/categories/systemc/">SystemC</a><span class="widget-count">1</span></li>
+    
+    <li><a href="/categories/verilog/">Verilog</a><span class="widget-count">1</span></li>
+    
+  </ul>
+  
+</div>
+
+        
+          
+<div class="widget widget-tags">
+  <h3 class="widget-title">Tags</h3>
+  
+</div>
+
+        
+      </div>
+    
+  
+</aside>
+
+    
+  </div>
+</div>
+
+  </main>
+  
+<footer class="site-footer">
+  <div class="container">
+    
+    
+    <div class="copyright">
+      Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/yogirk/explore" target="_blank" rel="noopener">Explore Theme</a>.
+    </div>
+  </div>
+</footer>
+
+  
+  <script src="/js/minimal.min.6a9ca11052c7f4a8a7596e64d3b60b3b1040bc4e6c825054f99533c3126a84a6.js" integrity="sha256-apyhEFLH9KinWW5k07YLOxBAvE5sglBU&#43;ZUzwxJqhKY=" crossorigin="anonymous" defer></script>
+  
+  
+
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      
+      document.querySelectorAll('.katex-inline').forEach(function (el) {
+        katex.render(el.textContent, el, { throwOnError: false });
+      });
+      
+      document.querySelectorAll('.katex-display').forEach(function (el) {
+        katex.render(el.textContent, el, { displayMode: true, throwOnError: false });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,67 +1,59 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>论文笔记 on Github Pages - Lishengxie</title>
-    <link>https://lishengxie.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</link>
-    <description>Recent content in 论文笔记 on Github Pages - Lishengxie</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <managingEditor>1141751053@qq.com (lishengxie)</managingEditor>
-    <webMaster>1141751053@qq.com (lishengxie)</webMaster>
-    <lastBuildDate>Sun, 30 Apr 2023 08:33:39 +0800</lastBuildDate><atom:link href="https://lishengxie.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Snn &amp; NoC 仿真器收集</title>
-      <link>https://lishengxie.github.io/post/snn-simulator/</link>
-      <pubDate>Sun, 30 Apr 2023 08:33:39 +0800</pubDate>
-      <author>1141751053@qq.com (lishengxie)</author>
-      <guid>https://lishengxie.github.io/post/snn-simulator/</guid>
-      <description>NoC仿真器 NoC(Network on chip)是连接同构或者异构多核心的重要的系统互联结构，NoC仿真器提供了对NoC中多种性能指标的仿真。下面这篇博客中列出了</description>
-    </item>
-    
-    <item>
-      <title>SNN映射论文阅读 Neu-NoC</title>
-      <link>https://lishengxie.github.io/post/snn-paper-neu_noc/</link>
-      <pubDate>Sun, 30 Apr 2023 00:19:30 +0800</pubDate>
-      <author>1141751053@qq.com (lishengxie)</author>
-      <guid>https://lishengxie.github.io/post/snn-paper-neu_noc/</guid>
-      <description>Neu-NoC: A High-efﬁcient Interconnection Network for Accelerated Neuromorphic Systems 提出了一种环形+Mesh结合的NoC结构，同时基于该结构提出了相应的映射算法、广播协议和基于权重稀</description>
-    </item>
-    
-    <item>
-      <title>SNN映射论文阅读-SentryOS</title>
-      <link>https://lishengxie.github.io/post/snn-paper-sentryos/</link>
-      <pubDate>Sun, 30 Apr 2023 00:13:55 +0800</pubDate>
-      <author>1141751053@qq.com (lishengxie)</author>
-      <guid>https://lishengxie.github.io/post/snn-paper-sentryos/</guid>
-      <description>SentryOS： Design of Many-Core Big Little µBrains for Energy-Efficient Embedded Neuromorphic Computing 开源地址： 暂无 使用芯片： µBrain 优化指标： 芯片使用面积和功耗 在uBrain神经形态核</description>
-    </item>
-    
-    <item>
-      <title>SNN映射论文阅读-NEUTRAMS</title>
-      <link>https://lishengxie.github.io/post/snn-paper-neutrams/</link>
-      <pubDate>Sun, 30 Apr 2023 00:10:08 +0800</pubDate>
-      <author>1141751053@qq.com (lishengxie)</author>
-      <guid>https://lishengxie.github.io/post/snn-paper-neutrams/</guid>
-      <description>Neutrams: NEUTRAMS: Neural Network Transformation and Co-design under Neuromorphic Hardware Constraints 开源代码地址：https://github.com/hoangt/neutrams 使用芯片：TianJi，Prime 优</description>
-    </item>
-    
-    <item>
-      <title>SNN映射论文阅读-PSOPART</title>
-      <link>https://lishengxie.github.io/post/snn-paper-psopart/</link>
-      <pubDate>Sat, 29 Apr 2023 22:14:32 +0800</pubDate>
-      <author>1141751053@qq.com (lishengxie)</author>
-      <guid>https://lishengxie.github.io/post/snn-paper-psopart/</guid>
-      <description>图优化方法 PSOPART Mapping of local and global synapses on spiking neuromorphic hardware 开源代码地址：https://github.com/Jinouwen/Mapping 优化指标：神经元分块之间</description>
-    </item>
-    
-    <item>
-      <title>SNN映射论文阅读-SpiNeMap</title>
-      <link>https://lishengxie.github.io/post/snn-paper-spinemap/</link>
-      <pubDate>Sat, 29 Apr 2023 22:14:32 +0800</pubDate>
-      <author>1141751053@qq.com (lishengxie)</author>
-      <guid>https://lishengxie.github.io/post/snn-paper-spinemap/</guid>
-      <description>图优化方法 SpiNeMap Mapping spiking neural networks to neuromorphic hardware. 开源代码地址：https://github.com/Jinouwen/SpiNeMap 优化指标：Global spi</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>论文笔记 on Lishengxie</title>
+		<link>http://localhost:1313/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</link>
+		<description>Recent content in 论文笔记 on Lishengxie</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Sun, 30 Apr 2023 08:33:39 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Snn &amp; NoC 仿真器收集</title>
+				<link>http://localhost:1313/post/snn-simulator/</link>
+				<pubDate>Sun, 30 Apr 2023 08:33:39 +0800</pubDate>
+				<guid>http://localhost:1313/post/snn-simulator/</guid>
+				<description>&lt;h2 id=&#34;noc仿真器&#34;&gt;NoC仿真器&lt;/h2&gt;&#xA;&lt;p&gt;NoC(Network on chip)是连接同构或者异构多核心的重要的系统互联结构，NoC仿真器提供了对NoC中多种性能指标的仿真。下面这篇博客中列出了常用的开源NoC仿真器，&lt;a href=&#34;https://networkonchip.wordpress.com/2011/02/22/simulators/&#34;&gt;https://networkonchip.wordpress.com/2011/02/22/simulators/&lt;/a&gt; ，目前了解到最常用的两种分别是&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;noxim，基于SystemC语言开发，修改和添加新功能较为灵活。&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;开源地址：&lt;a href=&#34;https://github.com/davidepatti/noxim&#34;&gt;https://github.com/davidepatti/noxim&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ol start=&#34;2&#34;&gt;&#xA;&lt;li&gt;booksim，基于C++语言开发，是 &lt;a href=&#34;http://cva.stanford.edu/books/ppin/&#34;&gt;Principles and Practices of Interconnection Networks&lt;/a&gt; 这本书的配套教程。&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;开源地址：&lt;a href=&#34;https://github.com/booksim/booksim&#34;&gt;https://github.com/booksim/booksim&lt;/a&gt;，&lt;a href=&#34;https://github.com/booksim/booksim2&#34;&gt;https://github.com/booksim/booksim2&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;snn仿真器&#34;&gt;SNN仿真器&lt;/h2&gt;&#xA;&lt;p&gt;SNN是第三代人工神经网络，基于脉冲传递数据和信息，由于SNN本身具有稀疏性（连接稀疏性和脉冲稀疏性），因此有许多神经形态硬件（Loihi、SpiNNaker、TianjiC、Darwin等）被开发出来用于SNN加速。这里主要列出一些在通用的CPU和GPU平台上进行SNN加速的一些SNN仿真器。&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;NEST，可以用于SNN网络信息处理，网络活动动态、学习和突触可塑性等&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;开源地址：&lt;a href=&#34;https://github.com/nest/nest-simulator/&#34;&gt;https://github.com/nest/nest-simulator/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ol start=&#34;2&#34;&gt;&#xA;&lt;li&gt;Brain2，时钟驱动的SNN仿真器&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;开源地址：&lt;a href=&#34;https://github.com/brian-team/brian2&#34;&gt;https://github.com/brian-team/brian2&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ol start=&#34;3&#34;&gt;&#xA;&lt;li&gt;GeNN，GPU加速的SNN仿真器&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;开源地址：&lt;a href=&#34;https://github.com/genn-team/genn&#34;&gt;https://github.com/genn-team/genn&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ol start=&#34;4&#34;&gt;&#xA;&lt;li&gt;Carlsim，GPU加速的SNN仿真器&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;开源地址：&lt;a href=&#34;https://github.com/UCI-CARL/CARLsim6&#34;&gt;https://github.com/UCI-CARL/CARLsim6&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ol start=&#34;5&#34;&gt;&#xA;&lt;li&gt;Auryn，RSNN仿真器&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;开源地址：&lt;a href=&#34;https://github.com/fzenke/auryn&#34;&gt;https://github.com/fzenke/auryn&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ol start=&#34;6&#34;&gt;&#xA;&lt;li&gt;ANNarchy&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;开源地址：&lt;a href=&#34;https://github.com/ANNarchy/ANNarchy&#34;&gt;https://github.com/ANNarchy/ANNarchy&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ol start=&#34;7&#34;&gt;&#xA;&lt;li&gt;Spike， GPU加速的SNN仿真器&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;开源地址：&lt;a href=&#34;https://github.com/nasiryahm/Spike&#34;&gt;https://github.com/nasiryahm/Spike&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ol start=&#34;8&#34;&gt;&#xA;&lt;li&gt;Spice，多GPU、时钟驱动的SNN仿真器&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;开源地址：&lt;a href=&#34;https://github.com/denniskb/spice&#34;&gt;https://github.com/denniskb/spice&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ol start=&#34;9&#34;&gt;&#xA;&lt;li&gt;Nengo，基于Python的神经网络仿真&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;开源地址：&lt;a href=&#34;https://github.com/nengo/nengo&#34;&gt;https://github.com/nengo/nengo&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ol start=&#34;10&#34;&gt;&#xA;&lt;li&gt;Brain2Loihi，基于brain2实现的Loihi模拟器&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;开源地址：https://github.com/sagacitysite/brian2_loihi&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ol start=&#34;11&#34;&gt;&#xA;&lt;li&gt;NeuroSync&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;开源地址：&lt;a href=&#34;https://github.com/SNU-HPCS/NeuroSync&#34;&gt;https://github.com/SNU-HPCS/NeuroSync&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ol start=&#34;12&#34;&gt;&#xA;&lt;li&gt;dynapse-simulator，Dynap-SE1神经形态硬件仿真器&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;开源地址：&lt;a href=&#34;https://github.com/YigitDemirag/dynapse-simulator&#34;&gt;https://github.com/YigitDemirag/dynapse-simulator&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ol start=&#34;13&#34;&gt;&#xA;&lt;li&gt;待添加&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
+			</item>
+			<item>
+				<title>SNN映射论文阅读 Neu-NoC</title>
+				<link>http://localhost:1313/post/snn-paper-neu_noc/</link>
+				<pubDate>Sun, 30 Apr 2023 00:19:30 +0800</pubDate>
+				<guid>http://localhost:1313/post/snn-paper-neu_noc/</guid>
+				<description>&lt;p&gt;&lt;strong&gt;Neu-NoC&lt;/strong&gt;: A High-efﬁcient Interconnection Network for Accelerated Neuromorphic Systems&lt;/p&gt;&#xA;&lt;p&gt;提出了一种环形+Mesh结合的NoC结构，同时基于该结构提出了相应的映射算法、广播协议和基于权重稀疏性的通信量减少方案，相较于现有的2D-Mesh的方法有效地减少了通信的延迟和能量消耗。&#xA;&lt;a href=&#34;http://localhost:1313/uploads/2023/02/16.png&#34;&gt;&lt;img src=&#34;http://localhost:1313/uploads/2023/02/16.png&#34; alt=&#34;Neu-NoC整体架构&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h4 id=&#34;motivation&#34;&gt;&lt;strong&gt;Motivation&lt;/strong&gt;&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;相邻层之间通信频繁，导致NoC中大部分的通信量分布在较少的通信信道上；&lt;/li&gt;&#xA;&lt;li&gt;全连接层中前一层的一个神经元给下一层的所有神经元发送的数据本质上是一样的，因此传输的数据包中有相当一部分是重复的数据。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;neu-noc结构介绍&#34;&gt;&lt;strong&gt;Neu-NoC结构介绍&lt;/strong&gt;&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Mesh+ring结合，同一层中的神经元映射到一个ring中来减少数据的搬运，ring中提供两条信道，分别用于接收和发送数据以提高信息的传输速度；&lt;/li&gt;&#xA;&lt;li&gt;ring中使用ring路由，根据上图c)可以看到ring路由包含相应的2选1多选器、缓存和打包解包模块，同时提供分配模块用于仲裁(例如，正在传输的包比刚输入的包优先级更高)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;nn-aware-mapping&#34;&gt;&lt;strong&gt;NN-aware Mapping&lt;/strong&gt;&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;将神经元映射到具体的物理计算核心上，使得神经元之间的通信跳数最小&lt;/li&gt;&#xA;&lt;li&gt;本质是贪婪算法，寻找局部最优的映射方案&#xA;&lt;a href=&#34;http://localhost:1313/uploads/2023/02/17.png&#34;&gt;&lt;img src=&#34;http://localhost:1313/uploads/2023/02/17.png&#34; alt=&#34;Neu-NoC映射算法&#34;&gt;&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;packet广播&#34;&gt;&lt;strong&gt;packet广播&lt;/strong&gt;&lt;/h4&gt;&#xA;&lt;p&gt;在packet的header中添加一段标志位用于支持广播协议，标志位长度和Mesh路由的总数目相同；如1-&amp;gt;7-&amp;gt;9-&amp;gt;10中分别广播到9和10，因此将9和10的标志位置为1，经过9后，9的标志位被置为0随后继续传递给10；&lt;/p&gt;&#xA;&lt;h4 id=&#34;稀疏感知的通信量减少&#34;&gt;&lt;strong&gt;稀疏感知的通信量减少&lt;/strong&gt;&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;利用神经网络中特征图的稀疏性，提出了all-zero flit，该flit中使用特殊标志位，同时在payload中指出有多少个连续的全0包。根据这种方式将多个全0的数据包压缩成一个，由Mesh和ring之间的路由提供支持。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;实验&#34;&gt;&lt;strong&gt;实验&lt;/strong&gt;&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;针对全连接层&lt;/li&gt;&#xA;&lt;li&gt;基于Booksim仿真器：https://github.com/booksim/booksim2&lt;/li&gt;&#xA;&lt;li&gt;ring中的局部延迟和全局通信跳数随着同一个ring中支持的PE数量增加呈现出先增后减的趋势；&lt;/li&gt;&#xA;&lt;li&gt;实验中发现通过将低于某个阈值的激活值置为0，提高特征图的稀疏性之后，精度不会受到严重的影响，因此可以在提高稀疏性和保持精度之间做一定的权衡；&lt;/li&gt;&#xA;&lt;li&gt;提出的方法可以获得较好的性能，相较于普通的2D-Mesh的方法可以降低23.2%的包传输延迟和31.1%的能量消耗。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;思考&#34;&gt;&lt;strong&gt;思考：&lt;/strong&gt;&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;ring加Mesh结合的方法比较有特点；&lt;/li&gt;&#xA;&lt;li&gt;能否直接在现有的2D-Mesh之间实现相应的映射方法，将同一层的神经元映射到相邻的PE上，但是相较于顺序方式需要一定的性能提升？&lt;/li&gt;&#xA;&lt;li&gt;多播和0数据压缩的方式可以参考，尤其是对于SNN可以在时间维度上进行压缩，减少传输的延迟。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>SNN映射论文阅读-SentryOS</title>
+				<link>http://localhost:1313/post/snn-paper-sentryos/</link>
+				<pubDate>Sun, 30 Apr 2023 00:13:55 +0800</pubDate>
+				<guid>http://localhost:1313/post/snn-paper-sentryos/</guid>
+				<description>&lt;p&gt;&lt;strong&gt;SentryOS：&lt;/strong&gt; Design of Many-Core Big Little µBrains for Energy-Efficient Embedded Neuromorphic Computing&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;开源地址：&lt;/strong&gt; 暂无&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;使用芯片：&lt;/strong&gt; µBrain&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;优化指标：&lt;/strong&gt; 芯片使用面积和功耗&lt;/p&gt;&#xA;&lt;p&gt;在uBrain神经形态核心上拓展实现的神经形态系统（基于分段总线）和映射框架（SentryOS）。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;使用分段总线，实现核心之间的一对一互联（实际根据运行数据存在分时复用）；&lt;/li&gt;&#xA;&lt;li&gt;基于异构大小核，大网络分割后的子网络规模不同，使用异构大小核来减少uBrain核心中的硬件空闲率&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;a href=&#34;http://localhost:1313/uploads/2023/01/10.png&#34;&gt;&lt;img src=&#34;http://localhost:1313/uploads/2023/01/10.png&#34; alt=&#34;uBrain使用的三层全连接结构&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;center&gt;&lt;b&gt; uBrain使用的三层全连接结构 &lt;/b&gt;&lt;/center&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;异构大小核设计&#xA;根据uBrain中使用的三层全连接结构，作者分析了LeNet、AlextNet、VGGNet、ResNet和DenseNet五种模型中L1和L2 neighbors 的数目，发现对于不同应用差别较大，因此使用异构的不同大小的uBrain核心可以提高硬件资源（神经元和突触连接）的利用率。&#xA;&lt;a href=&#34;http://localhost:1313/uploads/2023/01/11.png&#34;&gt;&lt;img src=&#34;http://localhost:1313/uploads/2023/01/11.png&#34; alt=&#34;整体架构&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;分段总线互联&#xA;文中使用分段总线连接不同的uBrain核心来完成通信，相较于传统的共享式的总线结构，分段式总线结构可以价格总线分段，不同段之间可以并行通信，互不影响。为了实现同一时刻所有核心之间可以并行通信，需要多条并行总线，基于训练数据获取到同一时刻最大的并行通行量，从而可以确定所需要的最小的并行总线数目。&#xA;&lt;a href=&#34;http://localhost:1313/uploads/2023/01/12.png&#34;&gt;&lt;img src=&#34;http://localhost:1313/uploads/2023/01/12.png&#34; alt=&#34;分段总线&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;SentryOS设计&lt;/p&gt;&#xA;&lt;p&gt;a. SentryC编译器：将大网络分割成多个可以映射到uBrain核心的子网络，具体的映射算法如下，主要分为四个步骤&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;对于每个输出神经元，根据神经元到其的最长路径计算两者之间的距离；&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;根据第一步算出的距离给神经元添加索引，需要确保所有子网络中的神经元具有连续索引（论文中的阐述）&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;将所有距离小于2的神经元形成集合，\(S_0  = {N_j  | dist(N_j  ) ≤ 2}\)，产生一个子网络，剩下的神经元递归组成其他子网络，这一步中可能会插入权重为1的神经元（调整阈值每来一个脉冲就发放一个脉冲？）；&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;融合两个子网络\(S_i\) 和\(S_j\) 当且仅当&#xA;&lt;/p&gt;&#xA;&lt;div class=&#34;katex-display&#34;&gt;Area(S_i,j) \lt Area(S_i) + Area(S_j)&lt;/div&gt;&lt;p&gt;&#xA;&lt;/p&gt;&#xA;&lt;div class=&#34;katex-display&#34;&gt;Power(S_i,j)\lt Power(S_i)+ Power(S_j)&lt;/div&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;文中提到可以将SentryOS的方案扩展到基于crossbar的神经形态硬件上，即认为crossbar为两层全连接结构（uBrain是三层）&#xA;&lt;a href=&#34;http://localhost:1313/uploads/2023/01/13.png&#34;&gt;&lt;img src=&#34;http://localhost:1313/uploads/2023/01/13.png&#34; alt=&#34;SentryC算法&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;b. SentryRT运行时：类似于DFSynthesizer，使用Max-Plus Algebras的方式确定自网络之间的执行顺序，这篇文章在DFSynthesizer上进一步改善，一方面使用多流水线来执行一个网络，另一方面使用Batch依次运算多个输入图片提高吞吐量。&#xA;&lt;a href=&#34;http://localhost:1313/uploads/2023/01/14.png&#34;&gt;&lt;img src=&#34;http://localhost:1313/uploads/2023/01/14.png&#34; alt=&#34;SentryRT&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;实验评估&lt;/p&gt;&#xA;&lt;p&gt;a. 使用异构大小核设计可以提高突触等资源的利用率，降低能量消耗，提高吞吐量；&lt;/p&gt;&#xA;&lt;p&gt;b. 使用分段总线可以避免运行整段总线，同时基于训练数据最小化了总线数目，降低了能量消耗；另一方面，uBrain核心之间通信不再需要路由算法，在映射时所有的通信方案已经确定，减少了通信的延迟。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
+			</item>
+			<item>
+				<title>SNN映射论文阅读-NEUTRAMS</title>
+				<link>http://localhost:1313/post/snn-paper-neutrams/</link>
+				<pubDate>Sun, 30 Apr 2023 00:10:08 +0800</pubDate>
+				<guid>http://localhost:1313/post/snn-paper-neutrams/</guid>
+				<description>&lt;p&gt;&lt;strong&gt;Neutrams&lt;/strong&gt;: NEUTRAMS: Neural Network Transformation and Co-design under Neuromorphic Hardware Constraints&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;开源代码地址&lt;/strong&gt;：https://github.com/hoangt/neutrams&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;使用芯片&lt;/strong&gt;：TianJi，Prime&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;优化指标&lt;/strong&gt;：Crossbar之间的脉冲通信量&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;http://localhost:1313/uploads/2023/01/3.png&#34;&gt;&lt;img src=&#34;http://localhost:1313/uploads/2023/01/3.png&#34; alt=&#34;Neutrams提出的工具链层级&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;center&gt;&lt;b&gt;图 1.&lt;/b&gt; NEUTRAMS提出的工具链的层级结构&lt;/center&gt;&#xA;&lt;p&gt;&lt;strong&gt;实现步骤&lt;/strong&gt;：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;神经网络表示&#xA;类似其他模拟器中常用的方式，将神经网络看成神经元分组和神经元分组之间的连接组成。神经元分组之间都认为使用全连接，不存在的边认为使用权重为0的虚拟边。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Training-based transformation(神经网络训练&amp;amp;神经元分组)&lt;/p&gt;&#xA;&lt;p&gt;a. 使用BP算法训练神经网络&lt;/p&gt;&#xA;&lt;p&gt;b. 连接稀疏化，通过交换矩阵的行或列来将连接矩阵转换为满足crossbar大小限制的多个子矩阵，并将其余连接权重置为0，目标是最大化剩余的原有连接的绝对值权重之和。&lt;/p&gt;&#xA;&lt;p&gt;c. 权重量化，将原有的浮点数权重量化为低精度权重，同时使用BP算法微调模型(BP算法中仍然使用浮点数计算)。&lt;/p&gt;&#xA;&lt;p&gt;d. 在原有的两层中间插入新的全连接层，对于大小为m和n的两个层之间的连接，插入\(\frac{m+n}{2}\)的全连接层，重新训练后减少准确度的损失。&lt;/p&gt;&#xA;&lt;p&gt;e. 对于复杂的神经网络(非顺序连接的/循环的)：对于复杂的神经网络，可以通过图2所示的复制和合并的方式，逐层训练神经元分组之间的突触连接；对于循环神经网络，脉冲神经网络需要将循环连接暂时删除，然后记录循环连接中的信息，将上一时刻信息送入连接后神经元并保存当前时刻连接前神经元送入的信息。&#xA;&lt;a href=&#34;http://localhost:1313/uploads/2023/01/4.png&#34;&gt;&lt;img src=&#34;http://localhost:1313/uploads/2023/01/4.png&#34; alt=&#34;复杂神经网络训练&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;center&gt;&lt;b&gt;图 2.&lt;/b&gt; 复杂神经网络训练&lt;/center&gt;&#xA;&lt;ol start=&#34;3&#34;&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Mapping&#xA;使用Kernighan-Lin(KL)算法进行神经元子块到crossbar上的映射，目标是最小化crossbar之间的脉冲通信量。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Cycle-accurate simulator&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;strong&gt;实验&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;考察指标：错误率，能量消耗，芯片有效速度(反比于每个仿真周期内的芯片时钟周期数，芯片有效速度的最大值对应于超过该值部分脉冲无法在一个仿真周期内到达目标神经元)。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;结论&lt;/p&gt;&#xA;&lt;p&gt;a. 插入新的全连接层精度损失低于扩展crossbar规模，插入新的全连接层会增加能量损失、降低有效速度；&lt;/p&gt;&#xA;&lt;p&gt;b. 基于已训练的前神经元节点训练后节点可以避免误差的积累；&lt;/p&gt;&#xA;&lt;p&gt;c. 连接稀疏化对于精度影响较大，但是后续可以通过微调网络改善；&lt;/p&gt;&#xA;&lt;p&gt;d. 部分神经元参数可以同步变大或减小，而不影响最终的输出；&lt;/p&gt;&#xA;&lt;p&gt;e. 网络规模越大，芯片有效速度越小。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
+			</item>
+			<item>
+				<title>SNN映射论文阅读-PSOPART</title>
+				<link>http://localhost:1313/post/snn-paper-psopart/</link>
+				<pubDate>Sat, 29 Apr 2023 22:14:32 +0800</pubDate>
+				<guid>http://localhost:1313/post/snn-paper-psopart/</guid>
+				<description>&lt;h3 id=&#34;图优化方法&#34;&gt;图优化方法&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;PSOPART&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Mapping of local and global synapses on spiking neuromorphic hardware&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;开源代码地址&lt;/strong&gt;：https://github.com/Jinouwen/Mapping&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;优化指标&lt;/strong&gt;：神经元分块之间的脉冲通信量&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;类脑芯片&lt;/strong&gt;：CxQuad&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;基本步骤&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;使用Carlsim进行脉冲神经网络运行模拟，构建脉冲神经网络图结构；&lt;/li&gt;&#xA;&lt;li&gt;使用PSO(Partial Swarm Optimization)算法进行脉冲神经网络的分割，产生符合硬件限制的子块，这一步中优化的指标为神经元分块之间的脉冲通信量。&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;a href=&#34;http://localhost:1313/uploads/2023/01/2.png&#34;&gt;&lt;img src=&#34;http://localhost:1313/uploads/2023/01/2-1024x847.png&#34; alt=&#34;PSO算法执行流程&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;center&gt;&lt;b&gt;图1. PSO算法执行流程&lt;/b&gt;&lt;/center&gt;&#xA;&lt;p&gt;&lt;strong&gt;创新点&lt;/strong&gt;&#xA;提出使用进化算法(PSO)用于脉冲神经网络分割。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&#xA;没有考虑到神经元分块到crossbar的物理映射问题，优化算法映射时间过长。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>SNN映射论文阅读-SpiNeMap</title>
+				<link>http://localhost:1313/post/snn-paper-spinemap/</link>
+				<pubDate>Sat, 29 Apr 2023 22:14:32 +0800</pubDate>
+				<guid>http://localhost:1313/post/snn-paper-spinemap/</guid>
+				<description>&lt;h3 id=&#34;图优化方法&#34;&gt;图优化方法&lt;/h3&gt;&#xA;&lt;h4 id=&#34;spinemap&#34;&gt;&lt;strong&gt;SpiNeMap&lt;/strong&gt;&lt;/h4&gt;&#xA;&lt;p&gt;Mapping spiking neural networks to neuromorphic hardware.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;开源代码地址&lt;/strong&gt;：https://github.com/Jinouwen/SpiNeMap&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;优化指标&lt;/strong&gt;：Global spikes，latency，energy consumptions&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;类脑芯片&lt;/strong&gt;：DYNAP-SE&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;http://localhost:1313/uploads/2023/01/1.png&#34;&gt;&lt;img src=&#34;http://localhost:1313/uploads/2023/01/1.png&#34; alt=&#34;Comparison with NEUTRAMS, PACMAN, PSOPART&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;步骤分析&lt;/strong&gt;:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;SNN模拟与分析：使用SNN软件模拟器(CARLSim)提取经过训练的SNN网络的拓扑结构和神经元的行为，形成无向SNN图以及脉冲行为轨迹；&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;无向SNN图以神经元为节点、神经元与神经元之间的突触为边；&lt;/li&gt;&#xA;&lt;li&gt;脉冲行为轨迹包含源神经元以及目的神经元的编号和激发时间&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;划分：随机无向SNN图划分为多个SNN子块，使用启发式算法Kernighan-Lin graph partitioning algorithm，通过在不同子块之间交换神经元优化SNN子块之间的脉冲通信量；&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;每个SNN子块中神经元数目不能超过单个crossbar所能容纳的神经元数&lt;/li&gt;&#xA;&lt;li&gt;每个SNN子块只会被分配给一个crossbar&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;映射：使用启发式搜索算法（PSO，粒子群算法）找到一个最优的映射方案将SNN子块分配给目标硬件上的神经元核，最小化目标硬件上脉冲在crossbar之间传播的平均延迟和能量消耗(通过最小化脉冲传播的平均跳数实现)。基于拓展的Noxim平台（Noxim++）实现搜索算法中的指标函数计算。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;strong&gt;创新点&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;将SNN网络的划分和SNN网络分块到物理硬件的映射一起考虑，形成完整的映射方案。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;没有提到神经元的扇入突触超过crossbar限制如何解决？&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;strong&gt;ISI distortion&lt;/strong&gt;：inter-spike intervals失真，会引起模型精度的下降，定义为&#xA;&lt;/p&gt;&#xA;&lt;div class=&#34;katex-display&#34;&gt; I\_j^s\|\_{distortion}=I\_j^s|_{new}-I\_j^s = \delta\_j^s-\delta\_{j-1}^s &lt;/div&gt;&lt;p&gt;&#xA;，其中&lt;span class=&#34;katex-inline&#34;&gt; \delta\_j^s &lt;/span&gt;表示第j个脉冲在第s个突触上传播的延迟，当突触位于crossbar上时，可以认为&lt;span class=&#34;katex-inline&#34;&gt;I\_j^s\|\_{distortion}=0&lt;/span&gt;，当突触映射到NoC上时，&lt;span class=&#34;katex-inline&#34;&gt;I\_j^s\|\_{distortion}\neq 0&lt;/span&gt;。当输入编码方案为速率编码时，ISI distortion可能没有影响，论文中提出了另一种直觉的spike disorder的指标&#xA;&lt;/p&gt;&#xA;&lt;div class=&#34;katex-display&#34;&gt; \sum\_{j=1}^{n\_i}[(F\_j^i-\hat{F}\_j^i)^2]/n\_i &lt;/div&gt;&lt;p&gt;&#xA;，&lt;span class=&#34;katex-inline&#34;&gt;F\_j^i&lt;/span&gt;和&lt;span class=&#34;katex-inline&#34;&gt;\hat{F}\_j^i&lt;/span&gt;分别表示神经元i中的第j个脉冲到达的频率。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

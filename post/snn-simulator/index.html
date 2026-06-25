@@ -1,160 +1,411 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Snn &amp; NoC 仿真器收集 - Github Pages - Lishengxie</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Snn &amp; NoC 仿真器收集 &middot; Lishengxie</title>
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="lishengxie" /><meta name="description" content="NoC仿真器 NoC(Network on chip)是连接同构或者异构多核心的重要的系统互联结构，NoC仿真器提供了对NoC中多种性能指标的仿真。下面这篇博客中列出了" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="description" content="A personal blog powered by Hugo.">
+<meta name="author" content="Lishengxie">
+<link rel="canonical" href="http://localhost:1313/post/snn-simulator/">
 
 
 
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+
+
+<meta property="og:title" content="Snn &amp; NoC 仿真器收集">
+<meta property="og:description" content="NoC仿真器
+NoC(Network on chip)是连接同构或者异构多核心的重要的系统互联结构，NoC仿真器提供了对NoC中多种性能指标的仿真。下面这篇博客中列出了常用的开源NoC仿真器，https://networkonchip.wordpress.com/2011/02/22/simulators/ ，目前了解到最常用的两种分别是
+
+noxim，基于SystemC语言开发，修改和添加新功能较为灵活。
+
+
+开源地址：https://github.com/davidepatti/noxim
+
+
+booksim，基于C&#43;&#43;语言开发，是 Principles and Practices of Interconnection Networks 这本书的配套教程。
+
+
+开源地址：https://github.com/booksim/booksim，https://github.com/booksim/booksim2
+
+SNN仿真器
+SNN是第三代人工神经网络，基于脉冲传递数据和信息，由于SNN本身具有稀疏性（连接稀疏性和脉冲稀疏性），因此有许多神经形态硬件（Loihi、SpiNNaker、TianjiC、Darwin等）被开发出来用于SNN加速。这里主要列出一些在通用的CPU和GPU平台上进行SNN加速的一些SNN仿真器。
+
+NEST，可以用于SNN网络信息处理，网络活动动态、学习和突触可塑性等
+
+
+开源地址：https://github.com/nest/nest-simulator/
+
+
+Brain2，时钟驱动的SNN仿真器
+
+
+开源地址：https://github.com/brian-team/brian2
+
+
+GeNN，GPU加速的SNN仿真器
+
+
+开源地址：https://github.com/genn-team/genn
+
+
+Carlsim，GPU加速的SNN仿真器
+
+
+开源地址：https://github.com/UCI-CARL/CARLsim6
+
+
+Auryn，RSNN仿真器
+
+
+开源地址：https://github.com/fzenke/auryn
+
+
+ANNarchy
+
+
+开源地址：https://github.com/ANNarchy/ANNarchy
+
+
+Spike， GPU加速的SNN仿真器
+
+
+开源地址：https://github.com/nasiryahm/Spike
+
+
+Spice，多GPU、时钟驱动的SNN仿真器
+
+
+开源地址：https://github.com/denniskb/spice
+
+
+Nengo，基于Python的神经网络仿真
+
+
+开源地址：https://github.com/nengo/nengo
+
+
+Brain2Loihi，基于brain2实现的Loihi模拟器
+
+
+开源地址：https://github.com/sagacitysite/brian2_loihi
+
+
+NeuroSync
+
+
+开源地址：https://github.com/SNU-HPCS/NeuroSync
+
+
+dynapse-simulator，Dynap-SE1神经形态硬件仿真器
+
+
+开源地址：https://github.com/YigitDemirag/dynapse-simulator
+
+
+待添加
+">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/post/snn-simulator/">
 
 
 
-<meta name="generator" content="Hugo 0.109.0 with theme even" />
+<meta property="article:section" content="post">
 
 
-<link rel="canonical" href="https://lishengxie.github.io/post/snn-simulator/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta property="article:published_time" content="2023-04-30 08:33:39 &#43;0800 CST">
+
+
+<meta property="article:modified_time" content="2023-04-30 08:33:39 &#43;0800 CST">
 
 
 
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Snn &amp; NoC 仿真器收集">
+<meta name="twitter:description" content="NoC仿真器
+NoC(Network on chip)是连接同构或者异构多核心的重要的系统互联结构，NoC仿真器提供了对NoC中多种性能指标的仿真。下面这篇博客中列出了常用的开源NoC仿真器，https://networkonchip.wordpress.com/2011/02/22/simulators/ ，目前了解到最常用的两种分别是
+
+noxim，基于SystemC语言开发，修改和添加新功能较为灵活。
 
 
-<meta property="og:title" content="Snn &amp; NoC 仿真器收集" />
-<meta property="og:description" content="NoC仿真器 NoC(Network on chip)是连接同构或者异构多核心的重要的系统互联结构，NoC仿真器提供了对NoC中多种性能指标的仿真。下面这篇博客中列出了" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://lishengxie.github.io/post/snn-simulator/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-04-30T08:33:39+08:00" />
-<meta property="article:modified_time" content="2023-04-30T08:33:39+08:00" />
-<meta itemprop="name" content="Snn &amp; NoC 仿真器收集">
-<meta itemprop="description" content="NoC仿真器 NoC(Network on chip)是连接同构或者异构多核心的重要的系统互联结构，NoC仿真器提供了对NoC中多种性能指标的仿真。下面这篇博客中列出了"><meta itemprop="datePublished" content="2023-04-30T08:33:39+08:00" />
-<meta itemprop="dateModified" content="2023-04-30T08:33:39+08:00" />
-<meta itemprop="wordCount" content="1226">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Snn &amp; NoC 仿真器收集"/>
-<meta name="twitter:description" content="NoC仿真器 NoC(Network on chip)是连接同构或者异构多核心的重要的系统互联结构，NoC仿真器提供了对NoC中多种性能指标的仿真。下面这篇博客中列出了"/>
+开源地址：https://github.com/davidepatti/noxim
 
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
 
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
+booksim，基于C&#43;&#43;语言开发，是 Principles and Practices of Interconnection Networks 这本书的配套教程。
+
+
+开源地址：https://github.com/booksim/booksim，https://github.com/booksim/booksim2
+
+SNN仿真器
+SNN是第三代人工神经网络，基于脉冲传递数据和信息，由于SNN本身具有稀疏性（连接稀疏性和脉冲稀疏性），因此有许多神经形态硬件（Loihi、SpiNNaker、TianjiC、Darwin等）被开发出来用于SNN加速。这里主要列出一些在通用的CPU和GPU平台上进行SNN加速的一些SNN仿真器。
+
+NEST，可以用于SNN网络信息处理，网络活动动态、学习和突触可塑性等
+
+
+开源地址：https://github.com/nest/nest-simulator/
+
+
+Brain2，时钟驱动的SNN仿真器
+
+
+开源地址：https://github.com/brian-team/brian2
+
+
+GeNN，GPU加速的SNN仿真器
+
+
+开源地址：https://github.com/genn-team/genn
+
+
+Carlsim，GPU加速的SNN仿真器
+
+
+开源地址：https://github.com/UCI-CARL/CARLsim6
+
+
+Auryn，RSNN仿真器
+
+
+开源地址：https://github.com/fzenke/auryn
+
+
+ANNarchy
+
+
+开源地址：https://github.com/ANNarchy/ANNarchy
+
+
+Spike， GPU加速的SNN仿真器
+
+
+开源地址：https://github.com/nasiryahm/Spike
+
+
+Spice，多GPU、时钟驱动的SNN仿真器
+
+
+开源地址：https://github.com/denniskb/spice
+
+
+Nengo，基于Python的神经网络仿真
+
+
+开源地址：https://github.com/nengo/nengo
+
+
+Brain2Loihi，基于brain2实现的Loihi模拟器
+
+
+开源地址：https://github.com/sagacitysite/brian2_loihi
+
+
+NeuroSync
+
+
+开源地址：https://github.com/SNU-HPCS/NeuroSync
+
+
+dynapse-simulator，Dynap-SE1神经形态硬件仿真器
+
+
+开源地址：https://github.com/YigitDemirag/dynapse-simulator
+
+
+待添加
+">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Snn \u0026 NoC 仿真器收集",
+  "name": "Snn \u0026 NoC 仿真器收集",
+  "description": "\u003ch2 id=\u0022noc仿真器\u0022\u003eNoC仿真器\u003c\/h2\u003e\n\u003cp\u003eNoC(Network on chip)是连接同构或者异构多核心的重要的系统互联结构，NoC仿真器提供了对NoC中多种性能指标的仿真。下面这篇博客中列出了常用的开源NoC仿真器，\u003ca href=\u0022https:\/\/networkonchip.wordpress.com\/2011\/02\/22\/simulators\/\u0022\u003ehttps:\/\/networkonchip.wordpress.com\/2011\/02\/22\/simulators\/\u003c\/a\u003e ，目前了解到最常用的两种分别是\u003c\/p\u003e\n\u003col\u003e\n\u003cli\u003enoxim，基于SystemC语言开发，修改和添加新功能较为灵活。\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cblockquote\u003e\n\u003cp\u003e开源地址：\u003ca href=\u0022https:\/\/github.com\/davidepatti\/noxim\u0022\u003ehttps:\/\/github.com\/davidepatti\/noxim\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003col start=\u00222\u0022\u003e\n\u003cli\u003ebooksim，基于C\u002b\u002b语言开发，是 \u003ca href=\u0022http:\/\/cva.stanford.edu\/books\/ppin\/\u0022\u003ePrinciples and Practices of Interconnection Networks\u003c\/a\u003e 这本书的配套教程。\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cblockquote\u003e\n\u003cp\u003e开源地址：\u003ca href=\u0022https:\/\/github.com\/booksim\/booksim\u0022\u003ehttps:\/\/github.com\/booksim\/booksim\u003c\/a\u003e，\u003ca href=\u0022https:\/\/github.com\/booksim\/booksim2\u0022\u003ehttps:\/\/github.com\/booksim\/booksim2\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003ch2 id=\u0022snn仿真器\u0022\u003eSNN仿真器\u003c\/h2\u003e\n\u003cp\u003eSNN是第三代人工神经网络，基于脉冲传递数据和信息，由于SNN本身具有稀疏性（连接稀疏性和脉冲稀疏性），因此有许多神经形态硬件（Loihi、SpiNNaker、TianjiC、Darwin等）被开发出来用于SNN加速。这里主要列出一些在通用的CPU和GPU平台上进行SNN加速的一些SNN仿真器。\u003c\/p\u003e\n\u003col\u003e\n\u003cli\u003eNEST，可以用于SNN网络信息处理，网络活动动态、学习和突触可塑性等\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cblockquote\u003e\n\u003cp\u003e开源地址：\u003ca href=\u0022https:\/\/github.com\/nest\/nest-simulator\/\u0022\u003ehttps:\/\/github.com\/nest\/nest-simulator\/\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003col start=\u00222\u0022\u003e\n\u003cli\u003eBrain2，时钟驱动的SNN仿真器\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cblockquote\u003e\n\u003cp\u003e开源地址：\u003ca href=\u0022https:\/\/github.com\/brian-team\/brian2\u0022\u003ehttps:\/\/github.com\/brian-team\/brian2\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003col start=\u00223\u0022\u003e\n\u003cli\u003eGeNN，GPU加速的SNN仿真器\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cblockquote\u003e\n\u003cp\u003e开源地址：\u003ca href=\u0022https:\/\/github.com\/genn-team\/genn\u0022\u003ehttps:\/\/github.com\/genn-team\/genn\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003col start=\u00224\u0022\u003e\n\u003cli\u003eCarlsim，GPU加速的SNN仿真器\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cblockquote\u003e\n\u003cp\u003e开源地址：\u003ca href=\u0022https:\/\/github.com\/UCI-CARL\/CARLsim6\u0022\u003ehttps:\/\/github.com\/UCI-CARL\/CARLsim6\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003col start=\u00225\u0022\u003e\n\u003cli\u003eAuryn，RSNN仿真器\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cblockquote\u003e\n\u003cp\u003e开源地址：\u003ca href=\u0022https:\/\/github.com\/fzenke\/auryn\u0022\u003ehttps:\/\/github.com\/fzenke\/auryn\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003col start=\u00226\u0022\u003e\n\u003cli\u003eANNarchy\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cblockquote\u003e\n\u003cp\u003e开源地址：\u003ca href=\u0022https:\/\/github.com\/ANNarchy\/ANNarchy\u0022\u003ehttps:\/\/github.com\/ANNarchy\/ANNarchy\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003col start=\u00227\u0022\u003e\n\u003cli\u003eSpike， GPU加速的SNN仿真器\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cblockquote\u003e\n\u003cp\u003e开源地址：\u003ca href=\u0022https:\/\/github.com\/nasiryahm\/Spike\u0022\u003ehttps:\/\/github.com\/nasiryahm\/Spike\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003col start=\u00228\u0022\u003e\n\u003cli\u003eSpice，多GPU、时钟驱动的SNN仿真器\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cblockquote\u003e\n\u003cp\u003e开源地址：\u003ca href=\u0022https:\/\/github.com\/denniskb\/spice\u0022\u003ehttps:\/\/github.com\/denniskb\/spice\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003col start=\u00229\u0022\u003e\n\u003cli\u003eNengo，基于Python的神经网络仿真\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cblockquote\u003e\n\u003cp\u003e开源地址：\u003ca href=\u0022https:\/\/github.com\/nengo\/nengo\u0022\u003ehttps:\/\/github.com\/nengo\/nengo\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003col start=\u002210\u0022\u003e\n\u003cli\u003eBrain2Loihi，基于brain2实现的Loihi模拟器\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cblockquote\u003e\n\u003cp\u003e开源地址：https:\/\/github.com\/sagacitysite\/brian2_loihi\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003col start=\u002211\u0022\u003e\n\u003cli\u003eNeuroSync\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cblockquote\u003e\n\u003cp\u003e开源地址：\u003ca href=\u0022https:\/\/github.com\/SNU-HPCS\/NeuroSync\u0022\u003ehttps:\/\/github.com\/SNU-HPCS\/NeuroSync\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003col start=\u002212\u0022\u003e\n\u003cli\u003edynapse-simulator，Dynap-SE1神经形态硬件仿真器\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cblockquote\u003e\n\u003cp\u003e开源地址：\u003ca href=\u0022https:\/\/github.com\/YigitDemirag\/dynapse-simulator\u0022\u003ehttps:\/\/github.com\/YigitDemirag\/dynapse-simulator\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003col start=\u002213\u0022\u003e\n\u003cli\u003e待添加\u003c\/li\u003e\n\u003c\/ol\u003e",
+  "url": "http:\/\/localhost:1313\/post\/snn-simulator\/",
+  
+  "datePublished": "2023-04-30T08:33:39\u002b08:00",
+  "dateModified": "2023-04-30T08:33:39\u002b08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Lishengxie"
+  },
+  
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http:\/\/localhost:1313\/post\/snn-simulator\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Lishengxie",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http:\/\/localhost:1313\/apple-touch-icon.png"
+    }
+  }
+}
+</script>
+
+
+
+
+
+<link rel="preload" href="/fonts/google-sans-flex-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/google-sans-flex-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/google-sans-code-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+
+
+
+
+<link rel="stylesheet" href="/css/style.444aa50704e4c1bf29dab952f95176e6eb7656beb818e5c84b386bf5e78f3225.css" integrity="sha256-REqlBwTkwb8p2rlS&#43;VF25ut2Vr64GOXISzhr9eePMiU=">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+
+<style>
+  .post-list-item { overflow: hidden; }
+  .post-excerpt { word-break: break-word; }
+</style>
+
+
+<script>
+  (function() {
+    try {
+      var theme = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+
 </head>
 <body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">Blog</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/about/">
-        <li class="mobile-menu-item">About</li>
+  
+<header class="site-header is-sticky">
+  <div class="container header-inner">
+    <div class="site-identity">
+      <a href="/" class="site-brand">
+        
+        <span class="site-title">Lishengxie</span>
       </a>
-  </ul>
+      
+        <p class="site-tagline">同步备份自 https://www.lishengxie.top</p>
+      
+    </div>
+    <button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">
+      <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <nav id="site-nav" class="site-nav">
+      <div class="main-nav">
+        <ul>
+          
+          
+          <li>
+            <a href="/post/" class="">Posts</a>
+          </li>
+          
+          <li>
+            <a href="/pages/about/" class="">About</a>
+          </li>
+          
+          <li>
+            <a href="/pages/contact/" class="">Contact</a>
+          </li>
+          
+        </ul>
+      </div>
+      <div class="nav-utils">
+        <a href="http://localhost:1313/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+        </a>
+        
+        <a href="/search" class="nav-search" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" aria-pressed="false">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+  <main class="site-main">
+    
+
+<div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 
 
+<div class="container">
+  <div class="layout-grid layout-grid--sidebar-left">
+    <article class="post-single main-content main-content--sidebar-left">
+      <header class="post-header">
+        <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item"><a href="/post/">Posts</a></li><li class="breadcrumb-item" aria-current="page">Snn &amp; NoC 仿真器收集</li>
+  </ol>
 </nav>
+        <h1 class="post-title">Snn &amp; NoC 仿真器收集</h1>
+        <div class="post-meta">
+          
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <time datetime="2023-04-30T08:33:39&#43;08:00">Apr 30, 2023</time>
+            </span>
+          
 
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">Blog</a>
-</div>
+          
+            <span class="post-categories">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
 
+              
+                
+                <a href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a>
+              
+            </span>
+          
 
+          
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              Lishengxie
+            </span>
+          
+        </div>
+      </header>
 
+      
 
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">Snn &amp; NoC 仿真器收集</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2023-04-30 </span>
-        <div class="post-category">
-            <a href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"> 论文笔记 </a>
-            </div>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#noc仿真器">NoC仿真器</a></li>
-        <li><a href="#snn仿真器">SNN仿真器</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      <h2 id="noc仿真器">NoC仿真器</h2>
+      <div class="post-content">
+        <h2 id="noc仿真器">NoC仿真器</h2>
 <p>NoC(Network on chip)是连接同构或者异构多核心的重要的系统互联结构，NoC仿真器提供了对NoC中多种性能指标的仿真。下面这篇博客中列出了常用的开源NoC仿真器，<a href="https://networkonchip.wordpress.com/2011/02/22/simulators/">https://networkonchip.wordpress.com/2011/02/22/simulators/</a> ，目前了解到最常用的两种分别是</p>
 <ol>
 <li>noxim，基于SystemC语言开发，修改和添加新功能较为灵活。</li>
@@ -246,113 +497,221 @@
 <li>待添加</li>
 </ol>
 
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">lishengxie</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2023-04-30
-        
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      
-      <nav class="post-nav">
-        <a class="prev" href="/post/cmake-study/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Cmake 常用指令学习</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/verilog-note/">
-            <span class="next-text nav-default">Verilog Note</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  
-    <script src="https://utteranc.es/client.js"
-    repo="lishengxie/lishengxie.github.io"
-    issue-term="title"
-    theme="github-light"
-    crossorigin="anonymous"
-    async>
-    </script>
-  
-
-  
-
-  
-
       </div>
-    </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="1141751053@qq.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://github.com/lishengxie" class="iconfont icon-github" title="github"></a>
-  <a href="https://lishengxie.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+      <footer>
+        
+      </footer>
+    </article>
+
+    
+    
+      
+
+
+
+
+<aside class="sidebar">
+  
+  
+    <aside class="toc">
+  <h2 class="toc-title">Table of Contents</h2>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#noc仿真器">NoC仿真器</a></li>
+    <li><a href="#snn仿真器">SNN仿真器</a></li>
+  </ul>
+</nav>
+</aside>
+  
+
+  
+  
+    
+    
+      <div class="widget-area">
+        
+          
+<div class="widget widget-recent">
+  <h3 class="widget-title">Recent Posts</h3>
+  <ul>
+    
+    
+    <li>
+      <a href="/post/lets-encrypt-ssl/">Lets Encrypt Ssl</a>
+      <time datetime="2025-09-14T21:58:04&#43;08:00">Sep 14, 2025</time>
+    </li>
+    
+    <li>
+      <a href="/post/redis-listpack-ziplist/">Redis ziplist、quicklist 和 listpack</a>
+      <time datetime="2025-03-03T22:44:38&#43;08:00">Mar 3, 2025</time>
+    </li>
+    
+    <li>
+      <a href="/post/nginx-prohibit-ip-request/">Nginx禁止使用IP直接访问服务器上相应端口</a>
+      <time datetime="2024-05-11T21:48:52&#43;08:00">May 11, 2024</time>
+    </li>
+    
+    <li>
+      <a href="/post/leetcode-kmp/">LeetCode刷题 - KMP算法</a>
+      <time datetime="2024-02-04T18:48:10&#43;08:00">Feb 4, 2024</time>
+    </li>
+    
+    <li>
+      <a href="/post/transfer-server/">Transfer Server</a>
+      <time datetime="2023-12-23T23:17:56&#43;08:00">Dec 23, 2023</time>
+    </li>
+    
+  </ul>
+</div>
+        
+          
+<div class="widget widget-categories">
+  <h3 class="widget-title">Categories</h3>
+  
+  <ul>
+    
+    
+    <li><a href="/categories/linux/">Linux</a><span class="widget-count">7</span></li>
+    
+    <li><a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">算法学习</a><span class="widget-count">7</span></li>
+    
+    <li><a href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a><span class="widget-count">6</span></li>
+    
+    <li><a href="/categories/c&#43;&#43;/">C&#43;&#43;</a><span class="widget-count">4</span></li>
+    
+    <li><a href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a><span class="widget-count">3</span></li>
+    
+    <li><a href="/categories/go%E5%AD%A6%E4%B9%A0/">Go学习</a><span class="widget-count">2</span></li>
+    
+    <li><a href="/categories/redis/">Redis</a><span class="widget-count">1</span></li>
+    
+    <li><a href="/categories/systemc/">SystemC</a><span class="widget-count">1</span></li>
+    
+    <li><a href="/categories/verilog/">Verilog</a><span class="widget-count">1</span></li>
+    
+  </ul>
+  
 </div>
 
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
+        
+          
+<div class="widget widget-tags">
+  <h3 class="widget-title">Tags</h3>
+  
+</div>
+
+        
+      </div>
+    
+  
+</aside>
+
+    
+  </div>
+
+  
+    
+<nav class="post-nav">
+  
+  <a href="/post/verilog-note/" class="nav-prev">
+    <span class="nav-arrow">&larr;</span>
+    <span class="nav-title">Verilog Note</span>
+  </a>
+  
+  
+  <a href="/post/cmake-study/" class="nav-next">
+    <span class="nav-title">Cmake 常用指令学习</span>
+    <span class="nav-arrow">&rarr;</span>
+  </a>
+  
+</nav>
+
 
   
 
-  <span class="copyright-year">
-    &copy; 
-    2023 - 
-    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span>lishengxie</span>
-  </span>
+  
+    
+
+
+<section class="related-posts">
+  <h3 class="related-title">Related Posts</h3>
+  <ul class="related-list">
+    
+    <li class="related-item">
+      <a href="/post/snn-paper-neu_noc/" class="related-link">
+        <span class="related-item-title">SNN映射论文阅读 Neu-NoC</span>
+        <time class="related-item-date" datetime="2023-04-30">Apr 30, 2023</time>
+      </a>
+    </li>
+    
+    <li class="related-item">
+      <a href="/post/snn-paper-sentryos/" class="related-link">
+        <span class="related-item-title">SNN映射论文阅读-SentryOS</span>
+        <time class="related-item-date" datetime="2023-04-30">Apr 30, 2023</time>
+      </a>
+    </li>
+    
+    <li class="related-item">
+      <a href="/post/snn-paper-neutrams/" class="related-link">
+        <span class="related-item-title">SNN映射论文阅读-NEUTRAMS</span>
+        <time class="related-item-date" datetime="2023-04-30">Apr 30, 2023</time>
+      </a>
+    </li>
+    
+    <li class="related-item">
+      <a href="/post/snn-paper-psopart/" class="related-link">
+        <span class="related-item-title">SNN映射论文阅读-PSOPART</span>
+        <time class="related-item-date" datetime="2023-04-29">Apr 29, 2023</time>
+      </a>
+    </li>
+    
+  </ul>
+</section>
+
+
+  
+
+  <script src="https://utteranc.es/client.js"
+  repo="lishengxie/lishengxie.github.io"
+  issue-term="title"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+
 </div>
 
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
+  </main>
+  
+<footer class="site-footer">
+  <div class="container">
+    
+    
+    <div class="copyright">
+      Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/yogirk/explore" target="_blank" rel="noopener">Explore Theme</a>.
     </div>
   </div>
+</footer>
+
   
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+  <script src="/js/minimal.min.6a9ca11052c7f4a8a7596e64d3b60b3b1040bc4e6c825054f99533c3126a84a6.js" integrity="sha256-apyhEFLH9KinWW5k07YLOxBAvE5sglBU&#43;ZUzwxJqhKY=" crossorigin="anonymous" defer></script>
+  
+  
 
-
-
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-  <script type="text/javascript">
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        }
-    };
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      
+      document.querySelectorAll('.katex-inline').forEach(function (el) {
+        katex.render(el.textContent, el, { throwOnError: false });
+      });
+      
+      document.querySelectorAll('.katex-display').forEach(function (el) {
+        katex.render(el.textContent, el, { displayMode: true, throwOnError: false });
+      });
+    });
   </script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
-
-
-
-
-
-
-
-
 </body>
 </html>
