@@ -10,9 +10,16 @@
 		
 		
 		
-			<lastBuildDate>Thu, 25 Jun 2026 22:53:20 +0800</lastBuildDate>
+			<lastBuildDate>Sat, 27 Jun 2026 01:49:22 +0800</lastBuildDate>
 		
 			<atom:link href="https://lishengxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>（转）每天10万行AI代码，人肉Code Review的崩塌是Infra工程的范式拐点</title>
+				<link>https://lishengxie.github.io/post/ai-coding-agent/</link>
+				<pubDate>Sat, 27 Jun 2026 01:49:22 +0800</pubDate>
+				<guid>https://lishengxie.github.io/post/ai-coding-agent/</guid>
+				<description>&lt;blockquote&gt;&#xA;&lt;p&gt;原文链接：&lt;a href=&#34;https://mp.weixin.qq.com/s/70H6Y5-89Q8k7zXI0yxy5w&#34;&gt;https://mp.weixin.qq.com/s/70H6Y5-89Q8k7zXI0yxy5w&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;Coding Agent 只能降低每一行“代码生成”的成本，却无法降低每一行“代码上线并长期服役”的成本。&lt;/p&gt;&#xA;&lt;p&gt;Vibe 编程关注的是“成功的瞬间”，Infra 承担的是“失败的后果”，即在失败发生时，系统是否仍然可控；Infra 之所以显得保守，并不是因为缺乏想象力，而是因为工程的评价标准，本就建立在失败之上。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;失败的成本，随组织规模呈指数级放大；“一人公司” 的 Vibe 产品可以推倒重来，甚至可以换个壳继续；公司越大，系统失败的爆炸半径越大，技术风险就越容易转化为品牌与信任风险。&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;我们进入了一个代码生产极度廉价并且供给过剩的时代，但代码服役的成本，才决定了整个工程闭环是否健康。Coding Agent 只是“零成本采购来的代码”。如何适配到我们的系统中才是问题的核心。&lt;/p&gt;&#xA;&lt;h1 id=&#34;01&#34;&gt;01&lt;/h1&gt;&#xA;&lt;p&gt;&lt;strong&gt;焦虑感的来源&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;无论AI 是否已经带来决定性的工程提效，&lt;strong&gt;市场层面的叙事已经先行成立。&lt;strong&gt;在这个前提下，企业中的每一个层级，都不可避免地要回答一个问题：&lt;/strong&gt;“你们这一层，在 AI 时代究竟创造了什么新增价值？”&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;从会计与资本视角看，组织要维持自身合理性，逻辑上几乎只剩下两条自洽路径：&lt;/p&gt;&#xA;&lt;p&gt;一是需求、产品或系统能力的迭代速度显著提升，从而直接转化为更强的市场竞争力；&lt;/p&gt;&#xA;&lt;p&gt;二是人员规模下降，但利润率、定价权和竞争筹码同步上升。&lt;/p&gt;&#xA;&lt;p&gt;但在中国语境下，第二条路径在短期内几乎不具备大规模落地的条件。&lt;/p&gt;&#xA;&lt;p&gt;这就带来了一个结构性的结果：**组织只能依赖“迭代速度提升”的叙事，来证明自身仍然有效。&lt;strong&gt;而当代码生成本身不再稀缺，工程体系真正的瓶颈已经不在“产能”，而在于组织是否具备&lt;/strong&gt;消化、验证、筛选和重组这些产能的能力。**如果验证与整合无法规模化，所谓的 AI 提效，只会在系统边界之外成立，而无法在组织内部真正兑现。&lt;/p&gt;&#xA;&lt;h1 id=&#34;02&#34;&gt;02&lt;/h1&gt;&#xA;&lt;p&gt;&lt;strong&gt;Human out of the loop 的高效之源&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;从理论上看，人类恰恰是系统中最慢、最不稳定、最昂贵的组成部分：人会疲劳，难以规模化。因此，在一个理想模型中：系统应当通过自动生成、自动验证、自动选择来持续进化，而人类应当被逐步移出执行路径。这套思想在算法交易、广告投放、推荐系统、参数调优等领域，已经被反复验证是有效的，也确实代表着工程自动化的终极方向。&lt;/p&gt;&#xA;&lt;p&gt;在 Coding Agent 之前，类似的自动化进化逻辑，也早已在多个工程领域中成熟运行了：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;算法交易中的策略生成与淘汰&lt;/li&gt;&#xA;&lt;li&gt;广告投放系统中的自动出价与参数调优&lt;/li&gt;&#xA;&lt;li&gt;推荐系统中的模型迭代与在线实验&lt;/li&gt;&#xA;&lt;li&gt;各类系统中的自动化参数搜索与优化&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;这些系统同样遵循：&lt;strong&gt;自动生成 → 自动评估 → 自动选择 → 持续迭代&lt;/strong&gt; 的闭环模式，并且已经在真实生产环境中运行了多年。&lt;/p&gt;&#xA;&lt;p&gt;因此，当前这波 AI Coding 的核心变化，并不在于&lt;strong&gt;工程思想上的突破&lt;/strong&gt;，只是由于&lt;strong&gt;代码生成这一环节的成本被显著降低了&lt;/strong&gt;，它们都是可解区间的状态搜索，参数调优和代码迭代没有本质区别，真正需要讨论的，不是这套逻辑是否先进，而是：&lt;strong&gt;它多大程度上适用于失败不可承受、状态不可逆的系统。&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;比如在 &lt;strong&gt;失败不可承受、状态不可逆、影响跨系统跨租户&lt;/strong&gt;的 Infra 场景中，不经过仔细考量的全自动 AI，带来的，往往不是效率提升，而是&lt;strong&gt;系统性风险的放大。&lt;/strong&gt;&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>分布式ID生成方案全解析：从数据库到雪花算法</title>
 				<link>https://lishengxie.github.io/post/distributed-id-generator-algo/</link>
