@@ -8,7 +8,7 @@
 
 <meta name="description" content="A personal blog powered by Hugo.">
 <meta name="author" content="Lishengxie">
-<link rel="canonical" href="https://lishengxie.github.io/post/systemc-study/">
+<link rel="canonical" href="https://lishengxie.top/post/systemc-study/">
 
 
 
@@ -55,7 +55,7 @@ Threads
 
 A function made to act like a hardware process">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://lishengxie.github.io/post/systemc-study/">
+<meta property="og:url" content="https://lishengxie.top/post/systemc-study/">
 
 
 
@@ -116,7 +116,7 @@ A function made to act like a hardware process">
   "headline": "SystemC学习",
   "name": "SystemC学习",
   "description": "\u003ch3 id=\u0022视频教程\u0022\u003e视频教程\u003c\/h3\u003e\n\u003cp\u003e\u003ca href=\u0022https:\/\/www.youtube.com\/watch?v=NCFxBGLB5xs\u0026amp;list=PLcvQHr8v8MQLj9tCYyOw44X1PLisEsX-J\u0026amp;index=2\u0022\u003e教程链接\u003c\/a\u003e\u003c\/p\u003e\n\u003ch3 id=\u0022创建模块\u0022\u003e创建模块\u003c\/h3\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-cpp\u0022 data-lang=\u0022cpp\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#include\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e\u0026lt;systemc.h\u0026gt;\u003c\/span\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ SC_MODULE声明模块，and2对应模块名\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eSC_MODULE(and2){\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ sc_in声明输入端口，DT对应端口变量数据类型\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\tsc_in\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003eDT\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026gt;\u003c\/span\u003e a;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\tsc_in\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003eDT\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026gt;\u003c\/span\u003e b;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ 声明时钟信号\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\tsc_in\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003ebool\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026gt;\u003c\/span\u003e clk;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ sc_out声明输出端口\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\tsc_out\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003eDT\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026gt;\u003c\/span\u003e f;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#66d9ef\u0022\u003evoid\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003efunc\u003c\/span\u003e() {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ 输入端口读数据.read()\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ 输出端口写数据.write()\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\tf.write(a.read() \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026amp;\u003c\/span\u003e b.read());\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t}\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ 模块构造函数\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\tSC_CTOR(and2){\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ 声明线程\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\tSC_METHOD(func);\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ 线程声明后紧接着声明敏感信号列表，以 \u0026lt;\u0026lt; 号隔开\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ 声明a和b为敏感信号\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\tsensitive \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003e a \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003e b;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ 声明clk的上升沿为敏感信号，下降沿为.neg()\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ sensitive \u0026lt;\u0026lt; clk.pos();\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t}\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003ch3 id=\u0022threads\u0022\u003eThreads\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003cp\u003eA function made to act like a hardware process\u003c\/p\u003e",
-  "url": "https:\/\/lishengxie.github.io\/post\/systemc-study\/",
+  "url": "https:\/\/lishengxie.top\/post\/systemc-study\/",
   
   "datePublished": "2023-04-30T08:52:48\u002b08:00",
   "dateModified": "2023-04-30T08:52:48\u002b08:00",
@@ -127,14 +127,14 @@ A function made to act like a hardware process">
   
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https:\/\/lishengxie.github.io\/post\/systemc-study\/"
+    "@id": "https:\/\/lishengxie.top\/post\/systemc-study\/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Lishengxie",
     "logo": {
       "@type": "ImageObject",
-      "url": "https:\/\/lishengxie.github.io\/apple-touch-icon.png"
+      "url": "https:\/\/lishengxie.top\/apple-touch-icon.png"
     }
   }
 }
@@ -218,7 +218,7 @@ A function made to act like a hardware process">
         </ul>
       </div>
       <div class="nav-utils">
-        <a href="https://lishengxie.github.io/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
+        <a href="https://lishengxie.top/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
         </a>
         

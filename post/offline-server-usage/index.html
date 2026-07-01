@@ -8,7 +8,7 @@
 
 <meta name="description" content="A personal blog powered by Hugo.">
 <meta name="author" content="Lishengxie">
-<link rel="canonical" href="https://lishengxie.github.io/post/offline-server-usage/">
+<link rel="canonical" href="https://lishengxie.top/post/offline-server-usage/">
 
 
 
@@ -60,7 +60,7 @@ screen常用命令如下
 3、进入共享会话：screen -r 名称
 4、退出共享会话：ctrl &#43;a &#43;d">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://lishengxie.github.io/post/offline-server-usage/">
+<meta property="og:url" content="https://lishengxie.top/post/offline-server-usage/">
 
 
 
@@ -126,7 +126,7 @@ screen常用命令如下
   "headline": "内网离线服务器使用",
   "name": "内网离线服务器使用",
   "description": "\u003cp\u003e最近在跑实验时，自己的电脑出现内存不够用的问题，想到在实验室的一台闲置的服务器上运行程序。但是该服务器只能通过内网连接，无法使用外网，因此这里记录了内网离线服务器使用的一些经历。\n可以考虑在服务器上安装docker，然后在自己电脑上配好环境后导出docker镜像到服务器上运行。这里没有使用docker环境，本地环境是WSL2-Ubuntu20.04。\u003c\/p\u003e\n\u003ch2 id=\u0022程序运行环境配置\u0022\u003e程序运行环境配置\u003c\/h2\u003e\n\u003ch3 id=\u0022c\u0022\u003eC\u002b\u002b\u003c\/h3\u003e\n\u003cp\u003e针对C\u002b\u002b程序，重新下载代码编译；\u003c\/p\u003e\n\u003ch3 id=\u0022python\u0022\u003ePython\u003c\/h3\u003e\n\u003cp\u003e重新配置Python环境主要经历了以下步骤：\u003c\/p\u003e\n\u003col\u003e\n\u003cli\u003e下载miniconda安装程序并安装；\u003c\/li\u003e\n\u003cli\u003eWSL2环境迁移到服务器中，这里选择直接打包WSL2下面的虚拟环境目录并到服务器相应目录下解压，参考了教程\u003ca href=\u0022https:\/\/blog.csdn.net\/qq_45893319\/article\/details\/122226053\u0022\u003ehttps:\/\/blog.csdn.net\/qq_45893319\/article\/details\/122226053\u003c\/a\u003e;\u003c\/li\u003e\n\u003cli\u003e直接打包的环境，无法使用pip的问题，可以通过修改pip文件解决，参考教程\u003ca href=\u0022https:\/\/blog.csdn.net\/qq_40933913\/article\/details\/127907916\u0022\u003ehttps:\/\/blog.csdn.net\/qq_40933913\/article\/details\/127907916\u003c\/a\u003e\u003c\/li\u003e\n\u003cli\u003e环境迁移后发现在迁移的环境中无法使用clear命令，原因是迁移过来的环境中clear文件有问题。解决方案如下：\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cul\u003e\n\u003cli\u003e在出错的环境下，输入\u003ccode\u003ewhich clear\u003c\/code\u003e，然后将\u003ccode\u003eclear\u003c\/code\u003e地址重命名，下次再\u003ccode\u003eclear\u003c\/code\u003e时会生成新的。\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003emv \/home\/xxx\/.conda\/envs\/yolox\/bin\/clear \/home\/xxx\/.conda\/envs\/yolox\/bin\/clear_old\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003ch3 id=\u0022vscode连接服务器开发\u0022\u003evscode连接服务器开发\u003c\/h3\u003e\n\u003cp\u003e参考教程\u003ca href=\u0022https:\/\/blog.csdn.net\/ffriend\/article\/details\/126680223\u0022\u003ehttps:\/\/blog.csdn.net\/ffriend\/article\/details\/126680223\u003c\/a\u003e。\n由于服务器离线，使用vscode连接时无法在远程服务器上下载vscode-server，这里需要手动下载一下。步骤如下\u003c\/p\u003e\n\u003col\u003e\n\u003cli\u003e查看本地vscode的commit id：帮助-关于，复制commit id\u003c\/li\u003e\n\u003cli\u003e本地下载vscode-server\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ewget https:\/\/update.code.visualstudio.com\/commit:\u003cspan style=\u0022color:#e6db74\u0022\u003e${\u003c\/span\u003ecommit_id\u003cspan style=\u0022color:#e6db74\u0022\u003e}\u003c\/span\u003e\/server-linux-x64\/stable\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e# 注意把:${commit_id}替换成对应的Commit ID\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003col start=\u00223\u0022\u003e\n\u003cli\u003e复制到服务器并安装\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003erm ~\/.vscode-server\/bin\/* -rf  \u003cspan style=\u0022color:#75715e\u0022\u003e#把$HOME\/.vscode-server\/bin下的内容删干净，防止出错\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ecd ~\/.vscode-server\/bin\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003etar -zxf vscode-server-linux-x64.tar.gz\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003emv vscode-server-linux-x64 \u003cspan style=\u0022color:#e6db74\u0022\u003e${\u003c\/span\u003ecommit_id\u003cspan style=\u0022color:#e6db74\u0022\u003e}\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e# 注意把:${commit_id}替换成对应的Commit ID\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003ch3 id=\u0022服务器安装screen应用\u0022\u003e服务器安装screen应用\u003c\/h3\u003e\n\u003cp\u003e参考教程\u003ca href=\u0022https:\/\/blog.csdn.net\/Demo_Null\/article\/details\/110873673\u0022\u003ehttps:\/\/blog.csdn.net\/Demo_Null\/article\/details\/110873673\u003c\/a\u003e，主要是编译安装screen和ncurses两个可执行程序，这里需要管理员权限，负责无法安装到默认的安装位置。\u003c\/p\u003e\n\u003ch4 id=\u0022screen常用命令如下\u0022\u003escreen常用命令如下\u003c\/h4\u003e\n\u003cp\u003e1、启动共享窗口：screen -S 名称\n2、查看当前所有共享会话：screen -ls\n3、进入共享会话：screen -r 名称\n4、退出共享会话：ctrl \u002ba \u002bd\u003c\/p\u003e",
-  "url": "https:\/\/lishengxie.github.io\/post\/offline-server-usage\/",
+  "url": "https:\/\/lishengxie.top\/post\/offline-server-usage\/",
   
   "datePublished": "2023-06-03T20:34:46\u002b08:00",
   "dateModified": "2023-06-03T20:34:46\u002b08:00",
@@ -137,14 +137,14 @@ screen常用命令如下
   
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https:\/\/lishengxie.github.io\/post\/offline-server-usage\/"
+    "@id": "https:\/\/lishengxie.top\/post\/offline-server-usage\/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Lishengxie",
     "logo": {
       "@type": "ImageObject",
-      "url": "https:\/\/lishengxie.github.io\/apple-touch-icon.png"
+      "url": "https:\/\/lishengxie.top\/apple-touch-icon.png"
     }
   }
 }
@@ -228,7 +228,7 @@ screen常用命令如下
         </ul>
       </div>
       <div class="nav-utils">
-        <a href="https://lishengxie.github.io/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
+        <a href="https://lishengxie.top/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
         </a>
         

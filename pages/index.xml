@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Pages on Lishengxie</title>
-		<link>https://lishengxie.github.io/pages/</link>
+		<link>https://lishengxie.top/pages/</link>
 		<description>Recent content in Pages on Lishengxie</description>
 		<generator>Hugo</generator>
 		<language>en-us</language>
@@ -12,19 +12,19 @@
 		
 			<lastBuildDate>Sun, 30 Apr 2023 08:15:52 +0800</lastBuildDate>
 		
-			<atom:link href="https://lishengxie.github.io/pages/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="https://lishengxie.top/pages/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>About</title>
-				<link>https://lishengxie.github.io/pages/about/</link>
+				<link>https://lishengxie.top/pages/about/</link>
 				<pubDate>Sun, 30 Apr 2023 08:15:52 +0800</pubDate>
-				<guid>https://lishengxie.github.io/pages/about/</guid>
+				<guid>https://lishengxie.top/pages/about/</guid>
 				<description>&lt;p&gt;后端开发工程师，Java技术栈学习ing~&lt;/p&gt;&#xA;&lt;p&gt;AI Coder，希望可以做出更多有趣的东西~&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>Contact</title>
-				<link>https://lishengxie.github.io/pages/contact/</link>
+				<link>https://lishengxie.top/pages/contact/</link>
 				<pubDate>Sun, 30 Apr 2023 08:15:52 +0800</pubDate>
-				<guid>https://lishengxie.github.io/pages/contact/</guid>
+				<guid>https://lishengxie.top/pages/contact/</guid>
 				<description>&lt;p&gt;Reach me through &lt;a href=&#34;https://github.com/lishengxie&#34;&gt;github&lt;/a&gt; or &lt;a href=&#34;mailto:1141751053@qq.com&#34;&gt;email&lt;/a&gt;~&lt;/p&gt;</description>
 			</item>
 	</channel>

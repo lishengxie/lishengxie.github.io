@@ -8,7 +8,7 @@
 
 <meta name="description" content="A personal blog powered by Hugo.">
 <meta name="author" content="Lishengxie">
-<link rel="canonical" href="https://lishengxie.github.io/post/ai-coding-agent/">
+<link rel="canonical" href="https://lishengxie.top/post/ai-coding-agent/">
 
 
 
@@ -47,7 +47,7 @@ Human out of the loop 的高效之源
 因此，当前这波 AI Coding 的核心变化，并不在于工程思想上的突破，只是由于代码生成这一环节的成本被显著降低了，它们都是可解区间的状态搜索，参数调优和代码迭代没有本质区别，真正需要讨论的，不是这套逻辑是否先进，而是：它多大程度上适用于失败不可承受、状态不可逆的系统。
 比如在 失败不可承受、状态不可逆、影响跨系统跨租户的 Infra 场景中，不经过仔细考量的全自动 AI，带来的，往往不是效率提升，而是系统性风险的放大。">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://lishengxie.github.io/post/ai-coding-agent/">
+<meta property="og:url" content="https://lishengxie.top/post/ai-coding-agent/">
 
 
 
@@ -100,7 +100,7 @@ Human out of the loop 的高效之源
   "headline": "（转）每天10万行AI代码，人肉Code Review的崩塌是Infra工程的范式拐点",
   "name": "（转）每天10万行AI代码，人肉Code Review的崩塌是Infra工程的范式拐点",
   "description": "\u003cblockquote\u003e\n\u003cp\u003e原文链接：\u003ca href=\u0022https:\/\/mp.weixin.qq.com\/s\/70H6Y5-89Q8k7zXI0yxy5w\u0022\u003ehttps:\/\/mp.weixin.qq.com\/s\/70H6Y5-89Q8k7zXI0yxy5w\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003cp\u003eCoding Agent 只能降低每一行“代码生成”的成本，却无法降低每一行“代码上线并长期服役”的成本。\u003c\/p\u003e\n\u003cp\u003eVibe 编程关注的是“成功的瞬间”，Infra 承担的是“失败的后果”，即在失败发生时，系统是否仍然可控；Infra 之所以显得保守，并不是因为缺乏想象力，而是因为工程的评价标准，本就建立在失败之上。\u003c\/p\u003e\n\u003cp\u003e\u003cstrong\u003e失败的成本，随组织规模呈指数级放大；“一人公司” 的 Vibe 产品可以推倒重来，甚至可以换个壳继续；公司越大，系统失败的爆炸半径越大，技术风险就越容易转化为品牌与信任风险。\u003c\/strong\u003e\u003c\/p\u003e\n\u003cp\u003e我们进入了一个代码生产极度廉价并且供给过剩的时代，但代码服役的成本，才决定了整个工程闭环是否健康。Coding Agent 只是“零成本采购来的代码”。如何适配到我们的系统中才是问题的核心。\u003c\/p\u003e\n\u003ch1 id=\u002201\u0022\u003e01\u003c\/h1\u003e\n\u003cp\u003e\u003cstrong\u003e焦虑感的来源\u003c\/strong\u003e\u003c\/p\u003e\n\u003cp\u003e无论AI 是否已经带来决定性的工程提效，\u003cstrong\u003e市场层面的叙事已经先行成立。\u003cstrong\u003e在这个前提下，企业中的每一个层级，都不可避免地要回答一个问题：\u003c\/strong\u003e“你们这一层，在 AI 时代究竟创造了什么新增价值？”\u003c\/strong\u003e\u003c\/p\u003e\n\u003cp\u003e从会计与资本视角看，组织要维持自身合理性，逻辑上几乎只剩下两条自洽路径：\u003c\/p\u003e\n\u003cp\u003e一是需求、产品或系统能力的迭代速度显著提升，从而直接转化为更强的市场竞争力；\u003c\/p\u003e\n\u003cp\u003e二是人员规模下降，但利润率、定价权和竞争筹码同步上升。\u003c\/p\u003e\n\u003cp\u003e但在中国语境下，第二条路径在短期内几乎不具备大规模落地的条件。\u003c\/p\u003e\n\u003cp\u003e这就带来了一个结构性的结果：**组织只能依赖“迭代速度提升”的叙事，来证明自身仍然有效。\u003cstrong\u003e而当代码生成本身不再稀缺，工程体系真正的瓶颈已经不在“产能”，而在于组织是否具备\u003c\/strong\u003e消化、验证、筛选和重组这些产能的能力。**如果验证与整合无法规模化，所谓的 AI 提效，只会在系统边界之外成立，而无法在组织内部真正兑现。\u003c\/p\u003e\n\u003ch1 id=\u002202\u0022\u003e02\u003c\/h1\u003e\n\u003cp\u003e\u003cstrong\u003eHuman out of the loop 的高效之源\u003c\/strong\u003e\u003c\/p\u003e\n\u003cp\u003e从理论上看，人类恰恰是系统中最慢、最不稳定、最昂贵的组成部分：人会疲劳，难以规模化。因此，在一个理想模型中：系统应当通过自动生成、自动验证、自动选择来持续进化，而人类应当被逐步移出执行路径。这套思想在算法交易、广告投放、推荐系统、参数调优等领域，已经被反复验证是有效的，也确实代表着工程自动化的终极方向。\u003c\/p\u003e\n\u003cp\u003e在 Coding Agent 之前，类似的自动化进化逻辑，也早已在多个工程领域中成熟运行了：\u003c\/p\u003e\n\u003cul\u003e\n\u003cli\u003e算法交易中的策略生成与淘汰\u003c\/li\u003e\n\u003cli\u003e广告投放系统中的自动出价与参数调优\u003c\/li\u003e\n\u003cli\u003e推荐系统中的模型迭代与在线实验\u003c\/li\u003e\n\u003cli\u003e各类系统中的自动化参数搜索与优化\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003cp\u003e这些系统同样遵循：\u003cstrong\u003e自动生成 → 自动评估 → 自动选择 → 持续迭代\u003c\/strong\u003e 的闭环模式，并且已经在真实生产环境中运行了多年。\u003c\/p\u003e\n\u003cp\u003e因此，当前这波 AI Coding 的核心变化，并不在于\u003cstrong\u003e工程思想上的突破\u003c\/strong\u003e，只是由于\u003cstrong\u003e代码生成这一环节的成本被显著降低了\u003c\/strong\u003e，它们都是可解区间的状态搜索，参数调优和代码迭代没有本质区别，真正需要讨论的，不是这套逻辑是否先进，而是：\u003cstrong\u003e它多大程度上适用于失败不可承受、状态不可逆的系统。\u003c\/strong\u003e\u003c\/p\u003e\n\u003cp\u003e比如在 \u003cstrong\u003e失败不可承受、状态不可逆、影响跨系统跨租户\u003c\/strong\u003e的 Infra 场景中，不经过仔细考量的全自动 AI，带来的，往往不是效率提升，而是\u003cstrong\u003e系统性风险的放大。\u003c\/strong\u003e\u003c\/p\u003e",
-  "url": "https:\/\/lishengxie.github.io\/post\/ai-coding-agent\/",
+  "url": "https:\/\/lishengxie.top\/post\/ai-coding-agent\/",
   
   "datePublished": "2026-06-27T01:49:22\u002b08:00",
   "dateModified": "2026-06-27T01:49:22\u002b08:00",
@@ -111,14 +111,14 @@ Human out of the loop 的高效之源
   
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https:\/\/lishengxie.github.io\/post\/ai-coding-agent\/"
+    "@id": "https:\/\/lishengxie.top\/post\/ai-coding-agent\/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Lishengxie",
     "logo": {
       "@type": "ImageObject",
-      "url": "https:\/\/lishengxie.github.io\/apple-touch-icon.png"
+      "url": "https:\/\/lishengxie.top\/apple-touch-icon.png"
     }
   }
 }
@@ -202,7 +202,7 @@ Human out of the loop 的高效之源
         </ul>
       </div>
       <div class="nav-utils">
-        <a href="https://lishengxie.github.io/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
+        <a href="https://lishengxie.top/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
         </a>
         

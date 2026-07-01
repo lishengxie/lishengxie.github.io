@@ -8,7 +8,7 @@
 
 <meta name="description" content="A personal blog powered by Hugo.">
 <meta name="author" content="Lishengxie">
-<link rel="canonical" href="https://lishengxie.github.io/post/makefile-study/">
+<link rel="canonical" href="https://lishengxie.top/post/makefile-study/">
 
 
 
@@ -46,7 +46,7 @@ blah.c:
 	echo &#34;int main() { return 0; }&#34; &gt; blah.c # Runs first
 使用make时默认会执行第一个目标blah，或者可以指定目标进行生成make blah。上面的Makefile在执行make指令后按照一系列步骤进行调用：">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://lishengxie.github.io/post/makefile-study/">
+<meta property="og:url" content="https://lishengxie.top/post/makefile-study/">
 
 
 
@@ -98,7 +98,7 @@ blah.c:
   "headline": "Makefile使用学习",
   "name": "Makefile使用学习",
   "description": "\u003ch2 id=\u0022参考教程\u0022\u003e参考教程\u003c\/h2\u003e\n\u003cp\u003e原文：\u003ca href=\u0022https:\/\/makefiletutorial.com\/\u0022\u003ehttps:\/\/makefiletutorial.com\/\u003c\/a\u003e\n中文翻译：\u003ca href=\u0022https:\/\/makefiletutorial.vercel.app\u0022\u003ehttps:\/\/makefiletutorial.vercel.app\u003c\/a\u003e\u003c\/p\u003e\n\u003ch2 id=\u0022makefile常用内容\u0022\u003eMakefile常用内容\u003c\/h2\u003e\n\u003cp\u003e本文主要基于以上教程记录一些平时阅读\u003ccode\u003eMakefile\u003c\/code\u003e可能会用到的信息。\u003c\/p\u003e\n\u003ch3 id=\u0022makefile基础使用\u0022\u003eMakefile基础使用\u003c\/h3\u003e\n\u003cp\u003e首先，Makefile用于帮助决定一个大型程序的哪些部分需要重新编译，如果有任何文件的依赖项发生改变，那么该文件将会重新编译。Makefile通常由一组规则组成，规则通常如下所示：\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-makefile\u0022 data-lang=\u0022makefile\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#a6e22e\u0022\u003etarget\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e:\u003c\/span\u003e prerequisites\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\tcommand\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\tcommand\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\tcommand\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cul\u003e\n\u003cli\u003e\u003ccode\u003etarget\u003c\/code\u003e是文件名，以空格分隔，通常每个规则只有一个。\u003c\/li\u003e\n\u003cli\u003e\u003ccode\u003ecommand\u003c\/code\u003e通常是用于制作目标的一系列步骤，需要以制表符\u003ccode\u003eTab\u003c\/code\u003e而不是空格开头。\u003c\/li\u003e\n\u003cli\u003e\u003ccode\u003eprerequisites\u003c\/code\u003e也是文件名，称为依赖项，以空格分隔，在运行针对目标的命令之前，这些文件需要存在。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003cp\u003e下面是一个\u003ccode\u003eMakefile\u003c\/code\u003e的实例：\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-makefile\u0022 data-lang=\u0022makefile\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#a6e22e\u0022\u003eblah\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e:\u003c\/span\u003e blah.o\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\tgcc blah.o -o blah \u003cspan style=\u0022color:#75715e\u0022\u003e# Runs third\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#a6e22e\u0022\u003eblah.o\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e:\u003c\/span\u003e blah.c\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\tgcc -c blah.c -o blah.o \u003cspan style=\u0022color:#75715e\u0022\u003e# Runs second\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e# Typically blah.c would already exist, but I want to limit any additional required files\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#a6e22e\u0022\u003eblah.c\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e:\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\techo \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;int main() { return 0; }\u0026#34;\u003c\/span\u003e \u0026gt; blah.c \u003cspan style=\u0022color:#75715e\u0022\u003e# Runs first\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e使用\u003ccode\u003emake\u003c\/code\u003e时默认会执行第一个目标\u003ccode\u003eblah\u003c\/code\u003e，或者可以指定目标进行生成\u003ccode\u003emake blah\u003c\/code\u003e。上面的Makefile在执行\u003ccode\u003emake\u003c\/code\u003e指令后按照一系列步骤进行调用：\u003c\/p\u003e",
-  "url": "https:\/\/lishengxie.github.io\/post\/makefile-study\/",
+  "url": "https:\/\/lishengxie.top\/post\/makefile-study\/",
   
   "datePublished": "2023-04-30T08:37:37\u002b08:00",
   "dateModified": "2023-04-30T08:37:37\u002b08:00",
@@ -109,14 +109,14 @@ blah.c:
   
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https:\/\/lishengxie.github.io\/post\/makefile-study\/"
+    "@id": "https:\/\/lishengxie.top\/post\/makefile-study\/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Lishengxie",
     "logo": {
       "@type": "ImageObject",
-      "url": "https:\/\/lishengxie.github.io\/apple-touch-icon.png"
+      "url": "https:\/\/lishengxie.top\/apple-touch-icon.png"
     }
   }
 }
@@ -200,7 +200,7 @@ blah.c:
         </ul>
       </div>
       <div class="nav-utils">
-        <a href="https://lishengxie.github.io/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
+        <a href="https://lishengxie.top/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
         </a>
         
