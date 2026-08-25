@@ -77,7 +77,7 @@ Mapping of local and global synapses on spiking neuromorphic hardware
   "@type": "BlogPosting",
   "headline": "SNN映射论文阅读-PSOPART",
   "name": "SNN映射论文阅读-PSOPART",
-  "description": "\u003ch3 id=\u0022图优化方法\u0022\u003e图优化方法\u003c\/h3\u003e\n\u003cp\u003e\u003cstrong\u003ePSOPART\u003c\/strong\u003e\u003c\/p\u003e\n\u003cp\u003eMapping of local and global synapses on spiking neuromorphic hardware\u003c\/p\u003e\n\u003cp\u003e\u003cstrong\u003e开源代码地址\u003c\/strong\u003e：https:\/\/github.com\/Jinouwen\/Mapping\u003c\/p\u003e\n\u003cp\u003e\u003cstrong\u003e优化指标\u003c\/strong\u003e：神经元分块之间的脉冲通信量\u003c\/p\u003e\n\u003cp\u003e\u003cstrong\u003e类脑芯片\u003c\/strong\u003e：CxQuad\u003c\/p\u003e\n\u003cp\u003e\u003cstrong\u003e基本步骤\u003c\/strong\u003e\u003c\/p\u003e\n\u003col\u003e\n\u003cli\u003e使用Carlsim进行脉冲神经网络运行模拟，构建脉冲神经网络图结构；\u003c\/li\u003e\n\u003cli\u003e使用PSO(Partial Swarm Optimization)算法进行脉冲神经网络的分割，产生符合硬件限制的子块，这一步中优化的指标为神经元分块之间的脉冲通信量。\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cp\u003e\u003ca href=\u0022\/uploads\/2023\/01\/2.png\u0022\u003e\u003cimg src=\u0022\/uploads\/2023\/01\/2-1024x847.png\u0022 alt=\u0022PSO算法执行流程\u0022\u003e\u003c\/a\u003e\u003c\/p\u003e\n\u003ccenter\u003e\u003cb\u003e图1. PSO算法执行流程\u003c\/b\u003e\u003c\/center\u003e\n\u003cp\u003e\u003cstrong\u003e创新点\u003c\/strong\u003e\n提出使用进化算法(PSO)用于脉冲神经网络分割。\u003c\/p\u003e\n\u003cp\u003e\u003cstrong\u003e问题\u003c\/strong\u003e\n没有考虑到神经元分块到crossbar的物理映射问题，优化算法映射时间过长。\u003c\/p\u003e",
+  "description": "\u003ch3 id=\u0022图优化方法\u0022\u003e图优化方法\u003c\/h3\u003e\n\u003cp\u003e\u003cstrong\u003ePSOPART\u003c\/strong\u003e\u003c\/p\u003e\n\u003cp\u003eMapping of local and global synapses on spiking neuromorphic hardware\u003c\/p\u003e\n\u003cp\u003e\u003cstrong\u003e开源代码地址\u003c\/strong\u003e：https:\/\/github.com\/Jinouwen\/Mapping\u003c\/p\u003e\n\u003cp\u003e\u003cstrong\u003e优化指标\u003c\/strong\u003e：神经元分块之间的脉冲通信量\u003c\/p\u003e\n\u003cp\u003e\u003cstrong\u003e类脑芯片\u003c\/strong\u003e：CxQuad\u003c\/p\u003e\n\u003cp\u003e\u003cstrong\u003e基本步骤\u003c\/strong\u003e\u003c\/p\u003e\n\u003col\u003e\n\u003cli\u003e使用Carlsim进行脉冲神经网络运行模拟，构建脉冲神经网络图结构；\u003c\/li\u003e\n\u003cli\u003e使用PSO(Partial Swarm Optimization)算法进行脉冲神经网络的分割，产生符合硬件限制的子块，这一步中优化的指标为神经元分块之间的脉冲通信量。\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cp\u003e\u003ca href=\u0022\/uploads\/2023\/01\/2.png\u0022\u003e\u003cimg src=\u0022\/uploads\/2023\/01\/2.png\u0022 alt=\u0022PSO算法执行流程\u0022\u003e\u003c\/a\u003e\u003c\/p\u003e\n\u003ccenter\u003e\u003cb\u003e图1. PSO算法执行流程\u003c\/b\u003e\u003c\/center\u003e\n\u003cp\u003e\u003cstrong\u003e创新点\u003c\/strong\u003e\n提出使用进化算法(PSO)用于脉冲神经网络分割。\u003c\/p\u003e\n\u003cp\u003e\u003cstrong\u003e问题\u003c\/strong\u003e\n没有考虑到神经元分块到crossbar的物理映射问题，优化算法映射时间过长。\u003c\/p\u003e",
   "url": "https:\/\/lishengxie.top\/post\/snn-paper-psopart\/",
   
   "datePublished": "2023-04-29T22:14:32\u002b08:00",
@@ -117,6 +117,11 @@ Mapping of local and global synapses on spiking neuromorphic hardware
 <link rel="stylesheet" href="/css/style.88502f31cafe1951e4c79187c358a993ad3d9dc0d6a5d48e71530b8ea4115d2f.css" integrity="">
 
 
+
+
+<link rel="stylesheet" href="/css/custom.63bf1754d22a8f4b001f1541fcd1efcd993be5561a2d08494146307a74e308e6.css">
+
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 
 
@@ -138,6 +143,7 @@ Mapping of local and global synapses on spiking neuromorphic hardware
 
 </head>
 <body>
+  <div class="bg-backdrop" aria-hidden="true"></div>
   
 <header class="site-header is-sticky">
   <div class="container header-inner">
@@ -274,7 +280,7 @@ Mapping of local and global synapses on spiking neuromorphic hardware
 <li>使用Carlsim进行脉冲神经网络运行模拟，构建脉冲神经网络图结构；</li>
 <li>使用PSO(Partial Swarm Optimization)算法进行脉冲神经网络的分割，产生符合硬件限制的子块，这一步中优化的指标为神经元分块之间的脉冲通信量。</li>
 </ol>
-<p><a href="/uploads/2023/01/2.png"><img src="/uploads/2023/01/2-1024x847.png" alt="PSO算法执行流程"></a></p>
+<p><a href="/uploads/2023/01/2.png"><img src="/uploads/2023/01/2.png" alt="PSO算法执行流程"></a></p>
 <center><b>图1. PSO算法执行流程</b></center>
 <p><strong>创新点</strong>
 提出使用进化算法(PSO)用于脉冲神经网络分割。</p>
