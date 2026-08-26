@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr">
+<html lang="zh-cn" dir="ltr">
 <head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>分布式ID生成方案全解析：从数据库到雪花算法 &middot; Lishengxie</title>
-
-<meta name="description" content="A personal blog powered by Hugo.">
-<meta name="author" content="Lishengxie">
+<title>分布式ID生成方案全解析：从数据库到雪花算法 &middot; Lishengxie</title><meta name="description" content="在分布式系统中，全局唯一ID是一个常见的需求。无论是分库分表后的主键冲突，还是订单号、用户ID等需要唯一标识的场景，都离不开一个可靠的分布式ID生成器。本文将带你了解分布式ID的基本要求，并梳理多种实现方案，从简单的数据库自增到高性能的雪花算法，最后介绍各大厂的开源组件。 一、什么是分布式ID？ 分布式ID是 …"><meta name="author" content="Lishengxie">
 <link rel="canonical" href="https://lishengxie.top/post/distributed-id-generator-algo/">
 
 
@@ -166,15 +163,14 @@ set @@auto_increment_increment = 2;  -- 步长
 
 
 
-<link rel="stylesheet" href="/css/style.88502f31cafe1951e4c79187c358a993ad3d9dc0d6a5d48e71530b8ea4115d2f.css" integrity="">
+<link rel="stylesheet" href="/css/style.67ece28a8c3096abea7180060d5f4d471c309ba1793b22bb0fa0c2911012b83f.css" integrity="">
 
 
 
 
-<link rel="stylesheet" href="/css/custom.63bf1754d22a8f4b001f1541fcd1efcd993be5561a2d08494146307a74e308e6.css">
+<link rel="stylesheet" href="/css/custom.d8f218092f0e8112dccb5e8063131b9e90cf8703d1c2b55f0a1130ff30722557.css">
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 
 
 <style>
@@ -660,18 +656,6 @@ set @@auto_increment_increment = 2;  -- 步长
   
 
   
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      
-      document.querySelectorAll('.katex-inline').forEach(function (el) {
-        katex.render(el.textContent, el, { throwOnError: false });
-      });
-      
-      document.querySelectorAll('.katex-display').forEach(function (el) {
-        katex.render(el.textContent, el, { displayMode: true, throwOnError: false });
-      });
-    });
-  </script>
+  
 </body>
 </html>
