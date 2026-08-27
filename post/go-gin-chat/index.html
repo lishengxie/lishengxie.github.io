@@ -1,21 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
-<head>
-  <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
-<title>Go Gin Chat &middot; Lishengxie</title><meta name="description" content="项目地址：https://github.com/hezhizheng/go-gin-chat Gin框架学习 参考笔记 Websocket学习 Websocket连接是升级的HTTP连接，在连接被客户端或服务器终止之前一直存在，基于Websocket可以实现客户端和服务端之间的双工通信，而不需要对HTTP端口 …"><meta name="author" content="Lishengxie">
-<link rel="canonical" href="https://lishengxie.top/post/go-gin-chat/">
-
-
-
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="manifest" href="/manifest.webmanifest">
-
-
-<meta property="og:title" content="Go Gin Chat">
-<meta property="og:description" content="项目地址：https://github.com/hezhizheng/go-gin-chat
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><title>Go Gin Chat &#183; Lishengxie</title><meta name=description content="项目地址：https://github.com/hezhizheng/go-gin-chat Gin框架学习 参考笔记 Websocket学习 Websocket连接是升级的HTTP连接，在连接被客户端或服务器终止之前一直存在，基于Websocket可以实现客户端和服务端之间的双工通信，而不需要对HTTP端口 …"><meta name=author content="Lishengxie"><link rel=canonical href=https://lishengxie.top/post/go-gin-chat/><link rel=icon href=/favicon.svg type=image/svg+xml><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=manifest href=/manifest.webmanifest><meta property="og:title" content="Go Gin Chat"><meta property="og:description" content='项目地址：https://github.com/hezhizheng/go-gin-chat
 Gin框架学习
 参考笔记
 Websocket学习
@@ -38,8 +21,8 @@ func wsEndpoint(w http.ResponseWriter, r *http.Request) {
     }
 
 	// 向连接的客户端写入信息
-    log.Println(&#34;Client Connected&#34;)
-    err = ws.WriteMessage(1, []byte(&#34;Hi Client!&#34;))
+    log.Println("Client Connected")
+    err = ws.WriteMessage(1, []byte("Hi Client!"))
     if err != nil {
         log.Println(err)
     }
@@ -69,26 +52,7 @@ func reader(conn *websocket.Conn) {
     }
 }
 Websocket心跳检测
-参考博客 https://www.cnblogs.com/tugenhua0707/p/8648044.html">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://lishengxie.top/post/go-gin-chat/">
-
-
-
-<meta property="article:section" content="post">
-
-
-<meta property="article:published_time" content="2023-04-30 08:22:37 &#43;0800 CST">
-
-
-<meta property="article:modified_time" content="2023-04-30 08:22:37 &#43;0800 CST">
-
-
-
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Go Gin Chat">
-<meta name="twitter:description" content="项目地址：https://github.com/hezhizheng/go-gin-chat
+参考博客 https://www.cnblogs.com/tugenhua0707/p/8648044.html'><meta property="og:type" content="article"><meta property="og:url" content="https://lishengxie.top/post/go-gin-chat/"><meta property="article:section" content="post"><meta property="article:published_time" content="2023-04-30 08:22:37 +0800 CST"><meta property="article:modified_time" content="2023-04-30 08:22:37 +0800 CST"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Go Gin Chat"><meta name=twitter:description content='项目地址：https://github.com/hezhizheng/go-gin-chat
 Gin框架学习
 参考笔记
 Websocket学习
@@ -111,8 +75,8 @@ func wsEndpoint(w http.ResponseWriter, r *http.Request) {
     }
 
 	// 向连接的客户端写入信息
-    log.Println(&#34;Client Connected&#34;)
-    err = ws.WriteMessage(1, []byte(&#34;Hi Client!&#34;))
+    log.Println("Client Connected")
+    err = ws.WriteMessage(1, []byte("Hi Client!"))
     if err != nil {
         log.Println(err)
     }
@@ -142,462 +106,77 @@ func reader(conn *websocket.Conn) {
     }
 }
 Websocket心跳检测
-参考博客 https://www.cnblogs.com/tugenhua0707/p/8648044.html">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Go Gin Chat",
-  "name": "Go Gin Chat",
-  "description": "\u003cp\u003e项目地址：https:\/\/github.com\/hezhizheng\/go-gin-chat\u003c\/p\u003e\n\u003ch2 id=\u0022gin框架学习\u0022\u003eGin框架学习\u003c\/h2\u003e\n\u003cp\u003e参考\u003ca href=\u0022https:\/\/www.lishengxie.top\/gin%e6%a1%86%e6%9e%b6%e5%ad%a6%e4%b9%a0\/\u0022\u003e笔记\u003c\/a\u003e\u003c\/p\u003e\n\u003ch2 id=\u0022websocket学习\u0022\u003eWebsocket学习\u003c\/h2\u003e\n\u003cp\u003eWebsocket连接是升级的HTTP连接，在连接被客户端或服务器终止之前一直存在，基于Websocket可以实现客户端和服务端之间的双工通信，而不需要对HTTP端口进行持续轮询，大大节省了网络资源开销。\u003c\/p\u003e\n\u003cp\u003e\u003ccode\u003ego-gin-chat\u003c\/code\u003e中基于\u003ccode\u003egorilla\/websocket\u003c\/code\u003e实现websocket的使用，下面是该软件包使用的示例，可以参考\u003ca href=\u0022https:\/\/zhuanlan.zhihu.com\/p\/455635795\u0022\u003e博客\u003c\/a\u003e。\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-go\u0022 data-lang=\u0022go\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ We\u0026#39;ll need to define an Upgrader\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ this will require a Read and Write buffer size\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003evar\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eupgrader\u003c\/span\u003e = \u003cspan style=\u0022color:#a6e22e\u0022\u003ewebsocket\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eUpgrader\u003c\/span\u003e{\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#a6e22e\u0022\u003eReadBufferSize\u003c\/span\u003e:  \u003cspan style=\u0022color:#ae81ff\u0022\u003e1024\u003c\/span\u003e,\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#a6e22e\u0022\u003eWriteBufferSize\u003c\/span\u003e: \u003cspan style=\u0022color:#ae81ff\u0022\u003e1024\u003c\/span\u003e,\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003efunc\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ewsEndpoint\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003ew\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ehttp\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eResponseWriter\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003er\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e\u003cspan style=\u0022color:#a6e22e\u0022\u003ehttp\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eRequest\u003c\/span\u003e) {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#a6e22e\u0022\u003eupgrader\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eCheckOrigin\u003c\/span\u003e = \u003cspan style=\u0022color:#66d9ef\u0022\u003efunc\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003er\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e\u003cspan style=\u0022color:#a6e22e\u0022\u003ehttp\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eRequest\u003c\/span\u003e) \u003cspan style=\u0022color:#66d9ef\u0022\u003ebool\u003c\/span\u003e { \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e \u003cspan style=\u0022color:#66d9ef\u0022\u003etrue\u003c\/span\u003e }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ upgrade this connection to a WebSocket connection\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#a6e22e\u0022\u003ews\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eupgrader\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eUpgrade\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003ew\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003er\u003c\/span\u003e, \u003cspan style=\u0022color:#66d9ef\u0022\u003enil\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e!=\u003c\/span\u003e \u003cspan style=\u0022color:#66d9ef\u0022\u003enil\u003c\/span\u003e {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#a6e22e\u0022\u003elog\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePrintln\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ 向连接的客户端写入信息\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#a6e22e\u0022\u003elog\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePrintln\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Client Connected\u0026#34;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e = \u003cspan style=\u0022color:#a6e22e\u0022\u003ews\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eWriteMessage\u003c\/span\u003e(\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e, []byte(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Hi Client!\u0026#34;\u003c\/span\u003e))\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e!=\u003c\/span\u003e \u003cspan style=\u0022color:#66d9ef\u0022\u003enil\u003c\/span\u003e {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#a6e22e\u0022\u003elog\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePrintln\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ listen indefinitely for new messages coming\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ through on our WebSocket connection\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003ego\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ereader\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003ews\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ define a reader which will listen for\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ new messages being sent to our WebSocket\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ endpoint\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003efunc\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ereader\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003econn\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e\u003cspan style=\u0022color:#a6e22e\u0022\u003ewebsocket\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eConn\u003c\/span\u003e) {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ read in a message\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#a6e22e\u0022\u003emessageType\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003ep\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003econn\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eReadMessage\u003c\/span\u003e()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e!=\u003c\/span\u003e \u003cspan style=\u0022color:#66d9ef\u0022\u003enil\u003c\/span\u003e {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            \u003cspan style=\u0022color:#a6e22e\u0022\u003elog\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePrintln\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ print out that message for clarity\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#a6e22e\u0022\u003efmt\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePrintln\u003c\/span\u003e(string(\u003cspan style=\u0022color:#a6e22e\u0022\u003ep\u003c\/span\u003e))\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003econn\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eWriteMessage\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003emessageType\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003ep\u003c\/span\u003e); \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e!=\u003c\/span\u003e \u003cspan style=\u0022color:#66d9ef\u0022\u003enil\u003c\/span\u003e {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            \u003cspan style=\u0022color:#a6e22e\u0022\u003elog\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePrintln\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003ch3 id=\u0022websocket心跳检测\u0022\u003eWebsocket心跳检测\u003c\/h3\u003e\n\u003cp\u003e参考博客 \u003ca href=\u0022https:\/\/www.cnblogs.com\/tugenhua0707\/p\/8648044.html\u0022\u003ehttps:\/\/www.cnblogs.com\/tugenhua0707\/p\/8648044.html\u003c\/a\u003e\u003c\/p\u003e",
-  "url": "https:\/\/lishengxie.top\/post\/go-gin-chat\/",
-  
-  "datePublished": "2023-04-30T08:22:37\u002b08:00",
-  "dateModified": "2023-04-30T08:22:37\u002b08:00",
-  "author": {
-    "@type": "Person",
-    "name": "Lishengxie"
-  },
-  
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https:\/\/lishengxie.top\/post\/go-gin-chat\/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Lishengxie",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https:\/\/lishengxie.top\/apple-touch-icon.png"
-    }
-  }
-}
-</script>
-
-
-
-
-
-<link rel="preload" href="/fonts/google-sans-flex-regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/google-sans-flex-bold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/google-sans-code-regular.woff2" as="font" type="font/woff2" crossorigin>
-
-
-
-
-
-<link rel="stylesheet" href="/css/style.67ece28a8c3096abea7180060d5f4d471c309ba1793b22bb0fa0c2911012b83f.css" integrity="">
-
-
-
-
-<link rel="stylesheet" href="/css/custom.d8f218092f0e8112dccb5e8063131b9e90cf8703d1c2b55f0a1130ff30722557.css">
-
-
-
-
-<style>
-  .post-list-item { overflow: hidden; }
-  .post-excerpt { word-break: break-word; }
-</style>
-
-
-<script>
-  (function() {
-    try {
-      var theme = localStorage.getItem('theme') ||
-        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', theme);
-    } catch (e) {}
-  })();
-</script>
-
-</head>
-<body>
-  <div class="bg-backdrop" aria-hidden="true"></div>
-  
-<header class="site-header is-sticky">
-  <div class="container header-inner">
-    <div class="site-identity">
-      <a href="/" class="site-brand">
-        
-          <img src="/logo.jpg" alt="Lishengxie logo">
-        
-        <span class="site-title">Lishengxie</span>
-      </a>
-      
-        <p class="site-tagline">Always on the way</p>
-      
-    </div>
-    <button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">
-      <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-    </button>
-    <nav id="site-nav" class="site-nav">
-      <div class="main-nav">
-        <ul>
-          
-          
-          <li>
-            <a href="/post/" class="">Posts</a>
-          </li>
-          
-          <li>
-            <a href="/pages/about/" class="">About</a>
-          </li>
-          
-          <li>
-            <a href="/archives/" class="">Archives</a>
-          </li>
-          
-          <li>
-            <a href="/pages/contact/" class="">Contact</a>
-          </li>
-          
-        </ul>
-      </div>
-      <div class="nav-utils">
-        <a href="https://lishengxie.top/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
-        </a>
-        
-        <a href="/search" class="nav-search" aria-label="Search">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </a>
-        
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" aria-pressed="false">
-          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-        </button>
-      </div>
-    </nav>
-  </div>
-</header>
-  <main class="site-main">
-    
-
-<div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<div class="container">
-  <div class="layout-grid layout-grid--sidebar-left">
-    <article class="post-single main-content main-content--sidebar-left">
-      <header class="post-header">
-        <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item"><a href="/post/">Posts</a></li><li class="breadcrumb-item" aria-current="page">Go Gin Chat</li>
-  </ol>
-</nav>
-        <h1 class="post-title">Go Gin Chat</h1>
-        <div class="post-meta">
-          
-            <span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-              <time datetime="2023-04-30T08:22:37&#43;08:00">Apr 30, 2023</time>
-            </span>
-          
-
-          
-            <span class="post-categories">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-
-              
-                
-                <a href="/categories/go%E5%AD%A6%E4%B9%A0/">go学习</a>
-              
-            </span>
-          
-
-          
-            <span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-              Lishengxie
-            </span>
-          
-        </div>
-      </header>
-
-      
-
-      <div class="post-content">
-        <p>项目地址：https://github.com/hezhizheng/go-gin-chat</p>
-<h2 id="gin框架学习">Gin框架学习</h2>
-<p>参考<a href="https://www.lishengxie.top/gin%e6%a1%86%e6%9e%b6%e5%ad%a6%e4%b9%a0/">笔记</a></p>
-<h2 id="websocket学习">Websocket学习</h2>
-<p>Websocket连接是升级的HTTP连接，在连接被客户端或服务器终止之前一直存在，基于Websocket可以实现客户端和服务端之间的双工通信，而不需要对HTTP端口进行持续轮询，大大节省了网络资源开销。</p>
-<p><code>go-gin-chat</code>中基于<code>gorilla/websocket</code>实现websocket的使用，下面是该软件包使用的示例，可以参考<a href="https://zhuanlan.zhihu.com/p/455635795">博客</a>。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// We&#39;ll need to define an Upgrader</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// this will require a Read and Write buffer size</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">upgrader</span> = <span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">Upgrader</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ReadBufferSize</span>:  <span style="color:#ae81ff">1024</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">WriteBufferSize</span>: <span style="color:#ae81ff">1024</span>,
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">wsEndpoint</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">upgrader</span>.<span style="color:#a6e22e">CheckOrigin</span> = <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) <span style="color:#66d9ef">bool</span> { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// upgrade this connection to a WebSocket connection</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ws</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">upgrader</span>.<span style="color:#a6e22e">Upgrade</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">r</span>, <span style="color:#66d9ef">nil</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 向连接的客户端写入信息</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Client Connected&#34;</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">ws</span>.<span style="color:#a6e22e">WriteMessage</span>(<span style="color:#ae81ff">1</span>, []byte(<span style="color:#e6db74">&#34;Hi Client!&#34;</span>))
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// listen indefinitely for new messages coming</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// through on our WebSocket connection</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">reader</span>(<span style="color:#a6e22e">ws</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// define a reader which will listen for</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// new messages being sent to our WebSocket</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// endpoint</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">reader</span>(<span style="color:#a6e22e">conn</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">Conn</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// read in a message</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">messageType</span>, <span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">ReadMessage</span>()
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// print out that message for clarity</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(string(<span style="color:#a6e22e">p</span>))
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">WriteMessage</span>(<span style="color:#a6e22e">messageType</span>, <span style="color:#a6e22e">p</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="websocket心跳检测">Websocket心跳检测</h3>
-<p>参考博客 <a href="https://www.cnblogs.com/tugenhua0707/p/8648044.html">https://www.cnblogs.com/tugenhua0707/p/8648044.html</a></p>
-<p>在使用websocket的过程中，如果网络断开而服务器没有触发onclose事件，那么服务器会继续向客户端发送数据，这些数据将被丢失。需要<strong>心跳机制</strong>来检测客户端和服务端之间是否处于正常的链接状态。</p>
-<p>心跳机制的大致实现方式为：每隔一段时间客户端向服务器发送一个数据包，通知服务器自己还活着，如果链接还存在服务器会发送一个数据包给客户端，客户端确认服务端也活着，否则的话可能是链接已经断开，需要重新链接。发送顺序也可以反过来由服务器向客户端发送ping信息，由客户端反馈pong信息。</p>
-<p>go-gin-chat中使用了<a href="https://github.com/zimv/websocket-heartbeat-js">https://github.com/zimv/websocket-heartbeat-js</a>中提供的心跳检测方法，由服务段发送ping信息(&ldquo;heartbeat&rdquo;)，客户端接收到这个ping信息后返回一个pong信息，服务端重置心跳倒计时。</p>
-<h2 id="postman使用">postman使用</h2>
-<p>进入<a href="https://www.postman.com/">postman网站</a>注册用户并下载客户端，这里是使用postman进行POST请求提交json格式文件的<a href="https://www.cnblogs.com/yoyoketang/p/14736453.html">示例</a>。</p>
-
-      </div>
-
-      <footer>
-        
-      </footer>
-    </article>
-
-    
-    
-      
-
-
-
-
-<aside class="sidebar">
-  
-  
-    <aside class="toc">
-  <h2 class="toc-title">Table of Contents</h2>
-  <nav id="TableOfContents">
-  <ul>
-    <li><a href="#gin框架学习">Gin框架学习</a></li>
-    <li><a href="#websocket学习">Websocket学习</a>
-      <ul>
-        <li><a href="#websocket心跳检测">Websocket心跳检测</a></li>
-      </ul>
-    </li>
-    <li><a href="#postman使用">postman使用</a></li>
-  </ul>
-</nav>
-</aside>
-  
-
-  
-  
-    
-    
-      <div class="widget-area">
-        
-          
-<div class="widget widget-recent">
-  <h3 class="widget-title">Recent Posts</h3>
-  <ul>
-    
-    
-    <li>
-      <a href="/post/ai-coding-agent/">（转）每天10万行AI代码，人肉Code Review的崩塌是Infra工程的范式拐点</a>
-      <time datetime="2026-06-27T01:49:22&#43;08:00">Jun 27, 2026</time>
-    </li>
-    
-    <li>
-      <a href="/post/distributed-id-generator-algo/">分布式ID生成方案全解析：从数据库到雪花算法</a>
-      <time datetime="2026-06-25T22:53:20&#43;08:00">Jun 25, 2026</time>
-    </li>
-    
-    <li>
-      <a href="/post/lets-encrypt-ssl/">Let&#39;s Encrypt 免费申请 SSL 证书，并实现自动续期</a>
-      <time datetime="2025-09-14T21:58:04&#43;08:00">Sep 14, 2025</time>
-    </li>
-    
-    <li>
-      <a href="/post/redis-listpack-ziplist/">Redis ziplist、quicklist 和 listpack</a>
-      <time datetime="2025-03-03T22:44:38&#43;08:00">Mar 3, 2025</time>
-    </li>
-    
-    <li>
-      <a href="/post/nginx-prohibit-ip-request/">Nginx禁止使用IP直接访问服务器上相应端口</a>
-      <time datetime="2024-05-11T21:48:52&#43;08:00">May 11, 2024</time>
-    </li>
-    
-  </ul>
-</div>
-        
-          
-<div class="widget widget-categories">
-  <h3 class="widget-title">Categories</h3>
-  
-  <ul>
-    
-    
-    <li><a href="/categories/linux/">Linux</a><span class="widget-count">7</span></li>
-    
-    <li><a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">算法学习</a><span class="widget-count">7</span></li>
-    
-    <li><a href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a><span class="widget-count">6</span></li>
-    
-    <li><a href="/categories/c&#43;&#43;/">C&#43;&#43;</a><span class="widget-count">4</span></li>
-    
-    <li><a href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a><span class="widget-count">3</span></li>
-    
-    <li><a href="/categories/go%E5%AD%A6%E4%B9%A0/">Go学习</a><span class="widget-count">2</span></li>
-    
-    <li><a href="/categories/redis/">Redis</a><span class="widget-count">1</span></li>
-    
-    <li><a href="/categories/systemc/">SystemC</a><span class="widget-count">1</span></li>
-    
-    <li><a href="/categories/verilog/">Verilog</a><span class="widget-count">1</span></li>
-    
-  </ul>
-  
-</div>
-
-        
-          
-<div class="widget widget-tags">
-  <h3 class="widget-title">Tags</h3>
-  
-</div>
-
-        
-      </div>
-    
-  
-</aside>
-
-    
-  </div>
-
-  
-    
-<nav class="post-nav">
-  
-  <a href="/post/snn-paper-neu_noc/" class="nav-prev">
-    <span class="nav-arrow">&larr;</span>
-    <span class="nav-title">SNN映射论文阅读 Neu-NoC</span>
-  </a>
-  
-  
-  <a href="/post/go-study/" class="nav-next">
-    <span class="nav-title">Gin框架学习</span>
-    <span class="nav-arrow">&rarr;</span>
-  </a>
-  
-</nav>
-
-
-  
-
-  
-    
-
-
-<section class="related-posts">
-  <h3 class="related-title">Related Posts</h3>
-  <ul class="related-list">
-    
-    <li class="related-item">
-      <a href="/post/go-study/" class="related-link">
-        <span class="related-item-title">Gin框架学习</span>
-        <time class="related-item-date" datetime="2023-04-30">Apr 30, 2023</time>
-      </a>
-    </li>
-    
-  </ul>
-</section>
-
-
-  
-
-  <script src="https://utteranc.es/client.js"
-  repo="lishengxie/lishengxie.github.io"
-  issue-term="title"
-  theme="github-light"
-  crossorigin="anonymous"
-  async>
-</script>
-
-</div>
-
-  </main>
-  
-<footer class="site-footer">
-  <div class="container">
-    
-    
-    <div class="footer-info" style="text-align:center;">
-      <div style="white-space:nowrap;">
-        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">皖ICP备2023003716号-1</a>
-        <span style="margin:0 6px;">|</span>
-        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34012202341113" target="_blank" rel="noopener"><img src="/uploads/2023/04/beian.png" alt="公安备案" style="vertical-align:middle;margin-right:3px;display:inline;">皖公网安备34012202341113</a>
-        <span style="margin:0 6px;">|</span>
-        违法和不良信息举报邮箱：<a href="mailto:1141751053@qq.com">1141751053@qq.com</a>
-      </div>
-      <div style="white-space:nowrap;">
-        Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/yogirk/explore" target="_blank" rel="noopener">Explore Theme</a>.
-      </div>
-    </div>
-  </div>
-</footer>
-
-  
-  <script src="/js/minimal.min.6a9ca11052c7f4a8a7596e64d3b60b3b1040bc4e6c825054f99533c3126a84a6.js" integrity="sha256-apyhEFLH9KinWW5k07YLOxBAvE5sglBU&#43;ZUzwxJqhKY=" crossorigin="anonymous" defer></script>
-  
-  
-
-  
-  
-</body>
-</html>
+参考博客 https://www.cnblogs.com/tugenhua0707/p/8648044.html'><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Go Gin Chat","name":"Go Gin Chat","description":"\u003cp\u003e项目地址：https:\/\/github.com\/hezhizheng\/go-gin-chat\u003c\/p\u003e\n\u003ch2 id=\u0022gin框架学习\u0022\u003eGin框架学习\u003c\/h2\u003e\n\u003cp\u003e参考\u003ca href=\u0022https:\/\/www.lishengxie.top\/gin%e6%a1%86%e6%9e%b6%e5%ad%a6%e4%b9%a0\/\u0022\u003e笔记\u003c\/a\u003e\u003c\/p\u003e\n\u003ch2 id=\u0022websocket学习\u0022\u003eWebsocket学习\u003c\/h2\u003e\n\u003cp\u003eWebsocket连接是升级的HTTP连接，在连接被客户端或服务器终止之前一直存在，基于Websocket可以实现客户端和服务端之间的双工通信，而不需要对HTTP端口进行持续轮询，大大节省了网络资源开销。\u003c\/p\u003e\n\u003cp\u003e\u003ccode\u003ego-gin-chat\u003c\/code\u003e中基于\u003ccode\u003egorilla\/websocket\u003c\/code\u003e实现websocket的使用，下面是该软件包使用的示例，可以参考\u003ca href=\u0022https:\/\/zhuanlan.zhihu.com\/p\/455635795\u0022\u003e博客\u003c\/a\u003e。\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;\u0022\u003e\u003ccode class=\u0022language-go\u0022 data-lang=\u0022go\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ We\u0026#39;ll need to define an Upgrader\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ this will require a Read and Write buffer size\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003evar\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eupgrader\u003c\/span\u003e = \u003cspan style=\u0022color:#a6e22e\u0022\u003ewebsocket\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eUpgrader\u003c\/span\u003e{\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#a6e22e\u0022\u003eReadBufferSize\u003c\/span\u003e:  \u003cspan style=\u0022color:#ae81ff\u0022\u003e1024\u003c\/span\u003e,\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#a6e22e\u0022\u003eWriteBufferSize\u003c\/span\u003e: \u003cspan style=\u0022color:#ae81ff\u0022\u003e1024\u003c\/span\u003e,\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003efunc\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ewsEndpoint\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003ew\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ehttp\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eResponseWriter\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003er\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e\u003cspan style=\u0022color:#a6e22e\u0022\u003ehttp\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eRequest\u003c\/span\u003e) {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#a6e22e\u0022\u003eupgrader\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eCheckOrigin\u003c\/span\u003e = \u003cspan style=\u0022color:#66d9ef\u0022\u003efunc\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003er\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e\u003cspan style=\u0022color:#a6e22e\u0022\u003ehttp\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eRequest\u003c\/span\u003e) \u003cspan style=\u0022color:#66d9ef\u0022\u003ebool\u003c\/span\u003e { \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e \u003cspan style=\u0022color:#66d9ef\u0022\u003etrue\u003c\/span\u003e }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ upgrade this connection to a WebSocket connection\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#a6e22e\u0022\u003ews\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eupgrader\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eUpgrade\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003ew\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003er\u003c\/span\u003e, \u003cspan style=\u0022color:#66d9ef\u0022\u003enil\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e!=\u003c\/span\u003e \u003cspan style=\u0022color:#66d9ef\u0022\u003enil\u003c\/span\u003e {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#a6e22e\u0022\u003elog\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePrintln\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ 向连接的客户端写入信息\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#a6e22e\u0022\u003elog\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePrintln\u003c\/span\u003e(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Client Connected\u0026#34;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e = \u003cspan style=\u0022color:#a6e22e\u0022\u003ews\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eWriteMessage\u003c\/span\u003e(\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e, []byte(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Hi Client!\u0026#34;\u003c\/span\u003e))\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e!=\u003c\/span\u003e \u003cspan style=\u0022color:#66d9ef\u0022\u003enil\u003c\/span\u003e {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#a6e22e\u0022\u003elog\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePrintln\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ listen indefinitely for new messages coming\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ through on our WebSocket connection\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003ego\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ereader\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003ews\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ define a reader which will listen for\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ new messages being sent to our WebSocket\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ endpoint\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003efunc\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ereader\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003econn\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e\u003cspan style=\u0022color:#a6e22e\u0022\u003ewebsocket\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eConn\u003c\/span\u003e) {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ read in a message\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#a6e22e\u0022\u003emessageType\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003ep\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003econn\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eReadMessage\u003c\/span\u003e()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e!=\u003c\/span\u003e \u003cspan style=\u0022color:#66d9ef\u0022\u003enil\u003c\/span\u003e {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            \u003cspan style=\u0022color:#a6e22e\u0022\u003elog\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePrintln\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/ print out that message for clarity\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#a6e22e\u0022\u003efmt\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePrintln\u003c\/span\u003e(string(\u003cspan style=\u0022color:#a6e22e\u0022\u003ep\u003c\/span\u003e))\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e:=\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003econn\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003eWriteMessage\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003emessageType\u003c\/span\u003e, \u003cspan style=\u0022color:#a6e22e\u0022\u003ep\u003c\/span\u003e); \u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e!=\u003c\/span\u003e \u003cspan style=\u0022color:#66d9ef\u0022\u003enil\u003c\/span\u003e {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            \u003cspan style=\u0022color:#a6e22e\u0022\u003elog\u003c\/span\u003e.\u003cspan style=\u0022color:#a6e22e\u0022\u003ePrintln\u003c\/span\u003e(\u003cspan style=\u0022color:#a6e22e\u0022\u003eerr\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003ch3 id=\u0022websocket心跳检测\u0022\u003eWebsocket心跳检测\u003c\/h3\u003e\n\u003cp\u003e参考博客 \u003ca href=\u0022https:\/\/www.cnblogs.com\/tugenhua0707\/p\/8648044.html\u0022\u003ehttps:\/\/www.cnblogs.com\/tugenhua0707\/p\/8648044.html\u003c\/a\u003e\u003c\/p\u003e","url":"https:\/\/lishengxie.top\/post\/go-gin-chat\/","datePublished":"2023-04-30T08:22:37\u002b08:00","dateModified":"2023-04-30T08:22:37\u002b08:00","author":{"@type":"Person","name":"Lishengxie"},"mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/lishengxie.top\/post\/go-gin-chat\/"},"publisher":{"@type":"Organization","name":"Lishengxie","logo":{"@type":"ImageObject","url":"https:\/\/lishengxie.top\/apple-touch-icon.png"}}}</script><link rel=preload href=/fonts/google-sans-flex-regular.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/google-sans-flex-bold.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/google-sans-code-regular.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/style.67ece28a8c3096abea7180060d5f4d471c309ba1793b22bb0fa0c2911012b83f.css integrity><link rel=stylesheet href=/css/custom.d35244189cd9ee1c517b8540f438678756e1b94b55064fffe74a3bbe557ee819.css><link rel="preload" href="/fonts/subset/lxgw-5098666fefb4.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:'LXGW WenKai';font-style:normal;font-weight:400;font-display:swap;src:url("/fonts/subset/lxgw-5098666fefb4.woff2") format("woff2")}</style><style>.post-list-item{overflow:hidden}.post-excerpt{word-break:break-word}</style><script>(function(){try{var e=localStorage.getItem("theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",e)}catch{}})()</script></head><body><div class=bg-backdrop aria-hidden=true></div><header class="site-header is-sticky"><div class="container header-inner"><div class=site-identity><a href=/ class=site-brand><img src=/logo.jpg alt="Lishengxie logo">
+<span class=site-title>Lishengxie</span></a><p class=site-tagline>Always on the way</p></div><button id=nav-toggle class=nav-toggle aria-label=Menu aria-controls=site-nav aria-expanded=false>
+<svg class="icon-menu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+<svg class="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button><nav id=site-nav class=site-nav><div class=main-nav><ul><li><a href=/post/>Posts</a></li><li><a href=/pages/about/>About</a></li><li><a href=/archives/>Archives</a></li><li><a href=/pages/contact/>Contact</a></li></ul></div><div class=nav-utils><a href=https://lishengxie.top/index.xml class=nav-rss aria-label="RSS Feed" target=_blank rel=noopener><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 019 9"/><path d="M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1"/></svg>
+</a><a href=/search class=nav-search aria-label=Search><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+</a><button id=theme-toggle class=theme-toggle aria-label="Toggle theme" aria-pressed=false>
+<svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></button></div></nav></div></header><main class=site-main><div id=reading-progress class=reading-progress aria-hidden=true></div><div class=container><div class="layout-grid layout-grid--sidebar-left"><article class="post-single main-content main-content--sidebar-left"><header class=post-header><nav aria-label=breadcrumb><ol class=breadcrumb><li class=breadcrumb-item><a href=/>Home</a></li><li class=breadcrumb-item><a href=/post/>Posts</a></li><li class=breadcrumb-item aria-current=page>Go Gin Chat</li></ol></nav><h1 class=post-title>Go Gin Chat</h1><div class=post-meta><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+<time datetime=2023-04-30T08:22:37+08:00>Apr 30, 2023</time>
+</span><span class=post-categories><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-folder"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+<a href=/categories/go%E5%AD%A6%E4%B9%A0/>go学习</a>
+</span><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+Lishengxie</span></div></header><div class=post-content><p>项目地址：https://github.com/hezhizheng/go-gin-chat</p><h2 id=gin框架学习>Gin框架学习</h2><p>参考<a href=https://www.lishengxie.top/gin%e6%a1%86%e6%9e%b6%e5%ad%a6%e4%b9%a0/>笔记</a></p><h2 id=websocket学习>Websocket学习</h2><p>Websocket连接是升级的HTTP连接，在连接被客户端或服务器终止之前一直存在，基于Websocket可以实现客户端和服务端之间的双工通信，而不需要对HTTP端口进行持续轮询，大大节省了网络资源开销。</p><p><code>go-gin-chat</code>中基于<code>gorilla/websocket</code>实现websocket的使用，下面是该软件包使用的示例，可以参考<a href=https://zhuanlan.zhihu.com/p/455635795>博客</a>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#75715e>// We&#39;ll need to define an Upgrader</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// this will require a Read and Write buffer size</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>upgrader</span> = <span style=color:#a6e22e>websocket</span>.<span style=color:#a6e22e>Upgrader</span>{
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>ReadBufferSize</span>:  <span style=color:#ae81ff>1024</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>WriteBufferSize</span>: <span style=color:#ae81ff>1024</span>,
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>wsEndpoint</span>(<span style=color:#a6e22e>w</span> <span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>ResponseWriter</span>, <span style=color:#a6e22e>r</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>Request</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>upgrader</span>.<span style=color:#a6e22e>CheckOrigin</span> = <span style=color:#66d9ef>func</span>(<span style=color:#a6e22e>r</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>Request</span>) <span style=color:#66d9ef>bool</span> { <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>true</span> }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// upgrade this connection to a WebSocket connection</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>ws</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>upgrader</span>.<span style=color:#a6e22e>Upgrade</span>(<span style=color:#a6e22e>w</span>, <span style=color:#a6e22e>r</span>, <span style=color:#66d9ef>nil</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>log</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#a6e22e>err</span>)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 向连接的客户端写入信息</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>log</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#e6db74>&#34;Client Connected&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>err</span> = <span style=color:#a6e22e>ws</span>.<span style=color:#a6e22e>WriteMessage</span>(<span style=color:#ae81ff>1</span>, []byte(<span style=color:#e6db74>&#34;Hi Client!&#34;</span>))
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>log</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#a6e22e>err</span>)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// listen indefinitely for new messages coming</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// through on our WebSocket connection</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>go</span> <span style=color:#a6e22e>reader</span>(<span style=color:#a6e22e>ws</span>)
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// define a reader which will listen for</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// new messages being sent to our WebSocket</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// endpoint</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>reader</span>(<span style=color:#a6e22e>conn</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>websocket</span>.<span style=color:#a6e22e>Conn</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// read in a message</span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>messageType</span>, <span style=color:#a6e22e>p</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>conn</span>.<span style=color:#a6e22e>ReadMessage</span>()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>log</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#a6e22e>err</span>)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// print out that message for clarity</span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(string(<span style=color:#a6e22e>p</span>))
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>conn</span>.<span style=color:#a6e22e>WriteMessage</span>(<span style=color:#a6e22e>messageType</span>, <span style=color:#a6e22e>p</span>); <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>log</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#a6e22e>err</span>)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=websocket心跳检测>Websocket心跳检测</h3><p>参考博客 <a href=https://www.cnblogs.com/tugenhua0707/p/8648044.html>https://www.cnblogs.com/tugenhua0707/p/8648044.html</a></p><p>在使用websocket的过程中，如果网络断开而服务器没有触发onclose事件，那么服务器会继续向客户端发送数据，这些数据将被丢失。需要<strong>心跳机制</strong>来检测客户端和服务端之间是否处于正常的链接状态。</p><p>心跳机制的大致实现方式为：每隔一段时间客户端向服务器发送一个数据包，通知服务器自己还活着，如果链接还存在服务器会发送一个数据包给客户端，客户端确认服务端也活着，否则的话可能是链接已经断开，需要重新链接。发送顺序也可以反过来由服务器向客户端发送ping信息，由客户端反馈pong信息。</p><p>go-gin-chat中使用了<a href=https://github.com/zimv/websocket-heartbeat-js>https://github.com/zimv/websocket-heartbeat-js</a>中提供的心跳检测方法，由服务段发送ping信息(&ldquo;heartbeat&rdquo;)，客户端接收到这个ping信息后返回一个pong信息，服务端重置心跳倒计时。</p><h2 id=postman使用>postman使用</h2><p>进入<a href=https://www.postman.com/>postman网站</a>注册用户并下载客户端，这里是使用postman进行POST请求提交json格式文件的<a href=https://www.cnblogs.com/yoyoketang/p/14736453.html>示例</a>。</p></div><footer></footer></article><aside class=sidebar><aside class=toc><h2 class=toc-title>Table of Contents</h2><nav id=TableOfContents><ul><li><a href=#gin框架学习>Gin框架学习</a></li><li><a href=#websocket学习>Websocket学习</a><ul><li><a href=#websocket心跳检测>Websocket心跳检测</a></li></ul></li><li><a href=#postman使用>postman使用</a></li></ul></nav></aside><div class=widget-area><div class="widget widget-recent"><h3 class=widget-title>Recent Posts</h3><ul><li><a href=/post/ai-coding-agent/>（转）每天10万行AI代码，人肉Code Review的崩塌是Infra工程的范式拐点</a>
+<time datetime=2026-06-27T01:49:22+08:00>Jun 27, 2026</time></li><li><a href=/post/distributed-id-generator-algo/>分布式ID生成方案全解析：从数据库到雪花算法</a>
+<time datetime=2026-06-25T22:53:20+08:00>Jun 25, 2026</time></li><li><a href=/post/lets-encrypt-ssl/>Let's Encrypt 免费申请 SSL 证书，并实现自动续期</a>
+<time datetime=2025-09-14T21:58:04+08:00>Sep 14, 2025</time></li><li><a href=/post/redis-listpack-ziplist/>Redis ziplist、quicklist 和 listpack</a>
+<time datetime=2025-03-03T22:44:38+08:00>Mar 3, 2025</time></li><li><a href=/post/nginx-prohibit-ip-request/>Nginx禁止使用IP直接访问服务器上相应端口</a>
+<time datetime=2024-05-11T21:48:52+08:00>May 11, 2024</time></li></ul></div><div class="widget widget-categories"><h3 class=widget-title>Categories</h3><ul><li><a href=/categories/linux/>Linux</a><span class=widget-count>7</span></li><li><a href=/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/>算法学习</a><span class=widget-count>7</span></li><li><a href=/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/>论文笔记</a><span class=widget-count>6</span></li><li><a href=/categories/c++/>C++</a><span class=widget-count>4</span></li><li><a href=/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/>未分类</a><span class=widget-count>3</span></li><li><a href=/categories/go%E5%AD%A6%E4%B9%A0/>Go学习</a><span class=widget-count>2</span></li><li><a href=/categories/redis/>Redis</a><span class=widget-count>1</span></li><li><a href=/categories/systemc/>SystemC</a><span class=widget-count>1</span></li><li><a href=/categories/verilog/>Verilog</a><span class=widget-count>1</span></li></ul></div><div class="widget widget-tags"><h3 class=widget-title>Tags</h3></div></div></aside></div><nav class=post-nav><a href=/post/snn-paper-neu_noc/ class=nav-prev><span class=nav-arrow>&larr;</span>
+<span class=nav-title>SNN映射论文阅读 Neu-NoC</span>
+</a><a href=/post/go-study/ class=nav-next><span class=nav-title>Gin框架学习</span>
+<span class=nav-arrow>&rarr;</span></a></nav><section class=related-posts><h3 class=related-title>Related Posts</h3><ul class=related-list><li class=related-item><a href=/post/go-study/ class=related-link><span class=related-item-title>Gin框架学习</span>
+<time class=related-item-date datetime=2023-04-30>Apr 30, 2023</time></a></li></ul></section><script src=https://utteranc.es/client.js repo=lishengxie/lishengxie.github.io issue-term=title theme=github-light crossorigin=anonymous async></script></div></main><footer class=site-footer><div class=container><div class=footer-info style=text-align:center><div style=white-space:nowrap><a href=https://beian.miit.gov.cn/ target=_blank rel=noopener>皖ICP备2023003716号-1</a>
+<span style="margin:0 6px">|</span>
+<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34012202341113" target=_blank rel=noopener><img src=/uploads/2023/04/beian.png alt=公安备案 style=vertical-align:middle;margin-right:3px;display:inline>皖公网安备34012202341113</a>
+<span style="margin:0 6px">|</span>
+违法和不良信息举报邮箱：<a href=mailto:1141751053@qq.com>1141751053@qq.com</a></div><div style=white-space:nowrap>Powered by <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> & <a href=https://github.com/yogirk/explore target=_blank rel=noopener>Explore Theme</a>.</div></div></div></footer><script src=/js/minimal.min.6a9ca11052c7f4a8a7596e64d3b60b3b1040bc4e6c825054f99533c3126a84a6.js integrity="sha256-apyhEFLH9KinWW5k07YLOxBAvE5sglBU+ZUzwxJqhKY=" crossorigin=anonymous defer></script></body></html>
