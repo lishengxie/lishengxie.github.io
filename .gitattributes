@@ -1,4 +1,4 @@
-  * text=auto
-  *.css text eol=lf
-  *.js text eol=lf
-  *.html text eol=lf
+# 构建产物部署仓库:关闭全部行尾转换,仓库字节 = 构建字节。
+# 这样 SRI integrity(按构建时字节计算)永远与部署内容一致,
+# 也不会再出现 CRLF→LF 的转换警告。
+* -text
