@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>滑动窗口 on Lishengxie</title><link>https://lishengxie.top/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</link><description>Recent content in 滑动窗口 on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Tue, 17 Oct 2023 20:11:52 +0800</lastBuildDate><atom:link href="https://lishengxie.top/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/index.xml" rel="self" type="application/rss+xml"/><item><title>LeetCode刷题 - 滑动窗口最大值</title><link>https://lishengxie.top/post/leetcode-moving-window-maximum/</link><pubDate>Tue, 17 Oct 2023 20:11:52 +0800</pubDate><guid>https://lishengxie.top/post/leetcode-moving-window-maximum/</guid><description>&lt;h2 id="leetcode刷题---滑动窗口最大值"&gt;LeetCode刷题 - &lt;strong&gt;滑动窗口最大值&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;参考链接:&lt;a href="https://programmercarl.com/0239.%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC.html"&gt;https://programmercarl.com/0239.%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;leetcode题目链接：&lt;a href="https://leetcode.cn/problems/sliding-window-maximum/"&gt;https://leetcode.cn/problems/sliding-window-maximum/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;给你一个整数数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。&lt;/p&gt;
+&lt;p&gt;返回滑动窗口中的最大值 。&lt;/p&gt;
+&lt;p&gt;示例 1：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;输入：nums = [1,3,-1,-3,5,3,6,7], k = 3
+输出：[3,3,5,5,6,7]
+解释：
+滑动窗口的位置 最大值&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;[1 3 -1] -3 5 3 6 7 3
+1 [3 -1 -3] 5 3 6 7 3
+1 3 [-1 -3 5] 3 6 7 5
+1 3 -1 [-3 5 3] 6 7 5
+1 3 -1 -3 [5 3 6] 7 6
+1 3 -1 -3 5 [3 6 7] 7&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>二叉树 on Lishengxie</title><link>https://lishengxie.top/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/</link><description>Recent content in 二叉树 on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Tue, 17 Oct 2023 20:15:23 +0800</lastBuildDate><atom:link href="https://lishengxie.top/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/index.xml" rel="self" type="application/rss+xml"/><item><title>LeetCode刷题-二叉树遍历迭代法</title><link>https://lishengxie.top/post/traverse-binary-tree/</link><pubDate>Tue, 17 Oct 2023 20:15:23 +0800</pubDate><guid>https://lishengxie.top/post/traverse-binary-tree/</guid><description>&lt;h2 id="leetcode题目链接"&gt;LeetCode题目链接&lt;/h2&gt;
+&lt;p&gt;二叉树的前序遍历：&lt;a href="https://leetcode.cn/problems/binary-tree-preorder-traversal/"&gt;https://leetcode.cn/problems/binary-tree-preorder-traversal/&lt;/a&gt;
+二叉树的中序遍历：&lt;a href="https://leetcode.cn/problems/binary-tree-inorder-traversal/"&gt;https://leetcode.cn/problems/binary-tree-inorder-traversal/&lt;/a&gt;
+二叉树的后序遍历：&lt;a href="https://leetcode.cn/problems/binary-tree-postorder-traversal/"&gt;https://leetcode.cn/problems/binary-tree-postorder-traversal/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;二叉树的遍历方法有两种，分别是递归法和迭代法；实际使用中由于系统调用栈有限制，使用递归法可能会导致栈溢出，这里记录三种遍历的迭代做法。最后，介绍二叉树层序遍历的两种方法。&lt;/p&gt;
+&lt;p&gt;迭代遍历法借助辅助栈实现，下面是二叉树节点的定义，使用链表实现。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;TreeNode&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; val;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; TreeNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;left;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; TreeNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;right;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; TreeNode() &lt;span style="color:#f92672"&gt;:&lt;/span&gt; val(&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;), left(&lt;span style="color:#66d9ef"&gt;nullptr&lt;/span&gt;), right(&lt;span style="color:#66d9ef"&gt;nullptr&lt;/span&gt;) {}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; TreeNode(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; x) &lt;span style="color:#f92672"&gt;:&lt;/span&gt; val(x), left(&lt;span style="color:#66d9ef"&gt;nullptr&lt;/span&gt;), right(&lt;span style="color:#66d9ef"&gt;nullptr&lt;/span&gt;) {}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; TreeNode(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; x, TreeNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;left, TreeNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;right) &lt;span style="color:#f92672"&gt;:&lt;/span&gt; val(x), left(left), right(right) {}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; };
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="前序遍历"&gt;前序遍历&lt;/h2&gt;
+&lt;p&gt;前序遍历的顺序是中左右，每次先处理中间节点，那么先将根节点入栈，然后将右孩子入栈，再将左孩子入栈。先右后左的原因是因为入栈顺序和处理顺序是相反的。前序遍历的处理代码如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Solution&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; vector&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; preorderTraversal(TreeNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt; root) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; vector&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; res;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; stack&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style="color:#f92672"&gt;*&amp;gt;&lt;/span&gt; st;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (root &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; res;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; st.push(root);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;st.empty()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; TreeNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;cur &lt;span style="color:#f92672"&gt;=&lt;/span&gt; st.top();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; st.pop();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; res.push_back(cur&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;val);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (cur&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;right) st.push(cur&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;right);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (cur&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;left) st.push(cur&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;left);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; res;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;};
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="中序遍历"&gt;中序遍历&lt;/h2&gt;
+&lt;p&gt;中序遍历处理顺序为左中右，先访问二叉树顶部的节点，随后逐层向下访问直到树最左侧的节点，再开始处理节点，这导致处理节点的顺序和访问节点的顺序不一致。中序遍历的迭代法如下所示：&lt;/p&gt;</description></item></channel></rss>

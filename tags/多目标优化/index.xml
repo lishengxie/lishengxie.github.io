@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>多目标优化 on Lishengxie</title><link>https://lishengxie.top/tags/%E5%A4%9A%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96/</link><description>Recent content in 多目标优化 on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 30 Apr 2023 08:45:39 +0800</lastBuildDate><atom:link href="https://lishengxie.top/tags/%E5%A4%9A%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96/index.xml" rel="self" type="application/rss+xml"/><item><title>多目标优化问题及两种常用解法</title><link>https://lishengxie.top/post/algorithm-study-multiopt/</link><pubDate>Sun, 30 Apr 2023 08:45:39 +0800</pubDate><guid>https://lishengxie.top/post/algorithm-study-multiopt/</guid><description>&lt;h3 id="多目标优化问题"&gt;多目标优化问题&lt;/h3&gt;
+&lt;p&gt;多目标优化（也称为多目标规划、向量优化、多标准优化、多属性优化或帕累托优化）是多标准决策制定的一个领域，涉及同时优化多个目标函数的数学优化问题，需要在权衡取舍的情况下在两个或多个相互冲突的目标之间做出最佳决策。(&lt;a href="https://en.wikipedia.org/wiki/Multi-objective_optimization"&gt;维基百科&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;多目标优化问题中目标函数之间通常相互冲突，求解多目标优化问题通常希望找到可以很好地平衡不同优化目标的解，即帕累托最优解。&lt;/p&gt;
+&lt;h4 id="多目标优化问题的数学描述"&gt;多目标优化问题的数学描述&lt;/h4&gt;
+&lt;div class="katex-display"&gt;\min_{x\in X} (f_1(x),f_2(x),\dots,f_k(x))&lt;/div&gt;&lt;p&gt;其中\(k\geq 2\)，\((f_1(x),f_2(x),\dots,f_k(x))\)式决策函数集合。&lt;/p&gt;
+&lt;h4 id="帕累托最优"&gt;帕累托最优&lt;/h4&gt;
+&lt;p&gt;帕累托最优是指这样一种情况，没有可用的行动或分配可以使一个人过得更好而不会使另一个人过得更糟。多目标优化问题中我们希望找到的就是帕累托最优解，再由决策者决定具体使用那个解。帕累托最优解集指的是所有可行解中的不可支配解集，下面我们将介绍支配和不可支配解集的概念。&lt;/p&gt;
+&lt;h4 id="支配和不可支配解集"&gt;支配和不可支配解集&lt;/h4&gt;
+&lt;p&gt;&lt;a href="https://lishengxie.top/uploads/2023/03/22.png"&gt;&lt;img src="https://lishengxie.top/uploads/2023/03/22.png" alt="帕累托前沿"&gt;&lt;/a&gt;
+当解\(x_1\)和\(x_2\)满足以下两个条件时&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于所有的目标函数，\(f_i(x_1)\leq f_i(x_2)\)，其中\(1\leq i \leq k\)&lt;/li&gt;
+&lt;li&gt;至少由一个目标函数\(f_i(x)\)满足\(f_i(x_1) &amp;lt; f_i(x_2)\)，其中\(1\leq i \leq k\)
+我们称\(x_1\)支配\(x_2\)，如上图中\(A\)和\(B\)都支配\(C\)，但彼此之间不存在支配关系。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当一个解集中任何一个解都不能被该集合中其他解支配，那么就称该解集为不可支配解集。一组帕累托最优结果，如上图中红色的边界，称为帕累托前沿或帕累托边界。&lt;/p&gt;
+&lt;p&gt;求解多目标优化问题的方法主要分为两类，一种是将多目标优化问题转换成单目标优化问题，常用的方法是对目标函数值加权求和或保留一个目标函数、其余的目标函数被转化为限定条件。但是由于实际应用中目标函数的函数值范围不好确定，因此转换成单目标优化算法的效果常常不好。实际应用更加广泛的是另一种采用多目标的优化算法。&lt;/p&gt;
+&lt;h3 id="多目标粒子群算法mopso"&gt;多目标粒子群算法MOPSO&lt;/h3&gt;
+&lt;p&gt;多目标粒子群算法最早由Coello等人提出&lt;a href="#refer-anchor"&gt;&lt;sup&gt;[1]&lt;/sup&gt;&lt;/a&gt;，算法的大致处理步骤如下所示：
+&lt;a href="https://lishengxie.top/uploads/2023/03/23.png"&gt;&lt;img src="https://lishengxie.top/uploads/2023/03/23.png" alt="MOPSO"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;和粒子群算法不同的是，这里添加了支配关系判断的步骤，同时选择全局最优解以及更新个体最优的步骤和粒子群算法也有所不同。此外，MOPSO还额外维护了精英解和解空间的网格，下面我们将分别加以介绍。&lt;/p&gt;
+&lt;p&gt;首先是支配关系的判断，根据第一部分中对于帕累托前沿和支配关系的介绍，我们知道多目标优化问题中解的优劣由支配关系来加以判断。&lt;/p&gt;
+&lt;p&gt;每次迭代开始时，我们需要从精英解集合中选择当前的全局最优解，精英解中包含的是不被其他解支配的解的集合，换言之，精英解包含的是目前获取到的帕累托前沿。选择全局最优解的步骤如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在解集空间中绘制网格，即根据当前的解集中不同目标函数的最大值和最小值，将空间均匀等分并给每个子空间添加索引，确定不同的解所对应的子空间。&lt;/li&gt;
+&lt;li&gt;对于包含解的子空间，判断每个子空间中存在的解个数\(N_1,\cdots,N_k\)，使用轮盘赌算法获取当前的全局最优解，轮盘赌的概率和解的个数呈反相关关系（让解稀疏的子空间拥有更大的被选中的概率，设法让解在帕累托前沿上分布更均匀）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;选择好当前的全局最优解后更新粒子的位置和速度，更新公式和粒子群算法一致。&lt;/p&gt;
+&lt;div class="katex-display"&gt; v_i = w \times v_i + c_1\times rand() \times ((p_{best})_i-x_i) + c_2\times rand()\times (g_{best}-x_i)&lt;/div&gt;&lt;p&gt;粒子更新后会根据粒子当前解和局部最优解之间的支配关系更新粒子的局部最优解。在更新局部最优解之前，还可以采取类似于遗传算法的步骤，以一定的概率对粒子的当前解进行变异。&lt;/p&gt;
+&lt;p&gt;更新完局部最优解之后更新精英解集合，保留当前不被其他解支配的解，同时为了避免精英解过大，可以设置一个阈值来控制精英解集合中的解数目，多余的精英解被随机抛弃。&lt;/p&gt;
+&lt;h3 id="多目标遗传算法nsga-ii"&gt;多目标遗传算法NSGA-II&lt;/h3&gt;
+&lt;p&gt;多目标遗传算法NSGA-II由Deb等人提出&lt;a href="#refer-anchor"&gt;&lt;sup&gt;[2]&lt;/sup&gt;&lt;/a&gt;，算法的大致处理步骤如下所示：
+&lt;a href="https://lishengxie.top/uploads/2023/03/24.png"&gt;&lt;img src="https://lishengxie.top/uploads/2023/03/24.png" alt="NSGA-II"&gt;&lt;/a&gt;
+相较于单目标进化算法添加了快速非支配排序和父代、子代合并操作增加种群多样性，此外从\(rank_i\) 中取出一部分个体有两种方式、一种是拥挤距离排序、另一种是随机选择。下面我们将分别加以介绍。&lt;/p&gt;
+&lt;p&gt;对于当前已有的父代解和子代集合，融合两个集合产生当前的解集合，首先执行非支配排序，非支配排序的大致步骤为，先找出解集中的非支配边沿，将这部分的解的\(rank\)置为1；去掉这部分解，继续找出剩下的解集中的非支配边沿，将这部分的解的\(rank\)置为2，重复上述步骤知道遍历完所有的解。实际实现中需要记录每个解支配的解，方便后续的\(rank\)计算，具体可以参考后面的参考代码实现。&lt;/p&gt;
+&lt;p&gt;在当前解集合中选取下一轮迭代的父代解集合。需要注意的是对于固定大小的父代解集合，这里依次从\(rank=1\)的解开始加入，知道数量满足要求。最后可能需要从\(rank=i\)的解集合中选取一部分，此时有两种方式，一种是随机选取，一种是根据拥挤度距离排序后选取。拥挤度距离计算的示意图如下，
+&lt;a href="https://lishengxie.top/uploads/2023/03/25.png"&gt;&lt;img src="https://lishengxie.top/uploads/2023/03/25.png" alt="拥挤度距离"&gt;&lt;/a&gt;
+拥挤度距离可以用来衡量当前解周围的解的密度，优先选择拥挤度距离大(解稀疏)的地方可以使得最后求得的帕累托前沿上解分布更均匀。&lt;/p&gt;
+&lt;p&gt;对当前的解执行交叉变异操作产生下一轮迭代的子代解，交叉变异操作可以有不同的实现。&lt;/p&gt;
+&lt;h3 id="代码实现"&gt;代码实现&lt;/h3&gt;
+&lt;h4 id="目标函数"&gt;目标函数&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# -*- coding : utf-8 -*-&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;from&lt;/span&gt; collections &lt;span style="color:#f92672"&gt;import&lt;/span&gt; defaultdict
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;import&lt;/span&gt; math
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;import&lt;/span&gt; numpy &lt;span style="color:#66d9ef"&gt;as&lt;/span&gt; np
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;def&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;ZDT1&lt;/span&gt;(x):
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; 测试函数——ZDT1
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; :parameter
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; :param x: 为 m 维向量，表示个体的具体解向量
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; :return f: 为两个目标方向上的函数值
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; poplength &lt;span style="color:#f92672"&gt;=&lt;/span&gt; len(x)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; f &lt;span style="color:#f92672"&gt;=&lt;/span&gt; defaultdict(float)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; g &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;9&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt; sum(x[&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;:poplength]) &lt;span style="color:#f92672"&gt;/&lt;/span&gt; (poplength &lt;span style="color:#f92672"&gt;-&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; f[&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; x[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; f[&lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; g &lt;span style="color:#f92672"&gt;*&lt;/span&gt; (&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt; pow(x[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;] &lt;span style="color:#f92672"&gt;/&lt;/span&gt; g, &lt;span style="color:#ae81ff"&gt;0.5&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; f
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;def&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;ZDT2&lt;/span&gt;(x):
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; poplength &lt;span style="color:#f92672"&gt;=&lt;/span&gt; len(x)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; f &lt;span style="color:#f92672"&gt;=&lt;/span&gt; defaultdict(float)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; g &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;9&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt; sum(x[&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;:poplength]) &lt;span style="color:#f92672"&gt;/&lt;/span&gt; (poplength &lt;span style="color:#f92672"&gt;-&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; f[&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; x[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; f[&lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; g &lt;span style="color:#f92672"&gt;*&lt;/span&gt; (&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt; (x[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;] &lt;span style="color:#f92672"&gt;/&lt;/span&gt; g) &lt;span style="color:#f92672"&gt;**&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; f
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;def&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;KUR&lt;/span&gt;(x):
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; f &lt;span style="color:#f92672"&gt;=&lt;/span&gt; defaultdict(float)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; poplength &lt;span style="color:#f92672"&gt;=&lt;/span&gt; len(x)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; f[&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; i &lt;span style="color:#f92672"&gt;in&lt;/span&gt; range(poplength &lt;span style="color:#f92672"&gt;-&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;):
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; f[&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; f[&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;] &lt;span style="color:#f92672"&gt;+&lt;/span&gt; (&lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;10&lt;/span&gt;) &lt;span style="color:#f92672"&gt;*&lt;/span&gt; math&lt;span style="color:#f92672"&gt;.&lt;/span&gt;exp((&lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;0.2&lt;/span&gt;) &lt;span style="color:#f92672"&gt;*&lt;/span&gt; (x[i] &lt;span style="color:#f92672"&gt;**&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; x[i&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;] &lt;span style="color:#f92672"&gt;**&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;) &lt;span style="color:#f92672"&gt;**&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0.5&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; i &lt;span style="color:#f92672"&gt;in&lt;/span&gt; range(poplength):
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; f[&lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; abs(x[i]) &lt;span style="color:#f92672"&gt;**&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0.8&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;5&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt; math&lt;span style="color:#f92672"&gt;.&lt;/span&gt;sin(x[i] &lt;span style="color:#f92672"&gt;**&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;3&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; f
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 轮盘赌函数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;def&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;RouletteWheelSelection&lt;/span&gt;(P):
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; idx &lt;span style="color:#f92672"&gt;=&lt;/span&gt; np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;argsort(P)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; val &lt;span style="color:#f92672"&gt;=&lt;/span&gt; np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;sort(P)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; prob &lt;span style="color:#f92672"&gt;=&lt;/span&gt; [_&lt;span style="color:#f92672"&gt;/&lt;/span&gt;sum(P) &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; _ &lt;span style="color:#f92672"&gt;in&lt;/span&gt; val] &lt;span style="color:#75715e"&gt;# 概率&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; dprob &lt;span style="color:#f92672"&gt;=&lt;/span&gt; np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;cumsum(prob) &lt;span style="color:#75715e"&gt;# 累积概率&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; seed &lt;span style="color:#f92672"&gt;=&lt;/span&gt; np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;random&lt;span style="color:#f92672"&gt;.&lt;/span&gt;random() &lt;span style="color:#75715e"&gt;# 随机数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; res &lt;span style="color:#f92672"&gt;=&lt;/span&gt; idx[(dprob&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;seed)&lt;span style="color:#f92672"&gt;.&lt;/span&gt;tolist()&lt;span style="color:#f92672"&gt;.&lt;/span&gt;index(&lt;span style="color:#66d9ef"&gt;True&lt;/span&gt;)] &lt;span style="color:#75715e"&gt;# 选择&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; res
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id="mopso"&gt;MOPSO&lt;/h4&gt;
+&lt;p&gt;参考了&lt;a href="https://yarpiz.com/59/ypea121-mopso"&gt;Matlab实现&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>

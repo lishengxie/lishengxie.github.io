@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SSL证书 on Lishengxie</title><link>https://lishengxie.top/tags/ssl%E8%AF%81%E4%B9%A6/</link><description>Recent content in SSL证书 on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 14 Sep 2025 21:58:04 +0800</lastBuildDate><atom:link href="https://lishengxie.top/tags/ssl%E8%AF%81%E4%B9%A6/index.xml" rel="self" type="application/rss+xml"/><item><title>Let's Encrypt 免费申请 SSL 证书，并实现自动续期</title><link>https://lishengxie.top/post/lets-encrypt-ssl/</link><pubDate>Sun, 14 Sep 2025 21:58:04 +0800</pubDate><guid>https://lishengxie.top/post/lets-encrypt-ssl/</guid><description>&lt;h2 id="背景"&gt;背景&lt;/h2&gt;
+&lt;p&gt;对于公网可以访问的网站，使用 HTTPS 协议是保证安全访问的基础要求，而 SSL 证书又是 HTTPS 协议不可或缺的一环。SSL 证书需要 CA 机构颁发，当前使用了阿里云的个人测试证书（免费证书），申请后上传到服务器并更新 nginx 配置。&lt;/p&gt;
+&lt;p&gt;当前存在的问题是，阿里云的免费 SSL 证书每三个月过期一次，需要手动重新申请并部署到服务器上，流程比较复杂。在网上看到可以使用 Let&amp;rsquo;s Encrypt 免费申请 SSL 证书，并实现自动续期，于是做了尝试，这里记录下相关流程。&lt;/p&gt;
+&lt;h2 id="环境准备"&gt;环境准备&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;一台可以访问公网的服务器，我使用的是 Linux/Ubuntu。&lt;/li&gt;
+&lt;li&gt;root 权限或者 sudo 权限。&lt;/li&gt;
+&lt;li&gt;存在 DNS 解析的域名。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="lets-encrypt-证书颁发"&gt;Let&amp;rsquo;s Encrypt 证书颁发&lt;/h2&gt;
+&lt;p&gt;Let’s Encrypt 是一个免费的、自动化的、开放的证书颁发机构（CA），提供免费 SSL 证书。它的目标是让所有网站都能轻松实现 HTTPS 加密，保障用户数据的安全。通过 Let’s Encrypt 可以为网站的主域名、子域名，甚至泛域名配置安全证书，而且过程完全自动化，不需要手动申请和管理证书，官方推荐使用 &lt;a href="https://certbot.eff.org/"&gt;Certbot&lt;/a&gt;。&lt;/p&gt;
+&lt;h3 id="certbot-安装"&gt;Certbot 安装&lt;/h3&gt;
+&lt;p&gt;Linux 平台上可以使用 snap 或 pip 安装 Certbot，这里使用 Python + pip 的方式，参考&lt;a href="https://certbot.eff.org/instructions?ws=nginx&amp;amp;os=pip"&gt;安装流程&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;1、首先安装 Python 环境。&lt;/p&gt;</description></item></channel></rss>

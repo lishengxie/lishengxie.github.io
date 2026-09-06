@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Makefile on Lishengxie</title><link>https://lishengxie.top/tags/makefile/</link><description>Recent content in Makefile on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 30 Apr 2023 08:37:37 +0800</lastBuildDate><atom:link href="https://lishengxie.top/tags/makefile/index.xml" rel="self" type="application/rss+xml"/><item><title>Makefile使用学习</title><link>https://lishengxie.top/post/makefile-study/</link><pubDate>Sun, 30 Apr 2023 08:37:37 +0800</pubDate><guid>https://lishengxie.top/post/makefile-study/</guid><description>&lt;h2 id="参考教程"&gt;参考教程&lt;/h2&gt;
+&lt;p&gt;原文：&lt;a href="https://makefiletutorial.com/"&gt;https://makefiletutorial.com/&lt;/a&gt;
+中文翻译：&lt;a href="https://makefiletutorial.vercel.app"&gt;https://makefiletutorial.vercel.app&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="makefile常用内容"&gt;Makefile常用内容&lt;/h2&gt;
+&lt;p&gt;本文主要基于以上教程记录一些平时阅读&lt;code&gt;Makefile&lt;/code&gt;可能会用到的信息。&lt;/p&gt;
+&lt;h3 id="makefile基础使用"&gt;Makefile基础使用&lt;/h3&gt;
+&lt;p&gt;首先，Makefile用于帮助决定一个大型程序的哪些部分需要重新编译，如果有任何文件的依赖项发生改变，那么该文件将会重新编译。Makefile通常由一组规则组成，规则通常如下所示：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-makefile" data-lang="makefile"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;target&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; prerequisites
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	command
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	command
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	command
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;target&lt;/code&gt;是文件名，以空格分隔，通常每个规则只有一个。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;command&lt;/code&gt;通常是用于制作目标的一系列步骤，需要以制表符&lt;code&gt;Tab&lt;/code&gt;而不是空格开头。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;prerequisites&lt;/code&gt;也是文件名，称为依赖项，以空格分隔，在运行针对目标的命令之前，这些文件需要存在。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下面是一个&lt;code&gt;Makefile&lt;/code&gt;的实例：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-makefile" data-lang="makefile"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;blah&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; blah.o
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	gcc blah.o -o blah &lt;span style="color:#75715e"&gt;# Runs third&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;blah.o&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; blah.c
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	gcc -c blah.c -o blah.o &lt;span style="color:#75715e"&gt;# Runs second&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# Typically blah.c would already exist, but I want to limit any additional required files
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;blah.c&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	echo &lt;span style="color:#e6db74"&gt;&amp;#34;int main() { return 0; }&amp;#34;&lt;/span&gt; &amp;gt; blah.c &lt;span style="color:#75715e"&gt;# Runs first&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;使用&lt;code&gt;make&lt;/code&gt;时默认会执行第一个目标&lt;code&gt;blah&lt;/code&gt;，或者可以指定目标进行生成&lt;code&gt;make blah&lt;/code&gt;。上面的Makefile在执行&lt;code&gt;make&lt;/code&gt;指令后按照一系列步骤进行调用：&lt;/p&gt;</description></item></channel></rss>

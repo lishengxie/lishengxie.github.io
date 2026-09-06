@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>JSON on Lishengxie</title><link>https://lishengxie.top/tags/json/</link><description>Recent content in JSON on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Wed, 16 Aug 2023 10:42:01 +0800</lastBuildDate><atom:link href="https://lishengxie.top/tags/json/index.xml" rel="self" type="application/rss+xml"/><item><title>LJson</title><link>https://lishengxie.top/post/ljson/</link><pubDate>Wed, 16 Aug 2023 10:42:01 +0800</pubDate><guid>https://lishengxie.top/post/ljson/</guid><description>&lt;h1 id="ljson"&gt;LJSon&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;A C++ library for json parse/creation/update&lt;/li&gt;
+&lt;li&gt;package地址：&lt;a href="https://github.com/lishengxie/LJson"&gt;https://github.com/lishengxie/LJson&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="开发原因"&gt;开发原因&lt;/h2&gt;
+&lt;p&gt;最近在复习C++相关的知识，想要通过一个项目来巩固C++和算法的一些相关知识，但是网上推荐的相关C++项目大多比较复杂，很难下手。刚好最近实验室项目中频繁使用json文件，想到是否可以使用C++来实现一个json的解析库，在github上搜索后看到了一些现有的json仓库，初步了解后开始进行实现。&lt;/p&gt;
+&lt;h2 id="参考仓库"&gt;参考仓库&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/510850111/cJSON/tree/master"&gt;https://github.com/510850111/cJSON/tree/master&lt;/a&gt;，在这个项目中学习了json对象的表示以及如何操作json对象；&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/ACking-you/MyUtil/tree/master/json-parser"&gt;https://github.com/ACking-you/MyUtil/tree/master/json-parser&lt;/a&gt;，在这个项目中学习了如何从json字符串中解析数据，服用了部分解析json字符串的代码；&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/nlohmann/json"&gt;https://github.com/nlohmann/json&lt;/a&gt;，著名的json处理库，从中学习了如何使用初始化列表来实现类Python的方式创建和更新json对象。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="json文件格式"&gt;json文件格式&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这里只做简单介绍，具体的格式可以参考json官网&lt;a href="http://www.json.org"&gt;http://www.json.org&lt;/a&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;json主要基于两种结构，分别是“键值对集合”和“值的有序列表”，前者可以看做字典或哈希表，后者可以看做数组。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;对象是无序的键值对集合，一个对象被包含在&lt;code&gt;{}&lt;/code&gt;中，每个键值对的格式为&lt;code&gt;key:value&lt;/code&gt;，其中&lt;code&gt;key&lt;/code&gt;是字符串，value可以是字符串、布尔类型(&lt;code&gt;true&lt;/code&gt;/&lt;code&gt;false&lt;/code&gt;)、&lt;code&gt;null&lt;/code&gt;、数值(整数或浮点数)、对象、数组；键值对之间使用&lt;code&gt;,&lt;/code&gt;分隔，对象应该使用key索引对应的值；&lt;/li&gt;
+&lt;li&gt;数组是值的有序集合，包含在&lt;code&gt;[]&lt;/code&gt;中，值可以是前面提到的字符串、布尔类型(&lt;code&gt;true&lt;/code&gt;/&lt;code&gt;false&lt;/code&gt;)、&lt;code&gt;null&lt;/code&gt;、数值(整数或浮点数)、对象、数组，值之间使用&lt;code&gt;,&lt;/code&gt;分隔；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;通过使用对象、数组以及支持两者之间的嵌套，json可以支持复杂的数据格式定义和传递。&lt;/p&gt;
+&lt;h2 id="使用数据结构表示json对象"&gt;使用数据结构表示json对象&lt;/h2&gt;
+&lt;p&gt;前面提到了json文件的格式，一种很自然的表示json对象的方式应该是使用字典表示对象，字典的值本身也可以是一个json对象，有一些json解析库中使用了这种方式，可以参考Python中&lt;code&gt;json&lt;/code&gt;库对json文件的读写。我们使用了另外一种方式，即使用树形结构来表示整个json对象，如下图所示：
+&lt;a href="https://lishengxie.top/uploads/2023/08/json-node-fig.png"&gt;&lt;img src="https://lishengxie.top/uploads/2023/08/json-node-fig.png" alt=""&gt;&lt;/a&gt;
+对应的C++定义如下，对象中的每个键值对以及数组中的每个值都使用一个JsonObject对象来表示，整个对象/数组的键值对/值使用双向链表进行表示，遍历整个双向链表即可以遍历整个json对象或数组。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;enum&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;JsonType&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; T_FALSE&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;, T_TRUE, T_NULL, T_INT, T_FLOAT, T_STRING, T_ARRAY, T_OBJECT
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;};
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;JsonObject&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;/* next和prev分别指向前一个对象和后一个对象 */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; JsonObject &lt;span style="color:#f92672"&gt;*&lt;/span&gt;next, &lt;span style="color:#f92672"&gt;*&lt;/span&gt;prev;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;/* Object和Array类型对象需要设置child指针 */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; JsonObject &lt;span style="color:#f92672"&gt;*&lt;/span&gt;child;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;/* Object的类型 */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; JsonType type;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;/* String对象的值 */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;char&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;valueString;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;/* 整数对象的值 */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; valueInt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;/* 浮点数的值 */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;double&lt;/span&gt; valueDouble;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;/* 键值对的键 */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;char&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;key;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上图为例，假设有如下的json对象&lt;/p&gt;</description></item></channel></rss>

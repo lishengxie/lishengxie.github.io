@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>开发环境 on Lishengxie</title><link>https://lishengxie.top/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link><description>Recent content in 开发环境 on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sat, 03 Jun 2023 20:34:46 +0800</lastBuildDate><atom:link href="https://lishengxie.top/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/index.xml" rel="self" type="application/rss+xml"/><item><title>内网离线服务器使用</title><link>https://lishengxie.top/post/offline-server-usage/</link><pubDate>Sat, 03 Jun 2023 20:34:46 +0800</pubDate><guid>https://lishengxie.top/post/offline-server-usage/</guid><description>&lt;p&gt;最近在跑实验时，自己的电脑出现内存不够用的问题，想到在实验室的一台闲置的服务器上运行程序。但是该服务器只能通过内网连接，无法使用外网，因此这里记录了内网离线服务器使用的一些经历。
+可以考虑在服务器上安装docker，然后在自己电脑上配好环境后导出docker镜像到服务器上运行。这里没有使用docker环境，本地环境是WSL2-Ubuntu20.04。&lt;/p&gt;
+&lt;h2 id="程序运行环境配置"&gt;程序运行环境配置&lt;/h2&gt;
+&lt;h3 id="c"&gt;C++&lt;/h3&gt;
+&lt;p&gt;针对C++程序，重新下载代码编译；&lt;/p&gt;
+&lt;h3 id="python"&gt;Python&lt;/h3&gt;
+&lt;p&gt;重新配置Python环境主要经历了以下步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;下载miniconda安装程序并安装；&lt;/li&gt;
+&lt;li&gt;WSL2环境迁移到服务器中，这里选择直接打包WSL2下面的虚拟环境目录并到服务器相应目录下解压，参考了教程&lt;a href="https://blog.csdn.net/qq_45893319/article/details/122226053"&gt;https://blog.csdn.net/qq_45893319/article/details/122226053&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;直接打包的环境，无法使用pip的问题，可以通过修改pip文件解决，参考教程&lt;a href="https://blog.csdn.net/qq_40933913/article/details/127907916"&gt;https://blog.csdn.net/qq_40933913/article/details/127907916&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;环境迁移后发现在迁移的环境中无法使用clear命令，原因是迁移过来的环境中clear文件有问题。解决方案如下：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;在出错的环境下，输入&lt;code&gt;which clear&lt;/code&gt;，然后将&lt;code&gt;clear&lt;/code&gt;地址重命名，下次再&lt;code&gt;clear&lt;/code&gt;时会生成新的。
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;mv /home/xxx/.conda/envs/yolox/bin/clear /home/xxx/.conda/envs/yolox/bin/clear_old
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="vscode连接服务器开发"&gt;vscode连接服务器开发&lt;/h3&gt;
+&lt;p&gt;参考教程&lt;a href="https://blog.csdn.net/ffriend/article/details/126680223"&gt;https://blog.csdn.net/ffriend/article/details/126680223&lt;/a&gt;。
+由于服务器离线，使用vscode连接时无法在远程服务器上下载vscode-server，这里需要手动下载一下。步骤如下&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;查看本地vscode的commit id：帮助-关于，复制commit id&lt;/li&gt;
+&lt;li&gt;本地下载vscode-server&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;wget https://update.code.visualstudio.com/commit:&lt;span style="color:#e6db74"&gt;${&lt;/span&gt;commit_id&lt;span style="color:#e6db74"&gt;}&lt;/span&gt;/server-linux-x64/stable
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 注意把:${commit_id}替换成对应的Commit ID&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start="3"&gt;
+&lt;li&gt;复制到服务器并安装&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rm ~/.vscode-server/bin/* -rf &lt;span style="color:#75715e"&gt;#把$HOME/.vscode-server/bin下的内容删干净，防止出错&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;cd ~/.vscode-server/bin
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tar -zxf vscode-server-linux-x64.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;mv vscode-server-linux-x64 &lt;span style="color:#e6db74"&gt;${&lt;/span&gt;commit_id&lt;span style="color:#e6db74"&gt;}&lt;/span&gt; &lt;span style="color:#75715e"&gt;# 注意把:${commit_id}替换成对应的Commit ID&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="服务器安装screen应用"&gt;服务器安装screen应用&lt;/h3&gt;
+&lt;p&gt;参考教程&lt;a href="https://blog.csdn.net/Demo_Null/article/details/110873673"&gt;https://blog.csdn.net/Demo_Null/article/details/110873673&lt;/a&gt;，主要是编译安装screen和ncurses两个可执行程序，这里需要管理员权限，负责无法安装到默认的安装位置。&lt;/p&gt;
+&lt;h4 id="screen常用命令如下"&gt;screen常用命令如下&lt;/h4&gt;
+&lt;p&gt;1、启动共享窗口：screen -S 名称
+2、查看当前所有共享会话：screen -ls
+3、进入共享会话：screen -r 名称
+4、退出共享会话：ctrl +a +d&lt;/p&gt;</description></item></channel></rss>

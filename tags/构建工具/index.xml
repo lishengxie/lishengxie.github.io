@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>构建工具 on Lishengxie</title><link>https://lishengxie.top/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/</link><description>Recent content in 构建工具 on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 30 Apr 2023 08:37:37 +0800</lastBuildDate><atom:link href="https://lishengxie.top/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml"/><item><title>Makefile使用学习</title><link>https://lishengxie.top/post/makefile-study/</link><pubDate>Sun, 30 Apr 2023 08:37:37 +0800</pubDate><guid>https://lishengxie.top/post/makefile-study/</guid><description>&lt;h2 id="参考教程"&gt;参考教程&lt;/h2&gt;
+&lt;p&gt;原文：&lt;a href="https://makefiletutorial.com/"&gt;https://makefiletutorial.com/&lt;/a&gt;
+中文翻译：&lt;a href="https://makefiletutorial.vercel.app"&gt;https://makefiletutorial.vercel.app&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="makefile常用内容"&gt;Makefile常用内容&lt;/h2&gt;
+&lt;p&gt;本文主要基于以上教程记录一些平时阅读&lt;code&gt;Makefile&lt;/code&gt;可能会用到的信息。&lt;/p&gt;
+&lt;h3 id="makefile基础使用"&gt;Makefile基础使用&lt;/h3&gt;
+&lt;p&gt;首先，Makefile用于帮助决定一个大型程序的哪些部分需要重新编译，如果有任何文件的依赖项发生改变，那么该文件将会重新编译。Makefile通常由一组规则组成，规则通常如下所示：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-makefile" data-lang="makefile"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;target&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; prerequisites
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	command
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	command
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	command
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;target&lt;/code&gt;是文件名，以空格分隔，通常每个规则只有一个。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;command&lt;/code&gt;通常是用于制作目标的一系列步骤，需要以制表符&lt;code&gt;Tab&lt;/code&gt;而不是空格开头。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;prerequisites&lt;/code&gt;也是文件名，称为依赖项，以空格分隔，在运行针对目标的命令之前，这些文件需要存在。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下面是一个&lt;code&gt;Makefile&lt;/code&gt;的实例：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-makefile" data-lang="makefile"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;blah&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; blah.o
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	gcc blah.o -o blah &lt;span style="color:#75715e"&gt;# Runs third&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;blah.o&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; blah.c
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	gcc -c blah.c -o blah.o &lt;span style="color:#75715e"&gt;# Runs second&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# Typically blah.c would already exist, but I want to limit any additional required files
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;blah.c&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	echo &lt;span style="color:#e6db74"&gt;&amp;#34;int main() { return 0; }&amp;#34;&lt;/span&gt; &amp;gt; blah.c &lt;span style="color:#75715e"&gt;# Runs first&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;使用&lt;code&gt;make&lt;/code&gt;时默认会执行第一个目标&lt;code&gt;blah&lt;/code&gt;，或者可以指定目标进行生成&lt;code&gt;make blah&lt;/code&gt;。上面的Makefile在执行&lt;code&gt;make&lt;/code&gt;指令后按照一系列步骤进行调用：&lt;/p&gt;</description></item><item><title>Cmake 常用指令学习</title><link>https://lishengxie.top/post/cmake-study/</link><pubDate>Sun, 30 Apr 2023 08:36:41 +0800</pubDate><guid>https://lishengxie.top/post/cmake-study/</guid><description>&lt;h2 id="参考教程"&gt;参考教程&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Cmake Cookbook:&lt;a href="https://www.bookstack.cn/read/CMake-Cookbook/README.md"&gt;https://www.bookstack.cn/read/CMake-Cookbook/README.md&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Cmake官方文档:&lt;a href="https://cmake.org/cmake/help/latest/guide/tutorial/index.html"&gt;https://cmake.org/cmake/help/latest/guide/tutorial/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Cmake入门实战: &lt;a href="https://www.hahack.com/codes/cmake/"&gt;https://www.hahack.com/codes/cmake/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;CMake 生成静态库与动态库：&lt;a href="https://blog.csdn.net/zhiyuan2021/article/details/129032343"&gt;https://blog.csdn.net/zhiyuan2021/article/details/129032343&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="cmake介绍"&gt;Cmake介绍&lt;/h2&gt;
+&lt;p&gt;Cmake是一种支持跨平台编译的工具，允许通过配置独立的配置文件&lt;code&gt;CMakeList.txt&lt;/code&gt;来定制编译流程，随后在不同的平台上进一步生成本地的&lt;code&gt;Makefile&lt;/code&gt;和工程文件(Linux平台的&lt;code&gt;Makefile&lt;/code&gt;和Windows平台的&lt;code&gt;Visual Studio&lt;/code&gt;工程等)。在linux平台下使用Cmake编译程序的主要流程是：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;编写CMakeLists.txt；&lt;/li&gt;
+&lt;li&gt;执行&lt;code&gt;cmake PATH&lt;/code&gt;生成&lt;code&gt;Makefile&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;执行&lt;code&gt;make&lt;/code&gt;编译生成可执行程序或动态/静态链接库。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="cmake使用"&gt;Cmake使用&lt;/h2&gt;
+&lt;h3 id="基础案例"&gt;基础案例&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmake" data-lang="cmake"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# CMake 最低版本号要求
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;cmake_minimum_required (&lt;span style="color:#e6db74"&gt;VERSION&lt;/span&gt; &lt;span style="color:#e6db74"&gt;2.8&lt;/span&gt;)&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 项目信息
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;project (&lt;span style="color:#e6db74"&gt;project_name&lt;/span&gt;)&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 指定生成目标
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;add_executable(&lt;span style="color:#e6db74"&gt;project_name&lt;/span&gt; &lt;span style="color:#e6db74"&gt;main.cc&lt;/span&gt;)&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;CMakeLists.txt&lt;/code&gt;的语法由命令、注释和空格组成，命令不区分大小写，&lt;code&gt;#&lt;/code&gt;后面的内容是注释。命令由命令名称、小括号和参数组成，参数之间使用空格进行间隔。上面的示例中&lt;code&gt;CmakeLists.txt&lt;/code&gt;中使用了几个常用的命令，依次是&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;cmake_minimum_required&lt;/code&gt;：指定运行当前配置文件需要的最低的Cmake版本；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;project&lt;/code&gt;：指定项目名称&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;add_executable&lt;/code&gt;：将&lt;code&gt;main.cc&lt;/code&gt;源文件编译成名为&lt;code&gt;project_name&lt;/code&gt;的可执行文件。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;实际使用中可能有多个源文件，逐个添加源文件是一件非常麻烦的事情，可以使用&lt;code&gt;aux_source_directory&lt;/code&gt;命令来获取指定目录下的所有源文件，并将结果存到指定变量名中，使用示例如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmake" data-lang="cmake"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 查找当前目录下的所有源文件
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 并将名称保存到 DIR_SRCS 变量
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;aux_source_directory(&lt;span style="color:#e6db74"&gt;.&lt;/span&gt; &lt;span style="color:#e6db74"&gt;DIR_SRCS&lt;/span&gt;)&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 指定生成目标
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;add_executable(&lt;span style="color:#e6db74"&gt;Demo&lt;/span&gt; &lt;span style="color:#f92672"&gt;${&lt;/span&gt;DIR_SRCS&lt;span style="color:#f92672"&gt;}&lt;/span&gt;)&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="cmake生成动态和静态链接库"&gt;Cmake生成动态和静态链接库&lt;/h3&gt;
+&lt;p&gt;静态和动态链接库的主要目的是为了提供接口供其他程序调用，两者的主要区别在于：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;静态链接库的拓展名通常为&lt;code&gt;.a&lt;/code&gt;或&lt;code&gt;.lib&lt;/code&gt;，在编译时会直接整合到目标程序中，编译成功的可执行文件可以独立运行（不再需要静态库）；&lt;/li&gt;
+&lt;li&gt;动态链接库的拓展名通常为&lt;code&gt;.so&lt;/code&gt;或&lt;code&gt;.dll&lt;/code&gt;，在编译时不会放到目标程序中，可执行文件无法离开动态链接库单独执行。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Cmake用于生成动态和静态链接库的命令为&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmake" data-lang="cmake"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 动态链接库
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;add_library(&lt;span style="color:#e6db74"&gt;project_name&lt;/span&gt; &lt;span style="color:#e6db74"&gt;SHARED&lt;/span&gt; &lt;span style="color:#f92672"&gt;${&lt;/span&gt;SRC_FILE&lt;span style="color:#f92672"&gt;}&lt;/span&gt;)&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 静态链接库
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;add_library(&lt;span style="color:#e6db74"&gt;project_name&lt;/span&gt; &lt;span style="color:#e6db74"&gt;STATIC&lt;/span&gt; &lt;span style="color:#f92672"&gt;${&lt;/span&gt;SRC_FILE&lt;span style="color:#f92672"&gt;}&lt;/span&gt;)&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="cmake引用外部库文件"&gt;Cmake引用外部库文件&lt;/h3&gt;
+&lt;p&gt;Cmake中另外一个常用的使用场景是使用外部库，对于外部库，我们通常需要进行两步操作，即引入头文件和添加链接库，具体示例如下所示：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmake" data-lang="cmake"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 引入头文件所在路径
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;include_directories{include_path}
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 添加链接库
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;target_link_libraries(&lt;span style="color:#e6db74"&gt;project_name&lt;/span&gt; &lt;span style="color:#e6db74"&gt;lib_name&lt;/span&gt;)&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="其他常见的cmkae命令"&gt;其他常见的Cmkae命令&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmake" data-lang="cmake"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 设置C++标准为C++14
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;set(&lt;span style="color:#e6db74"&gt;CMAKE_CXX_STANDARD&lt;/span&gt; &lt;span style="color:#e6db74"&gt;14&lt;/span&gt;)&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item></channel></rss>

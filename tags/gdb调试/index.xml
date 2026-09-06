@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>GDB调试 on Lishengxie</title><link>https://lishengxie.top/tags/gdb%E8%B0%83%E8%AF%95/</link><description>Recent content in GDB调试 on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 30 Apr 2023 08:40:25 +0800</lastBuildDate><atom:link href="https://lishengxie.top/tags/gdb%E8%B0%83%E8%AF%95/index.xml" rel="self" type="application/rss+xml"/><item><title>Gdb调试学习</title><link>https://lishengxie.top/post/gdb-study/</link><pubDate>Sun, 30 Apr 2023 08:40:25 +0800</pubDate><guid>https://lishengxie.top/post/gdb-study/</guid><description>&lt;h2 id="前言"&gt;前言&lt;/h2&gt;
+&lt;p&gt;使用linux进行systemc的开发时经常出现core dump的文件，对于较大的项目vscode无法很快地进行debug，clion对makefile的支持不是很好，此时想到使用gdb进行调试并学习了一些基本的操作。以下的内容主要参考这篇博客和gdb debug的参考文档。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="https://www.yanbinghu.com/2019/04/20/41283.html"&gt;https://www.yanbinghu.com/2019/04/20/41283.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.eecs.umich.edu/courses/eecs373/readings/Debugger.pdf"&gt;Debugging with GDB&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="启动调试"&gt;启动调试&lt;/h2&gt;
+&lt;p&gt;GDB需要一个带有调试信息的可执行文件进行调试，因此编译过程中出现的错误无法使用GDB进行排除。通常对于C或者C++程序来说，在编译时加上&lt;code&gt;-g&lt;/code&gt;参数可以保留调试信息，否则不能使用GDB进行调试。使用cmake时，可以在&lt;code&gt;CMakeLists.txt&lt;/code&gt;文件中添加以下指令以支持GDB调试。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmake" data-lang="cmake"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;SET(&lt;span style="color:#e6db74"&gt;CMAKE_BUILD_TYPE&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;Debug&amp;#34;&lt;/span&gt;)&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;SET(&lt;span style="color:#e6db74"&gt;CMAKE_CXX_FLAGS_DEBUG&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb&amp;#34;&lt;/span&gt;)&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;SET(&lt;span style="color:#e6db74"&gt;CMAKE_CXX_FLAGS_RELEASE&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;$ENV{CXXFLAGS} -O3 -Wall&amp;#34;&lt;/span&gt;)&lt;span style="color:#960050;background-color:#1e0010"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果程序不是自己编译的，那么如何判断文件中是否带有调试信息呢，这篇&lt;a href="https://www.yanbinghu.com/2019/04/20/41283.html"&gt;博客&lt;/a&gt;中给出了几种调试的方法。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;使用gdb&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ gdb main
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Reading symbols from main...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果提示no debugging symbols found, 那么不可以使用gdb调试该可执行文件。
+2. readelf&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# main是可执行文件名称&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ readelf -S main | grep debug
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start="3"&gt;
+&lt;li&gt;file查看strip状况&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ file main
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果输出内容为xxx stripped, 那么说明该文件的调试信息已经被去除，不能使用gdb调试。但是not stripped的情况不能说明该文件可以被调试。&lt;/p&gt;
+&lt;h2 id="启动调试-1"&gt;启动调试&lt;/h2&gt;
+&lt;h3 id="无参数程序"&gt;无参数程序&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ gdb main
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;(&lt;/span&gt;gdb&lt;span style="color:#f92672"&gt;)&lt;/span&gt; run
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;输入run命令即可运行程序。&lt;/p&gt;</description></item></channel></rss>

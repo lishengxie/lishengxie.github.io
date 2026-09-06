@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>数字电路 on Lishengxie</title><link>https://lishengxie.top/tags/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/</link><description>Recent content in 数字电路 on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 30 Apr 2023 08:30:15 +0800</lastBuildDate><atom:link href="https://lishengxie.top/tags/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/index.xml" rel="self" type="application/rss+xml"/><item><title>Verilog Note</title><link>https://lishengxie.top/post/verilog-note/</link><pubDate>Sun, 30 Apr 2023 08:30:15 +0800</pubDate><guid>https://lishengxie.top/post/verilog-note/</guid><description>&lt;h3 id="参考书籍"&gt;参考书籍：&lt;/h3&gt;
+&lt;p&gt;《手把手教你学FPGA设计：基于大道至简的至简设计法》&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;百度网盘链接：https://pan.baidu.com/s/12knuxzb4Z6z_8gR-By-l-A
+提取码：mwzd&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;自己实现的书中的模块和相应的testbench测试：&lt;a href="https://github.com/lishengxie/verilog-learning.git"&gt;https://github.com/lishengxie/verilog-learning.git&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="计数器"&gt;计数器&lt;/h3&gt;
+&lt;h4 id="设计规则"&gt;设计规则&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;计数器需要考虑三要素：初值、加一条件和结束值（通常依次考虑）；&lt;/li&gt;
+&lt;li&gt;计数初值必须为0；&lt;/li&gt;
+&lt;li&gt;使用某个计数值时必须同时满足加1条件；例如加1条件为&lt;code&gt;add_cnt&lt;/code&gt;且&lt;code&gt;add_cnt &amp;amp;&amp;amp; cnt==4&lt;/code&gt;时表示计数到第五个，而&lt;code&gt;add_cnt==0 &amp;amp;&amp;amp; cnt==4&lt;/code&gt;不表示计数到第五个；&lt;/li&gt;
+&lt;li&gt;计数条件必须&lt;strong&gt;同时满足加一条件&lt;/strong&gt;，且结束值必须是&lt;code&gt;x-1&lt;/code&gt;的形式；&lt;/li&gt;
+&lt;li&gt;当从计数器取某个数时，assign形式必须为：&lt;code&gt;(加一条件) &amp;amp;&amp;amp; (cnt==计数值-1)&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;结束后计数值需要回到0；&lt;/li&gt;
+&lt;li&gt;需要限定范围时，推荐使用&lt;code&gt;&amp;gt;=&lt;/code&gt;和&lt;code&gt;&amp;lt;&lt;/code&gt;两种符号，尽量不要使用大于或者小于等于两种符号；&lt;/li&gt;
+&lt;li&gt;计数器设计时，先写计数器的always段，条件用名字代替，随后使用assign语句依次写出加一条件和结束条件；由此可以得出计数器的模板写法如下所示&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-verilog" data-lang="verilog"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 中文词语方便理解，实际使用需要更改为相应的变量名
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;always&lt;/span&gt; @(&lt;span style="color:#66d9ef"&gt;posedge&lt;/span&gt; clk &lt;span style="color:#66d9ef"&gt;or&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;negedge&lt;/span&gt; rst_n) &lt;span style="color:#66d9ef"&gt;begin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(rst_n&lt;span style="color:#f92672"&gt;==&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;&amp;#39;b0&lt;/span&gt;)&lt;span style="color:#66d9ef"&gt;begin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cnt &lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;end&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(&lt;span style="color:#960050;background-color:#1e0010"&gt;加一条件&lt;/span&gt;)&lt;span style="color:#66d9ef"&gt;begin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(&lt;span style="color:#960050;background-color:#1e0010"&gt;结束条件&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cnt &lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cnt &lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt; cnt &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;assign&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;加一条件&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; xxxxxx;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;assign&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;结束条件&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (&lt;span style="color:#960050;background-color:#1e0010"&gt;加一条件&lt;/span&gt;) &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; (cnt&lt;span style="color:#f92672"&gt;==&lt;/span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;计数值&lt;/span&gt;&lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start="9"&gt;
+&lt;li&gt;
+&lt;p&gt;加一条件必须与计数器严格对齐，其他信号一律向计数器对齐；例如，现在需要输出两个信号&lt;code&gt;dout0&lt;/code&gt;和&lt;code&gt;dout1&lt;/code&gt;，&lt;code&gt;dout0&lt;/code&gt;在计数到6时拉高，&lt;code&gt;dout1&lt;/code&gt;在计数到7时拉高，因此&lt;code&gt;dout0&lt;/code&gt;变1的条件为&lt;code&gt;add_cnt &amp;amp;&amp;amp; cnt==6-1&lt;/code&gt;，&lt;code&gt;dout1&lt;/code&gt;变1的条件有两种写法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;dout0 == 1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;add_cnt &amp;amp;&amp;amp; cnt==7-1&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;第一种写法是间接向计数器对齐，是非常不好的方法，建议使用第二种直接向计数器对齐；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;加一条件统一前缀为&lt;code&gt;add_&lt;/code&gt;，结束条件统一前缀为&lt;code&gt;end_&lt;/code&gt;；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;暂不使用减1计数器。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="状态机"&gt;状态机&lt;/h3&gt;
+&lt;h4 id="设计规则-1"&gt;设计规则&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;使用四段式写法
+第一段为同步时序的always模块，用于格式化描述次态迁移到现态寄存器；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-verilog" data-lang="verilog"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;always&lt;/span&gt; @(&lt;span style="color:#66d9ef"&gt;posedge&lt;/span&gt; clk &lt;span style="color:#66d9ef"&gt;or&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;negedge&lt;/span&gt; rst_n) &lt;span style="color:#66d9ef"&gt;begin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(&lt;span style="color:#f92672"&gt;!&lt;/span&gt;rst_n) &lt;span style="color:#66d9ef"&gt;begin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		state_c &lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt; IDLE;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;begin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		state_c &lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt; state_n;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第二段为组合逻辑的always块，用于描述状态转移条件判断，以三个状态的状态机IDLE-&amp;gt;S1-&amp;gt;S2-&amp;gt;IDLE为例；&lt;/p&gt;</description></item></channel></rss>

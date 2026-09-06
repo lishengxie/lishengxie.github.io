@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>命令行 on Lishengxie</title><link>https://lishengxie.top/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/</link><description>Recent content in 命令行 on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 30 Apr 2023 08:47:32 +0800</lastBuildDate><atom:link href="https://lishengxie.top/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux常用命令记录</title><link>https://lishengxie.top/post/linux-command/</link><pubDate>Sun, 30 Apr 2023 08:47:32 +0800</pubDate><guid>https://lishengxie.top/post/linux-command/</guid><description>&lt;h3 id="vim"&gt;Vim&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;vim删除文件中的所有内容&lt;/strong&gt;： ESC确保退出编辑模式，按下&amp;quot;:&amp;ldquo;切换到命令模式然后输入%d并执行
+&lt;strong&gt;vim删除单行内容&lt;/strong&gt;：将光标移动到需要删除的行，ESC确保退出编辑模式，按两次d键。
+&lt;strong&gt;vim删除多行内容&lt;/strong&gt;：将光标移动到需要删除的第一行，ESC确保退出编辑模式。在dd命令前面加上要删除的行数。例如，如果要删除第4行以下的3行，请先移动至第四行，再按下3dd。
+&lt;strong&gt;vim撤销&amp;amp;恢复&lt;/strong&gt;：u是撤销刚才做的动作，ctrl+r 是恢复刚才撤销的动作。&lt;/p&gt;
+&lt;h3 id="文件操作"&gt;文件操作&lt;/h3&gt;
+&lt;p&gt;参考博客&lt;a href="https://www.cnblogs.com/liaojie970/p/6746230.html"&gt;https://www.cnblogs.com/liaojie970/p/6746230.html&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id="文件复制"&gt;文件复制&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;命令格式：cp &lt;span style="color:#f92672"&gt;[&lt;/span&gt;-adfilprsu&lt;span style="color:#f92672"&gt;]&lt;/span&gt; 源文件&lt;span style="color:#f92672"&gt;(&lt;/span&gt;source&lt;span style="color:#f92672"&gt;)&lt;/span&gt; 目标文件&lt;span style="color:#f92672"&gt;(&lt;/span&gt;destination&lt;span style="color:#f92672"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;cp &lt;span style="color:#f92672"&gt;[&lt;/span&gt;option&lt;span style="color:#f92672"&gt;]&lt;/span&gt; source1 source2 source3 ... directory
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;参数说明：&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;-a:是指archive的意思，也说是指复制所有的目录
+-d:若源文件为连接文件(link file)，则复制连接文件属性而非文件本身
+-f:强制(force)，若有重复或其它疑问时，不会询问用户，而强制复制
+-i:若目标文件(destination)已存在，在覆盖时会先询问是否真的操作
+-l:建立硬连接(hard link)的连接文件，而非复制文件本身
+-p:与文件的属性一起复制，而非使用默认属性
+-r:递归复制，用于目录的复制操作
+-s:复制成符号连接文件(symbolic link)，即“快捷方式”文件
+-u:若目标文件比源文件旧，更新目标文件 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如将/test1目录下的file1复制到/test3目录，并将文件名改为file2,可输入以下命令：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;cp /test1/file1 /test3/file2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id="文件移动"&gt;文件移动&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;命令格式：mv &lt;span style="color:#f92672"&gt;[&lt;/span&gt;-fiv&lt;span style="color:#f92672"&gt;]&lt;/span&gt; source destination
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;参数说明:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;-f:force，强制直接移动而不询问
+-i:若目标文件(destination)已经存在，就会询问是否覆盖
+-u:若目标文件已经存在，且源文件比较新，才会更新
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如将/test1目录下的file1移动到/test3 目录，并将文件名改为file2,可输入以下命令：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;mv /test1/file1 /test3/file2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id="文件删除"&gt;文件删除&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;命令格式：rm &lt;span style="color:#f92672"&gt;[&lt;/span&gt;fir&lt;span style="color:#f92672"&gt;]&lt;/span&gt; 文件或目录
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;参数说明：&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;-f:强制删除
+-i:交互模式，在删除前询问用户是否操作
+-r:递归删除，常用在目录的删除
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如删除/test目录下的file1文件，可以输入以下命令：&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;rm -i /test/file1
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="windows-常用命令"&gt;Windows 常用命令&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;PowerShell创建新文件夹和新文件&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;mkdir 文件夹名称
+new-item 文件名称.文件格式 -type file
+&lt;/code&gt;&lt;/pre&gt;</description></item></channel></rss>

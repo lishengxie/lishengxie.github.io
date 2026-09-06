@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>服务器运维 on Lishengxie</title><link>https://lishengxie.top/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/</link><description>Recent content in 服务器运维 on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 30 Apr 2023 08:51:16 +0800</lastBuildDate><atom:link href="https://lishengxie.top/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml"/><item><title>云服务器软件安装</title><link>https://lishengxie.top/post/cloud-server-software-install/</link><pubDate>Sun, 30 Apr 2023 08:51:16 +0800</pubDate><guid>https://lishengxie.top/post/cloud-server-software-install/</guid><description>&lt;p&gt;&lt;strong&gt;Docker安装(Ubuntu 20.04)&lt;/strong&gt;：参考&lt;a href="https://zhuanlan.zhihu.com/p/143156163"&gt;知乎博客&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;更新软件包索引，并且安装必要的依赖软件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;sudo apt update
+sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start="2"&gt;
+&lt;li&gt;使用下面的 curl 导入源仓库的 GPG key：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start="3"&gt;
+&lt;li&gt;将 Docker APT 软件源添加到你的系统：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;sudo add-apt-repository &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start="4"&gt;
+&lt;li&gt;安装Docker
+a. 安装最新版本的Docker
+&lt;pre tabindex="0"&gt;&lt;code&gt;sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io
+&lt;/code&gt;&lt;/pre&gt;b. 安装指定版本的docker
+&lt;pre tabindex="0"&gt;&lt;code&gt;# 列出所有可用的docker版本
+sudo apt update
+apt list -a docker-ce
+# 安装docker
+sudo apt install docker-ce=&amp;lt;VERSION&amp;gt; docker-ce-cli=&amp;lt;VERSION&amp;gt; containerd.io
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;验证安装成功&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;sudo systemctl status docker
+docker container run hello-world
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Golang安装&lt;/strong&gt;：参考&lt;a href="https://cloud.tencent.com/developer/article/1623121"&gt;腾讯云博客&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>
