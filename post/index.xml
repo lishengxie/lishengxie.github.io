@@ -4,12 +4,13 @@
 &lt;/blockquote&gt;
 &lt;div class="katex-display"&gt;L=-\sum t_{i}\log(y_{i}),y_{i}=\text{softmax}\left(x\right)_{i}=\frac{e^{x_{i}}}{\sum e^{x_{d}}}&lt;/div&gt;&lt;h2 id="softmax-cross-entropy-loss--前向与梯度计算"&gt;Softmax Cross-Entropy Loss — 前向与梯度计算&lt;/h2&gt;
 &lt;h2 id="1-问题设定"&gt;1. 问题设定&lt;/h2&gt;
-&lt;p&gt;给定一个分类任务，共有 (C) 个类别。对于一个样本，模型输出 logits 向量 &lt;span class="katex-inline"&gt;\mathbf{x} \in \mathbb{R}^{C}&lt;/span&gt;，真实标签为 &lt;span class="katex-inline"&gt;t \in \{0, 1, \dots, C-1\}&lt;/span&gt;（也可用 one-hot 向量 &lt;span class="katex-inline"&gt;\mathbf{t} \in \{0,1\}^{C}&lt;/span&gt; 表示）。&lt;/p&gt;
+&lt;p&gt;给定一个分类任务，共有 &lt;span class="katex-inline"&gt;C&lt;/span&gt; 个类别。对于一个样本，模型输出 logits 向量 &lt;span class="katex-inline"&gt;\mathbf{x} \in \mathbb{R}^{C}&lt;/span&gt;，真实标签为 &lt;span class="katex-inline"&gt;t \in \{0, 1, \dots, C-1\}&lt;/span&gt;（也可用 one-hot 向量 &lt;span class="katex-inline"&gt;\mathbf{t} \in \{0,1\}^{C}&lt;/span&gt; 表示）。&lt;/p&gt;
 &lt;h2 id="2-前向传播-forward-pass"&gt;2. 前向传播 (Forward Pass)&lt;/h2&gt;
 &lt;h3 id="21-softmax-激活"&gt;2.1 Softmax 激活&lt;/h3&gt;
 &lt;div class="katex-display"&gt;y_i = \text{softmax}(\mathbf{x})_i = \frac{e^{x_i}}{\sum_{d=1}^{C} e^{x_d}}, \quad i = 1, 2, \dots, C&lt;/div&gt;&lt;p&gt;其中 &lt;span class="katex-inline"&gt;y_i&lt;/span&gt; 表示模型对第 &lt;span class="katex-inline"&gt;i&lt;/span&gt; 类的预测概率，满足 &lt;span class="katex-inline"&gt;\sum_i y_i = 1&lt;/span&gt; 且 &lt;span class="katex-inline"&gt;y_i &gt; 0&lt;/span&gt;。&lt;/p&gt;
 &lt;h3 id="22-交叉熵损失-cross-entropy-loss"&gt;2.2 交叉熵损失 (Cross-Entropy Loss)&lt;/h3&gt;
-&lt;p&gt;对于单个样本（真实标签为类别 (t)）：&lt;/p&gt;</description></item><item><title>分布式ID生成方案全解析：从数据库到雪花算法</title><link>https://lishengxie.top/post/distributed-id-generator-algo/</link><pubDate>Thu, 25 Jun 2026 22:53:20 +0800</pubDate><guid>https://lishengxie.top/post/distributed-id-generator-algo/</guid><description>&lt;p&gt;在分布式系统中，全局唯一ID是一个常见的需求。无论是分库分表后的主键冲突，还是订单号、用户ID等需要唯一标识的场景，都离不开一个可靠的分布式ID生成器。本文将带你了解分布式ID的基本要求，并梳理多种实现方案，从简单的数据库自增到高性能的雪花算法，最后介绍各大厂的开源组件。&lt;/p&gt;
+&lt;p&gt;对于单个样本（真实标签为类别 &lt;span class="katex-inline"&gt;t&lt;/span&gt;）：&lt;/p&gt;
+&lt;div class="katex-display"&gt;L = - \sum_{i=1}^{C} t_i \log(y_i) = -\log(y_t)&lt;/div&gt;&lt;p&gt;由于 &lt;span class="katex-inline"&gt;t_i&lt;/span&gt; 是 one-hot 向量（只有 &lt;span class="katex-inline"&gt;t_t = 1&lt;/span&gt;，其余为 &lt;span class="katex-inline"&gt;0&lt;/span&gt;），因此损失简化为仅对真实类别 &lt;span class="katex-inline"&gt;t&lt;/span&gt; 的负对数似然：&lt;/p&gt;</description></item><item><title>分布式ID生成方案全解析：从数据库到雪花算法</title><link>https://lishengxie.top/post/distributed-id-generator-algo/</link><pubDate>Thu, 25 Jun 2026 22:53:20 +0800</pubDate><guid>https://lishengxie.top/post/distributed-id-generator-algo/</guid><description>&lt;p&gt;在分布式系统中，全局唯一ID是一个常见的需求。无论是分库分表后的主键冲突，还是订单号、用户ID等需要唯一标识的场景，都离不开一个可靠的分布式ID生成器。本文将带你了解分布式ID的基本要求，并梳理多种实现方案，从简单的数据库自增到高性能的雪花算法，最后介绍各大厂的开源组件。&lt;/p&gt;
 &lt;h2 id="一什么是分布式id"&gt;一、什么是分布式ID？&lt;/h2&gt;
 &lt;p&gt;分布式ID是指在分布式环境下生成的全局唯一标识符。典型应用场景包括：&lt;/p&gt;
 &lt;ul&gt;

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>损失函数 on Lishengxie</title><link>https://lishengxie.top/tags/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</link><description>Recent content in 损失函数 on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Mon, 07 Sep 2026 22:45:35 +0800</lastBuildDate><atom:link href="https://lishengxie.top/tags/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/index.xml" rel="self" type="application/rss+xml"/><item><title>交叉熵Loss</title><link>https://lishengxie.top/post/softmax-cross-entropy/</link><pubDate>Mon, 07 Sep 2026 22:45:35 +0800</pubDate><guid>https://lishengxie.top/post/softmax-cross-entropy/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;网课学习：https://haoailab.com/cse234-w25/&lt;/p&gt;
+&lt;p&gt;Week2 autodiff 章节问题推导&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="katex-display"&gt;L=-\sum t_{i}\log(y_{i}),y_{i}=\text{softmax}\left(x\right)_{i}=\frac{e^{x_{i}}}{\sum e^{x_{d}}}&lt;/div&gt;&lt;h2 id="softmax-cross-entropy-loss--前向与梯度计算"&gt;Softmax Cross-Entropy Loss — 前向与梯度计算&lt;/h2&gt;
+&lt;h2 id="1-问题设定"&gt;1. 问题设定&lt;/h2&gt;
+&lt;p&gt;给定一个分类任务，共有 &lt;span class="katex-inline"&gt;C&lt;/span&gt; 个类别。对于一个样本，模型输出 logits 向量 &lt;span class="katex-inline"&gt;\mathbf{x} \in \mathbb{R}^{C}&lt;/span&gt;，真实标签为 &lt;span class="katex-inline"&gt;t \in \{0, 1, \dots, C-1\}&lt;/span&gt;（也可用 one-hot 向量 &lt;span class="katex-inline"&gt;\mathbf{t} \in \{0,1\}^{C}&lt;/span&gt; 表示）。&lt;/p&gt;
+&lt;h2 id="2-前向传播-forward-pass"&gt;2. 前向传播 (Forward Pass)&lt;/h2&gt;
+&lt;h3 id="21-softmax-激活"&gt;2.1 Softmax 激活&lt;/h3&gt;
+&lt;div class="katex-display"&gt;y_i = \text{softmax}(\mathbf{x})_i = \frac{e^{x_i}}{\sum_{d=1}^{C} e^{x_d}}, \quad i = 1, 2, \dots, C&lt;/div&gt;&lt;p&gt;其中 &lt;span class="katex-inline"&gt;y_i&lt;/span&gt; 表示模型对第 &lt;span class="katex-inline"&gt;i&lt;/span&gt; 类的预测概率，满足 &lt;span class="katex-inline"&gt;\sum_i y_i = 1&lt;/span&gt; 且 &lt;span class="katex-inline"&gt;y_i &gt; 0&lt;/span&gt;。&lt;/p&gt;
+&lt;h3 id="22-交叉熵损失-cross-entropy-loss"&gt;2.2 交叉熵损失 (Cross-Entropy Loss)&lt;/h3&gt;
+&lt;p&gt;对于单个样本（真实标签为类别 &lt;span class="katex-inline"&gt;t&lt;/span&gt;）：&lt;/p&gt;
+&lt;div class="katex-display"&gt;L = - \sum_{i=1}^{C} t_i \log(y_i) = -\log(y_t)&lt;/div&gt;&lt;p&gt;由于 &lt;span class="katex-inline"&gt;t_i&lt;/span&gt; 是 one-hot 向量（只有 &lt;span class="katex-inline"&gt;t_t = 1&lt;/span&gt;，其余为 &lt;span class="katex-inline"&gt;0&lt;/span&gt;），因此损失简化为仅对真实类别 &lt;span class="katex-inline"&gt;t&lt;/span&gt; 的负对数似然：&lt;/p&gt;</description></item></channel></rss>
