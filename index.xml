@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Lishengxie</title><link>https://lishengxie.top/</link><description>Recent content on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Mon, 07 Sep 2026 22:45:35 +0800</lastBuildDate><atom:link href="https://lishengxie.top/index.xml" rel="self" type="application/rss+xml"/><item><title>交叉熵Loss</title><link>https://lishengxie.top/post/softmax-cross-entropy/</link><pubDate>Mon, 07 Sep 2026 22:45:35 +0800</pubDate><guid>https://lishengxie.top/post/softmax-cross-entropy/</guid><description>&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Lishengxie</title><link>https://lishengxie.top/</link><description>Recent content on Lishengxie</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Wed, 16 Sep 2026 23:02:15 +0800</lastBuildDate><atom:link href="https://lishengxie.top/index.xml" rel="self" type="application/rss+xml"/><item><title>Tinylfu</title><link>https://lishengxie.top/post/tinylfu/</link><pubDate>Wed, 16 Sep 2026 23:02:15 +0800</pubDate><guid>https://lishengxie.top/post/tinylfu/</guid><description/></item><item><title>交叉熵Loss</title><link>https://lishengxie.top/post/softmax-cross-entropy/</link><pubDate>Mon, 07 Sep 2026 22:45:35 +0800</pubDate><guid>https://lishengxie.top/post/softmax-cross-entropy/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;网课学习：https://haoailab.com/cse234-w25/&lt;/p&gt;
 &lt;p&gt;Week2 autodiff 章节问题推导&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1431,8 +1431,28 @@ step6: 最后找到全局最优解：判断\(T\)是否已经达到终止温度\(
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="websocket心跳检测"&gt;Websocket心跳检测&lt;/h3&gt;
-&lt;p&gt;参考博客 &lt;a href="https://www.cnblogs.com/tugenhua0707/p/8648044.html"&gt;https://www.cnblogs.com/tugenhua0707/p/8648044.html&lt;/a&gt;&lt;/p&gt;</description></item><item><title>About</title><link>https://lishengxie.top/pages/about/</link><pubDate>Sun, 30 Apr 2023 08:15:52 +0800</pubDate><guid>https://lishengxie.top/pages/about/</guid><description>&lt;p&gt;后端开发工程师，Java技术栈学习ing~&lt;/p&gt;
-&lt;p&gt;AI Coder，希望可以做出更多有趣的东西~&lt;/p&gt;</description></item><item><title>Contact</title><link>https://lishengxie.top/pages/contact/</link><pubDate>Sun, 30 Apr 2023 08:15:52 +0800</pubDate><guid>https://lishengxie.top/pages/contact/</guid><description>&lt;p&gt;Reach me through &lt;a href="https://github.com/lishengxie"&gt;github&lt;/a&gt; or &lt;a href="mailto:1141751053@qq.com"&gt;email&lt;/a&gt;~&lt;/p&gt;</description></item><item><title>SNN映射论文阅读 Neu-NoC</title><link>https://lishengxie.top/post/snn-paper-neu_noc/</link><pubDate>Sun, 30 Apr 2023 00:19:30 +0800</pubDate><guid>https://lishengxie.top/post/snn-paper-neu_noc/</guid><description>&lt;p&gt;&lt;strong&gt;Neu-NoC&lt;/strong&gt;: A High-efﬁcient Interconnection Network for Accelerated Neuromorphic Systems&lt;/p&gt;
+&lt;p&gt;参考博客 &lt;a href="https://www.cnblogs.com/tugenhua0707/p/8648044.html"&gt;https://www.cnblogs.com/tugenhua0707/p/8648044.html&lt;/a&gt;&lt;/p&gt;</description></item><item><title>关于我</title><link>https://lishengxie.top/pages/about/</link><pubDate>Sun, 30 Apr 2023 08:15:52 +0800</pubDate><guid>https://lishengxie.top/pages/about/</guid><description>&lt;p&gt;你好，我是 Lishengxie，一名后端开发工程师，正在持续学习 Java 技术栈，也尝试用 AI 辅助编程，把想法做成有趣的东西。&lt;/p&gt;
+&lt;h2 id="这里记录什么"&gt;这里记录什么&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;后端与数据结构&lt;/strong&gt;：分布式 ID、Redis 数据结构，以及开发中遇到的问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux 与部署实践&lt;/strong&gt;：服务器配置、HTTPS 证书、Nginx 和建站过程。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;算法学习&lt;/strong&gt;：刷题笔记、优化算法与深度学习课程中的推导。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;论文阅读&lt;/strong&gt;：SNN、NoC 与神经网络映射相关的阅读记录。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些文章是我的学习与实践笔记。我希望把解决问题的过程、关键细节和参考资料留下来，方便自己回看，也供遇到类似问题的人参考。&lt;/p&gt;
+&lt;h2 id="从这里开始"&gt;从这里开始&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://lishengxie.top/post/distributed-id-generator-algo/"&gt;分布式 ID 生成方案：从数据库到雪花算法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://lishengxie.top/post/redis-listpack-ziplist/"&gt;Redis ziplist、quicklist 和 listpack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://lishengxie.top/post/algorithm-study-multiopt/"&gt;多目标优化问题及两种常用解法&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;更多笔记可以在&lt;a href="https://lishengxie.top/post/"&gt;文章列表&lt;/a&gt;或&lt;a href="https://lishengxie.top/archives/"&gt;归档&lt;/a&gt;中找到。&lt;/p&gt;
+&lt;h2 id="找到我"&gt;找到我&lt;/h2&gt;
+&lt;p&gt;可以通过 &lt;a href="https://github.com/lishengxie"&gt;GitHub&lt;/a&gt; 或&lt;a href="mailto:1141751053@qq.com"&gt;邮件&lt;/a&gt;交流。&lt;/p&gt;</description></item><item><title>联系</title><link>https://lishengxie.top/pages/contact/</link><pubDate>Sun, 30 Apr 2023 08:15:52 +0800</pubDate><guid>https://lishengxie.top/pages/contact/</guid><description>&lt;p&gt;如果你发现笔记中的问题，或想交流开发与学习经验，可以通过以下方式找到我：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/lishengxie"&gt;GitHub · lishengxie&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="mailto:1141751053@qq.com"&gt;邮件 · 1141751053@qq.com&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>SNN映射论文阅读 Neu-NoC</title><link>https://lishengxie.top/post/snn-paper-neu_noc/</link><pubDate>Sun, 30 Apr 2023 00:19:30 +0800</pubDate><guid>https://lishengxie.top/post/snn-paper-neu_noc/</guid><description>&lt;p&gt;&lt;strong&gt;Neu-NoC&lt;/strong&gt;: A High-efﬁcient Interconnection Network for Accelerated Neuromorphic Systems&lt;/p&gt;
 &lt;p&gt;提出了一种环形+Mesh结合的NoC结构，同时基于该结构提出了相应的映射算法、广播协议和基于权重稀疏性的通信量减少方案，相较于现有的2D-Mesh的方法有效地减少了通信的延迟和能量消耗。
 &lt;a href="https://lishengxie.top/uploads/2023/02/16.png"&gt;&lt;img src="https://lishengxie.top/uploads/2023/02/16.png" alt="Neu-NoC整体架构"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id="motivation"&gt;&lt;strong&gt;Motivation&lt;/strong&gt;&lt;/h4&gt;
